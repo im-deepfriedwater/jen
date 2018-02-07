@@ -3,6 +3,7 @@
 ![jen-logo](images/logo.png)
 
 ## Introduction
+Jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. Jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
 
 ## Grammar
 
@@ -139,14 +140,79 @@ while i:
 ```
 
 ## Examples
+Jen code is located on top, and the corresponding python code is right below it!
 
 ```
-;
 add: number, number -> number
 add (a, b):
+return a + b
 
+
+def add(a, b): 
+    return a + b
 
 ```
+
+```	
+fib: number -> number
+fib(num):
+   if num <= 1:
+      return 1
+   return fib(num - 1) + fib(num - 2)
+
+def fib(num):
+ if num <= 1:
+     return 1
+ return fib(num - 1) + fib(num - 2)
+
+```
+
+```	
+areaOfCircle: number -> number
+areaOfCircle(radius):
+   PI = Math.pi()
+   return (PI * radius) ^ 2
+
+def areaOfCircle(radius):
+return Math.PI() * 2 * radius
+
+```
+
+```
+
+type id: string | number
+
+LIST_OF_EMPLOYEES := [1, 2, "3", "4", 5]
+
+printEmployees: List id -> void
+printEmployees(employeeList):
+    for employeeId in employeeList:
+        print(employeeId)
+        
+  
+LIST_OF_EMPLOYEES = [1, 2, "thomas", "elizabeth", 5]
+
+def printEmployees(employeeList):
+    for employeeId in employeeList:
+        print(employeeId)
+
+ 
+```
+
+```
+checkIfBothPositive: number, number -> boolean, boolean
+checkIfBothPositive(x, y):
+    return x >= 0, y >= 0
+ 
+ 
+def checkIfBothPositive(x, y):
+   return (x >= 0, y >= 0)
+ 
+```
+
+
+
+
 
 
 ### Anthony Keba, Elizabeth Shen, Jen Shin, Justin Torres, Thomas O'Brien, Tyler Edmiston
