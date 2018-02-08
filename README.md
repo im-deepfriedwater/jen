@@ -43,9 +43,8 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 
 ```
 ; Examples of constants
-HELLO := 'jen'
-1THERE := 1
-LULULEMON123 := true
+HELLO2018 := 'jen'
+LULU_LEMON := true
 
 ; Examples of variables
 jenEator := 'pho'
@@ -273,3 +272,4 @@ def checkIfBothPositive(x, y):
 - Justin Torres
 - Thomas O'Brien
 - Tyler Edmiston
+
