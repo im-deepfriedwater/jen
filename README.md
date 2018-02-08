@@ -56,6 +56,7 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 - object
 - any
 - void
+- error
 
 ### Sum/Product Typing
 jen allows the user to create custom types
@@ -68,6 +69,17 @@ type stringOrNumber: string | number
 type listStringOrNumber: list stringOrNumber
 
 Product Typing (To do, ask Toal)
+```
+
+### error type
+Since jen does not exceptions, there is a built in error type called **err**. **err** has two different potential values: **errTrue** or **errFalse**.
+
+```
+; Example of using the err type
+result, error := someFunction()
+if error == errorTrue {
+    print('File could not open')
+}
 ```
 
 
@@ -148,12 +160,12 @@ add (a, b):
 return a + b
 
 
-def add(a, b): 
+def add(a, b):
     return a + b
 
 ```
 
-```	
+```
 fib: number -> number
 fib(num):
    if num <= 1:
@@ -167,7 +179,7 @@ def fib(num):
 
 ```
 
-```	
+```
 areaOfCircle: number -> number
 areaOfCircle(radius):
    PI = Math.pi()
@@ -188,26 +200,26 @@ printEmployees: List id -> void
 printEmployees(employeeList):
     for employeeId in employeeList:
         print(employeeId)
-        
-  
+
+
 LIST_OF_EMPLOYEES = [1, 2, "thomas", "elizabeth", 5]
 
 def printEmployees(employeeList):
     for employeeId in employeeList:
         print(employeeId)
 
- 
+
 ```
 
 ```
 checkIfBothPositive: number, number -> boolean, boolean
 checkIfBothPositive(x, y):
     return x >= 0, y >= 0
- 
- 
+
+
 def checkIfBothPositive(x, y):
    return (x >= 0, y >= 0)
- 
+
 ```
 
 
