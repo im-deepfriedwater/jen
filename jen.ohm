@@ -1,5 +1,5 @@
 Jen {
-  Program         = (block)+
+  Program         = (block)*
   block           = funcDec | body
 
   funcDec         = annotation "\n" signature "\n" body
