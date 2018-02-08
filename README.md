@@ -1,7 +1,7 @@
 # jen
-
-![jen-logo](images/logo.png)
-
+<p align="center">
+<img src= "images/logo.png" height="400">
+</p>
 
 
 ## Introduction
