@@ -2,10 +2,17 @@
 
 ![jen-logo](images/logo.png)
 
+
+
 ## Introduction
+
 jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
 
+
+
 ## Grammar
+
+
 
 ## List of Features
 
@@ -14,6 +21,8 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 - Inferred typing
 - Multiple return values
 - Static scoping
+
+
 
 ## Comments
 ```
@@ -24,9 +33,12 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 ;;
 ```
 
+
+
 ## Type
-- Constants can be declared with uppercase letters([A-Z]) and/or numbers
-- Variables must start with a lowercase letter or underscore
+
+- **Constants** must start with uppercase letters followed by uppercase letters, numbers, and underscores
+- **Variables** must start with a lowercase letter or underscore and can be followed by both lower and upper case letters, numbers, and underscores
 
 
 ```
@@ -36,8 +48,8 @@ HELLO := 'jen'
 LULULEMON123 := true
 
 ; Examples of variables
-jEN := 'pho'
-jEN = 'ramen'
+jenEator := 'pho'
+jenErator = 'ramen'
 _JEN := 'udon'
 
 ; Will crash at compile time
@@ -47,7 +59,9 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 ```
 
 
+
 ### Primitive Types
+
 - string
 - boolean
 - char
@@ -58,7 +72,10 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 - void
 - error
 
-### Sum/Product Typing
+
+
+### Sum and Product Typing
+
 jen allows the user to create custom types
 
 ```
@@ -68,10 +85,13 @@ type stringOrNumber: string | number
 ; This type alias is list of stringOrNumber
 type listStringOrNumber: list stringOrNumber
 
-Product Typing (To do, ask Toal)
+;TODO: ask Toal about Product typing
 ```
 
-### error type
+
+
+### Error Type
+
 Since jen does not have exceptions, there is a built in error type called **err**. **err** has two different potential values: **errTrue** or **errFalse**.
 
 ```
@@ -82,8 +102,11 @@ if error == errorTrue {
 }
 ```
 
-### Assignment
-In jen, variables must be declared using the **:=** syntax. Without using this first, jen will error out at compile time. For variable reassignment, jen requires the **=** syntax.
+
+
+### Declaration and Assignment
+
+In jen, variables must be declared using the **:=** syntax. Without using this first, jen will error out at compile time. For variable reassignment, jen requires the **=** syntax. jen also allows parallel declaration and assignment as well.
 
 ```
 ; Variable initialization/declaration with inferred typing
@@ -94,15 +117,27 @@ x = 2
 
 ; Will crash due to type conflict
 x = 'hello'
+
+; Parallel declaration
+a, b := "eats", "pants"
+
+; Parallel assignment
+a, b = "smol", "puppers"
 ```
+
+
 
 ### Ternary
+
 ```
 ; An example of how to call a Ternary
-x := 1 > 2 ? 'two is greater' : 'one is greater'
+x := 1 > 2 ? 'one is greater' : 'two is greater'
 ```
 
+
+
 ### Operators
+
 - Equal **==**
 - Not equal **!=**
 - Less than **<**
@@ -127,6 +162,8 @@ x := 1 > 2 ? 'two is greater' : 'one is greater'
 - XOR **&!&**
 
 
+
+
 ### Conditionals
 
 ```
@@ -138,6 +175,8 @@ else if x >= 5:
 else:
   print('In between 3 and 5')
 ```
+
+
 
 ### Loops
 
@@ -153,10 +192,12 @@ i := true
 ; Classic infinite loop example
 while i:
   print(i)
-
 ```
 
+
+
 ## Examples
+
 jen code is located on top, and the corresponding python code is right below it!
 
 ```
@@ -167,7 +208,6 @@ return a + b
 
 def add(a, b):
     return a + b
-
 ```
 
 ```
@@ -177,11 +217,11 @@ fib(num):
       return 1
    return fib(num - 1) + fib(num - 2)
 
+
 def fib(num):
  if num <= 1:
      return 1
  return fib(num - 1) + fib(num - 2)
-
 ```
 
 ```
@@ -190,13 +230,12 @@ areaOfCircle(radius):
    PI = Math.pi()
    return (PI * radius) ^ 2
 
+
 def areaOfCircle(radius):
 return Math.PI() * 2 * radius
-
 ```
 
 ```
-
 type id: string | number
 
 LIST_OF_EMPLOYEES := [1, 2, "3", "4", 5]
@@ -212,8 +251,6 @@ LIST_OF_EMPLOYEES = [1, 2, "thomas", "elizabeth", 5]
 def printEmployees(employeeList):
     for employeeId in employeeList:
         print(employeeId)
-
-
 ```
 
 ```
@@ -224,10 +261,12 @@ checkIfBothPositive(x, y):
 
 def checkIfBothPositive(x, y):
    return (x >= 0, y >= 0)
-
 ```
 
-### Developed by:
+
+
+### Developers
+
 - Anthony Keba
 - Elizabeth Shen
 - Jen Shin
