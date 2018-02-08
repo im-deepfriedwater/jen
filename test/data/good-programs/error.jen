@@ -1,0 +1,5 @@
+
+result, error := someFunction()
+if error == errorTrue {
+    print('File could not open')
+}
