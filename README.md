@@ -3,7 +3,7 @@
 ![jen-logo](images/logo.png)
 
 ## Introduction
-Jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. Jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
+jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
 
 ## Grammar
 
@@ -72,7 +72,7 @@ Product Typing (To do, ask Toal)
 ```
 
 ### error type
-Since jen does not exceptions, there is a built in error type called **err**. **err** has two different potential values: **errTrue** or **errFalse**.
+Since jen does not have exceptions, there is a built in error type called **err**. **err** has two different potential values: **errTrue** or **errFalse**.
 
 ```
 ; Example of using the err type
@@ -152,7 +152,7 @@ while i:
 ```
 
 ## Examples
-Jen code is located on top, and the corresponding python code is right below it!
+jen code is located on top, and the corresponding python code is right below it!
 
 ```
 add: number, number -> number
@@ -222,9 +222,10 @@ def checkIfBothPositive(x, y):
 
 ```
 
-
-
-
-
-
-### Anthony Keba, Elizabeth Shen, Jen Shin, Justin Torres, Thomas O'Brien, Tyler Edmiston
+### Developed by:
+- Anthony Keba
+- Elizabeth Shen
+- Jen Shin
+- Justin Torres
+- Thomas O'Brien
+- Tyler Edmiston
