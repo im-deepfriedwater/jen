@@ -1,0 +1,50 @@
+Jen {
+  Program      = (block)+
+  block        = funcDec | body
+
+  funcDec      = annotation "\n" signature "\n" body
+  annotation   = id ":" paramTypes "->" paramTypes
+  paramTypes   = type ("," type)*
+  signature    = id "(" params "):"
+  Params       = id ("," id)*
+
+  body         = (statement | expression)*
+
+  statement    = conditional | loops | declaration | assignment
+
+  expression   = (expression "?" expression ":" expression) | exp0
+  exp0         = exp0 ("&&" | "||") exp1
+               | exp1
+  exp1         = (exp1 addop exp2)
+               | exp2
+  exp2         = (exp2 mulop exp3)
+               | exp3
+  exp3         = (exp3 "^" exp4)
+               | exp4
+  exp4         = (exp4 relop exp5)
+               | exp5
+  exp5         = (exp5 "." exp6)
+               | exp6
+  exp6         = "(" expression ")"
+               | "[" expression "]"
+               | exp7
+  exp7         = numLiteral | stringLiteral | id | booleanLiteral | funcCall
+
+  loop         = for | while
+  for          = "for " id "in" (id | list)
+  list         = "[" (expression("," expression)*)? "]"
+  while        = "while" expression ":\n" body
+
+  declaration  = id ("," id)* ":=" exp7 ("," exp7)*
+  assignment   = id ("," id)* "=" exp7 ("," exp7)*
+  funcCall     = id "(" exp7 (',' exp7)*
+
+  Conditionals = "if" expression ":" body (elseIfCondition)+ elseCondition?
+  elseCondition = "else :\n" body
+  elseIfCondition = "else if " expression ":\n" body
+
+  id = varId | constId
+  varId = ("_" | [a..z]) ("_" | [a..z] | [A..Z] | [0..9])*
+  constId = [A..Z]("_" | [A..Z] + [0..9])*
+  Keywords = "if" | "while" | "else" | "for" | "else if"
+}
