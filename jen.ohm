@@ -65,4 +65,7 @@ Jen {
   addop           = "+" | "-"
   mulop           = "*" | "%" | "/" | "//" | "/%"
   relop           = ">" | "<" | "==" | "!=" | "<=" | ">="
+
+  space           +=  comment
+  comment         =  "--" (~"\n" any)* "\n"
 }
