@@ -149,6 +149,7 @@ x := 1 > 2 ? 'one is greater' : 'two is greater'
 - Divide **/**
 - Integer Divide **//**
 - Modulus **%**
+- DivMod **/&**
 - Multiply **&ast;**
 
 - Postfix increment **x++**
@@ -202,7 +203,7 @@ jen code is located on top, and the corresponding python code is right below it!
 ```
 add: number, number -> number
 add (a, b):
-return a + b
+   return a + b
 
 
 def add(a, b):
