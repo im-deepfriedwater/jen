@@ -82,7 +82,6 @@ if error == errorTrue {
 }
 ```
 
-
 ### Assignment
 In jen, variables must be declared using the **:=** syntax. Without using this first, jen will error out at compile time. For variable reassignment, jen requires the **=** syntax.
 
@@ -95,6 +94,12 @@ x = 2
 
 ; Will crash due to type conflict
 x = 'hello'
+```
+
+### Ternary
+```
+; An example of how to call a Ternary
+x := 1 > 2 ? 'two is greater' : 'one is greater'
 ```
 
 ### Operators
