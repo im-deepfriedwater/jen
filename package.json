@@ -3,8 +3,20 @@
   "version": "1.0.0",
   "description": "jen-lang",
   "main": "index.js",
+  "dependencies": {
+    "yargs": "latest",
+    "ohm-js": "latest"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "latest"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "./node_modules/.bin/eslint **/*.js;exit 0",
+    "start": "node jen.ohm",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
