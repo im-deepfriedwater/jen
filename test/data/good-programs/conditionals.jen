@@ -1,0 +1,15 @@
+x := True
+
+if x:
+  print('Wow it is true!')
+else:
+  print('Wow it is false!')
+
+y := 12
+
+if y > 12:
+  print('Wow, y is greater than 12.')
+else if y < 12:
+  print('Wow, y is less than 12.')
+else:
+  print('Wow, y is equal to 12.')
