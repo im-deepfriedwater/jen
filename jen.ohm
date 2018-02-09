@@ -1,57 +1,57 @@
 Jen {
-  Program         = (block)*
-  block           = funcDec | body
+  Program         = (Block)*
+  Block           = FuncDec | Body
 
-  funcDec         = annotation "\n" signature "\n" body
-  annotation      = id ":" paramTypes "->" paramTypes
-  paramTypes      = type ("," type)*
-  signature       = id "(" params "):"
-  params          = id ("," id)*
+  FuncDec         = Annotation "\n" Signature "\n" Body
+  Annotation      = id ":" ParamTypes "->" ParamTypes
+  ParamTypes      = type ("," type)*
+  Signature       = id "(" Params "):"
+  Params          = id ("," id)*
 
-  body            = (statement | expression)*
+  Body            = (Statement | Expression)*
 
-  statement       = conditional | loops | declaration | assignment
+  Statement       = Conditional | Loop | Declaration | Assignment
 
-  expression      = (expression "?" expression ":" expression) | exp0
-  exp0            = exp0 ("&&" | "||") exp1
-                  | exp1
-  exp1            = (exp1 addop exp2)
-                  | exp2
-  exp2            = (exp2 mulop exp3)
-                  | exp3
-  exp3            = (exp3 "^" exp4)
-                  | exp4
-  exp4            = (exp4 relop exp5)
-                  | exp5
-  exp5            = (exp5 "." exp6)
-                  | exp6
-  exp6            = "(" expression ")"
-                  | "[" expression "]"
-                  | exp7
-  exp7            = numLiteral
+  Expression      = (Expression "?" Expression ":" Expression) | Exp0
+  Exp0            = Exp0 ("&&" | "||") Exp1
+                  | Exp1
+  Exp1            = (Exp1 addop Exp2)
+                  | Exp2
+  Exp2            = (Exp2 mulop Exp3)
+                  | Exp3
+  Exp3            = (Exp3 "^" Exp4)
+                  | Exp4
+  Exp4            = (Exp4 relop Exp5)
+                  | Exp5
+  Exp5            = (Exp5 "." Exp6)
+                  | Exp6
+  Exp6            = "(" Expression ")"
+                  | "[" Expression "]"
+                  | Exp7
+  Exp7            = numLiteral
                   | stringLiteral
                   | char
                   | id
                   | booleanLiteral
-                  | funcCall
+                  | FuncCall
 
-  loop            = for | while
-  for             = "for " id "in" (id | list)
-  list            = "[" (expression("," expression)*)? "]"
-  while           = "while" expression ":\n" body
+  Loop            = For | While
+  For             = "for " id "in" (id | List)
+  List            = "[" (Expression("," Expression)*)? "]"
+  While           = "while" Expression ":\n" Body
 
-  declaration     = id ("," id)* ":=" exp7 ("," exp7)*
-  assignment      = id ("," id)* "=" exp7 ("," exp7)*
-  funcCall        = id "(" (exp7 ("," exp7)*)? ")"
+  Declaration     = id ("," id)* ":=" Exp7 ("," Exp7)*
+  Assignment      = id ("," id)* "=" Exp7 ("," Exp7)*
+  FuncCall        = id "(" (Exp7 ("," Exp7)*)? ")"
 
-  Conditionals    = "if" expression ":" body (elseIfCondition)+ elseCondition?
-  elseCondition   = "else :\n" body
-  elseIfCondition = "else if " expression ":\n" body
+  Conditional    = "if" Expression ":" Body (ElseIfCondition)+ ElseCondition?
+  ElseCondition   = "else :\n" Body
+  ElseIfCondition = "else if " Expression ":\n" Body
 
   id              = varId | constId
   varId           = ("_" | lower) idrest*
   idrest          =  "_" | alnum
-  constId         = upper ("_" | upper + digit)*
+  constId         = upper ("_" | upper | digit)*
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print") ~idrest
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
@@ -59,7 +59,7 @@ Jen {
   stringLiteral   = "\"" (char | "\'")* "\""
   char            = escape
                   | ~"\\" ~"\"" ~"'" ~"\n" any
-  booleanLiteral  = true | false
+  booleanLiteral  = "true" | "false"
 
   addop           = "+" | "-"
   mulop           = "*" | "%" | "/" | "//" | "/%"
