@@ -1,15 +1,21 @@
 Jen {
-  Program         =  Body
-  Body            = (Statement | Expression)*
+  Program         = Body
+  Body            = (Statement | Expression)* newLine*
+
   Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
+                  | ReturnExp
 
-  FuncDec         = Annotation "\n" Signature "\n" Body
+  FuncDec         = Annotation newLine Signature newLine Body
   Annotation      = id ":" ParamTypes "->" ParamTypes
-  ParamTypes      = type ("," type)*
+  ParamTypes      = NonemptyListOf<type, ",">
   Signature       = id "(" Params "):"
-  Params          = id ("," id)*
+  Params          = NonemptyListOf<id, ",">
+  ReturnExp       = "return" Expression
 
-  Expression      = (Expression "?" Expression ":" Expression)         -- ternary
+
+  Expression      = TernExp
+
+  TernExp         = (Exp0 "?" TernExp ":" TernExp)                     -- ternary
                   | Exp0
   Exp0            = Exp0 "&&" Exp1                                     -- and
                   | Exp0 "||" Exp1                                     -- or
@@ -22,36 +28,47 @@ Jen {
                   | Exp4
   Exp4            = (Exp4 relop Exp5)                                  -- binary
                   | Exp5
-  Exp5            = (Exp5 "." Exp6)                                    -- binary
+  Exp5            = Exp5 "." Exp6 ~"("                                 -- accessor
+                  | Exp5 "." FuncCall                                  -- binary
                   | Exp6
-  Exp6            = "(" Expression ")"                                 -- parens
-                  | "[" Expression "]"                                 -- subscript
-                  | Exp7
-  Exp7            = numLiteral
+
+  Exp6            = numLiteral
                   | stringLiteral
                   | char
                   | id
                   | booleanLiteral
-                  | FuncCall
+                  | ListExp
+                  | "(" Expression ")"                                 -- parens
+
+  Exps            = NonemptyListOf<Expression, ",">
+  ListExp         = id List                                            -- subscript
+                  | List
+  List            = "[" ListOf<Expression, ","> "]"
 
   Loop            = For | While
-  For             = "for " id "in" (id | List)
-  List            = "[" (Expression("," Expression)*)? "]"
+  For             = "for " id "in" (id | ListExp)
   While           = "while" Expression ":\n" Body
 
-  Declaration     = id ("," id)* ":=" Expression ("," Expression)*
-  Assignment      = id ("," id)* "=" Expression ("," Expression)*
-  FuncCall        = id "(" (Expression ("," Expression)*)? ")"
+  Declaration     = ids ":=" Exps
+  Assignment      = ids "=" Exps
+  FuncCall        = id "("ListOf<Expression, ",">")"
 
-  Conditional    = "if" Expression ":" Body (ElseIfCondition)+ ElseCondition?
+  Conditional     = "if" Expression ":" Body (ElseIfCondition)+ ElseCondition?
   ElseCondition   = "else :\n" Body
   ElseIfCondition = "else if " Expression ":\n" Body
 
-  id              = varId | constId
+  id              = varId | constId | packageId | propertyId
+  ids             = nonemptyListOf<id, ",">
+
   varId           = ~keyword ("_" | lower) idrest*
+  constId         = upper ("_" | upper | digit)* ~lower
+  packageId       = upper idrest*
+  propertyId      = id "." id
+
   idrest          =  "_" | alnum
-  constId         = upper ("_" | upper | digit)*
-  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true" | "false") ~idrest
+
+  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
+                  | "false" | "typeof" | "return") ~idrest
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
   numLiteral      = digit+
@@ -60,11 +77,13 @@ Jen {
   char            = ~"\\" ~"\"" ~"'" ~"\n" ("\'"any"\'" | "\"" any "\"")
   booleanLiteral  = "true" | "false"
 
+
   addop           = "+" | "-"
   mulop           = "*" | "%" | "/" | "//" | "/%"
   relop           = ">" | "<" | "==" | "!=" | "<=" | ">="
 
-  space           += comment
-  comment         = ";" (~"\n" any)* "\n"
+  space           := " " | comment
+  newLine         = "\r"? "\n"
+  comment         = ";" (~newLine any)* newLine*
                   | ";;" any* ";;"
 }
