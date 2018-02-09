@@ -49,9 +49,9 @@ Jen {
   elseIfCondition = "else if " expression ":\n" body
 
   id              = varId | constId
-  varId           = ("_" | "a".."z") idrest*
+  varId           = ("_" | lower) idrest*
   idrest          =  "_" | alnum
-  constId         = "A".."Z" ("_" | "A".."Z" + "0".."9")*
+  constId         = upper ("_" | upper + digit)*
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print") ~idrest
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
