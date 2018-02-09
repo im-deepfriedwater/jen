@@ -42,7 +42,7 @@ Jen {
 
   declaration     = id ("," id)* ":=" exp7 ("," exp7)*
   assignment      = id ("," id)* "=" exp7 ("," exp7)*
-  funcCall        = id "(" exp7 (',' exp7)* ")"
+  funcCall        = id "(" (exp7 ("," exp7)*)? ")"
 
   Conditionals    = "if" expression ":" body (elseIfCondition)+ elseCondition?
   elseCondition   = "else :\n" body
