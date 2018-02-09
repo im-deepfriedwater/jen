@@ -19,4 +19,6 @@ module.exports = (text) => {
   if (!match.succeeded()) {
     throw match.message;
   }
+
+  console.log("'v'!!!")
 };
