@@ -48,7 +48,7 @@ Jen {
   ElseIfCondition = "else if " Expression ":\n" Body
 
   id              = varId | constId
-  varId           = ("_" | lower) idrest*
+  varId           = ~keyword ("_" | lower) idrest*
   idrest          =  "_" | alnum
   constId         = upper ("_" | upper | digit)*
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true" | "false") ~idrest
@@ -57,7 +57,7 @@ Jen {
   numLiteral      = digit+
   stringLiteral   = "\"" (char | "\'")* "\""
                   | "\'" (char | "\"")* "\'"
-  char            = ~"\\" ~"\"" ~"'" ~"\n" any
+  char            = ~"\\" ~"\"" ~"'" ~"\n" ("\'"any"\'" | "\"" any "\"")
   booleanLiteral  = "true" | "false"
 
   addop           = "+" | "-"
