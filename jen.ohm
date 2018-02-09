@@ -48,11 +48,10 @@ Jen {
   elseCondition   = "else :\n" body
   elseIfCondition = "else if " expression ":\n" body
 
-  id              = varId
-                  | constId
-  varId           = ("_" | [a..z]) idrest*
+  id              = varId | constId
+  varId           = ("_" | "a".."z") idrest*
   idrest          =  "_" | alnum
-  constId         = [A..Z] ("_" | [A..Z] + [0..9])*
+  constId         = "A".."Z" ("_" | "A".."Z" + "0".."9")*
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print") ~idrest
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
