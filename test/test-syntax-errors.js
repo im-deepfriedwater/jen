@@ -20,5 +20,5 @@ const runSyntaxErrors = () => {
 };
 
 module.exports = () => {
-  return runSyntaxErrors;
+  runSyntaxErrors();
 };

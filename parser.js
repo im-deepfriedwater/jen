@@ -18,7 +18,7 @@ module.exports = (text) => {
   const match = grammar.match(text);
   if (!match.succeeded()) {
     throw match.message;
+  } else {
+    console.log("'v'!!! jen parses happily!");
   }
-
-  console.log("'v'!!!")
 };
