@@ -39,9 +39,9 @@ Jen {
   List            = "[" (Expression("," Expression)*)? "]"
   While           = "while" Expression ":\n" Body
 
-  Declaration     = id ("," id)* ":=" Exp7 ("," Exp7)*
-  Assignment      = id ("," id)* "=" Exp7 ("," Exp7)*
-  FuncCall        = id "(" (Exp7 ("," Exp7)*)? ")"
+  Declaration     = id ("," id)* ":=" Expression ("," Expression)*
+  Assignment      = id ("," id)* "=" Expression ("," Expression)*
+  FuncCall        = id "(" (Expression ("," Expression)*)? ")"
 
   Conditional    = "if" Expression ":" Body (ElseIfCondition)+ ElseCondition?
   ElseCondition   = "else :\n" Body
@@ -56,6 +56,7 @@ Jen {
                   | "object" | "any" | "void" | "error"
   numLiteral      = digit+
   stringLiteral   = "\"" (char | "\'")* "\""
+                  | "\'" (char | "\"")* "\'"
   char            = ~"\\" ~"\"" ~"'" ~"\n" any
   booleanLiteral  = "true" | "false"
 
