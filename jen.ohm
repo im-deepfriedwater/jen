@@ -56,7 +56,7 @@ Jen {
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
   numLiteral      = digit+
-  stringLiteral   = "\"" (char | "\'")* "\"""
+  stringLiteral   = "\"" (char | "\'")* "\""
   char            = escape
                   | ~"\\" ~"\"" ~"'" ~"\n" any
   booleanLiteral  = true | false
