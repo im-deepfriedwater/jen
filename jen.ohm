@@ -52,13 +52,12 @@ Jen {
   varId           = ("_" | lower) idrest*
   idrest          =  "_" | alnum
   constId         = upper ("_" | upper | digit)*
-  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print") ~idrest
+  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true" | "false") ~idrest
   type            = "string" | "boolean" | "char" | "number" | "list"
                   | "object" | "any" | "void" | "error"
   numLiteral      = digit+
   stringLiteral   = "\"" (char | "\'")* "\""
-  char            = escape
-                  | ~"\\" ~"\"" ~"'" ~"\n" any
+  char            = ~"\\" ~"\"" ~"'" ~"\n" any
   booleanLiteral  = "true" | "false"
 
   addop           = "+" | "-"
