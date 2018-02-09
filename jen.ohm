@@ -6,7 +6,7 @@ Jen {
   annotation      = id ":" paramTypes "->" paramTypes
   paramTypes      = type ("," type)*
   signature       = id "(" params "):"
-  Params          = id ("," id)*
+  params          = id ("," id)*
 
   body            = (statement | expression)*
 
