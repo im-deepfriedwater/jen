@@ -1,6 +1,7 @@
 Jen {
-  Program         = (Block)*
-  Block           = FuncDec | Body
+  Program         =  Body
+  Body            = (Statement | Expression)*
+  Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
 
   FuncDec         = Annotation "\n" Signature "\n" Body
   Annotation      = id ":" ParamTypes "->" ParamTypes
@@ -8,25 +9,23 @@ Jen {
   Signature       = id "(" Params "):"
   Params          = id ("," id)*
 
-  Body            = (Statement | Expression)*
-
-  Statement       = Conditional | Loop | Declaration | Assignment
-
-  Expression      = (Expression "?" Expression ":" Expression) | Exp0
-  Exp0            = Exp0 ("&&" | "||") Exp1
+  Expression      = (Expression "?" Expression ":" Expression)         -- ternary
+                  | Exp0
+  Exp0            = Exp0 "&&" Exp1                                     -- and
+                  | Exp0 "||" Exp1                                     -- or
                   | Exp1
-  Exp1            = (Exp1 addop Exp2)
+  Exp1            = (Exp1 addop Exp2)                                  -- binary
                   | Exp2
-  Exp2            = (Exp2 mulop Exp3)
+  Exp2            = (Exp2 mulop Exp3)                                  -- binary
                   | Exp3
-  Exp3            = (Exp3 "^" Exp4)
+  Exp3            = (Exp3 "^" Exp4)                                    -- binary
                   | Exp4
-  Exp4            = (Exp4 relop Exp5)
+  Exp4            = (Exp4 relop Exp5)                                  -- binary
                   | Exp5
-  Exp5            = (Exp5 "." Exp6)
+  Exp5            = (Exp5 "." Exp6)                                    -- binary
                   | Exp6
-  Exp6            = "(" Expression ")"
-                  | "[" Expression "]"
+  Exp6            = "(" Expression ")"                                 -- parens
+                  | "[" Expression "]"                                 -- subscript
                   | Exp7
   Exp7            = numLiteral
                   | stringLiteral
