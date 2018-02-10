@@ -1,0 +1,12 @@
+i := 0
+someNumberList := [1, 2, 3]
+someStringList := ["wow", 'hey', "cool", "dude", 'bruhhh']
+
+for x in someNumberList:
+  print(x)
+  while i < 5:
+    for y in someStringList:
+      print(y)
+    print(i)
+    i = i + 1
+  i = 0

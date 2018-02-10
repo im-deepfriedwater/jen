@@ -1,0 +1,1 @@
+type numberPrint number | print

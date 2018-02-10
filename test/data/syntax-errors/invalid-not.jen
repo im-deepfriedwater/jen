@@ -1,0 +1,1 @@
+type numberNotString number | !string
