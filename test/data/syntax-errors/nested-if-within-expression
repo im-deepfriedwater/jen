@@ -1,0 +1,2 @@
+if if true: :
+    print('this is a major WAT, and is NOT allowed. Use a frikken Ternary instead...')
