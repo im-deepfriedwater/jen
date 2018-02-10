@@ -3,21 +3,23 @@ Jen {
   Body            =  (newLine* Statement newLine* | newLine* Expression newLine*)*
 
   Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
-                  | ReturnExp
+                  | ReturnExp | TypeDeclaration
 
   FuncDec         = Annotation newLine Signature newLine Body
-  Annotation      = id ":" ParamTypes "->" ParamTypes
-  ParamTypes      = NonemptyListOf<type, ",">
-  Signature       = id "(" Params "):"
-  Params          = NonemptyListOf<id, ",">
-  ReturnExp       = "return" Expression
+  Annotation      = (varId | constId) ":" ParamTypes "->" ParamTypes
+  ParamTypes      = NonemptyListOf<Type, ",">
+  Signature       = (varId | constId) "(" Params "):"
+  Params          = NonemptyListOf<varId, ",">
+  ReturnExp       = "return" ListOf<Expression, ",">
 
 
   Expression      = (Exp0 "?" Expression ":" Expression)               -- ternary
                   | Exp0
   Exp0            = Exp0 "&&" Exp1                                     -- and
                   | Exp0 "||" Exp1                                     -- or
+                  | Exp0 "&!&" Exp1                                    -- xor
                   | Exp1
+
   Exp1            = (Exp1 addop Exp2)                                  -- binary
                   | Exp2
   Exp2            = (Exp2 mulop Exp3)                                  -- binary
@@ -26,11 +28,12 @@ Jen {
                   | Exp4
   Exp4            = (Exp4 relop Exp5)                                  -- binary
                   | Exp5
-  Exp5            = Exp5 "." Exp6 ~"("                                 -- accessor
-                  | Exp5 "." FuncCall                                  -- binary
+  Exp5            = "!" Exp5                                           -- not
                   | Exp6
-
-  Exp6            = numLiteral
+  Exp6            = Exp6 "." Exp7 ~"("                                 -- accessor
+                  | Exp6 "." FuncCall                                  -- binary
+                  | Exp7
+  Exp7            = numLiteral
                   | stringLiteral
                   | charLiteral
                   | booleanLiteral
@@ -46,18 +49,19 @@ Jen {
 
   Loop            = For | While
   For             = "for " id "in" (id | ListExp)
-  While           = "while" Expression ":\n" Body
+  While           = "while" Expression ":" newLine Body
 
-  Declaration     = ids ":=" Exps
-  Assignment      = ids "=" Exps
-  FuncCall        = id "("ListOf<Expression, ",">")"
+  Declaration     = Ids ":=" Exps
+  TypeDeclaration = "type" varId (Type)+
+  Assignment      = Ids "=" Exps
+  FuncCall        = (varId | funcId) "("ListOf<Expression, ",">")"
 
-  Conditional     = "if" Expression ":" Body (ElseIfCondition)+ ElseCondition?
-  ElseCondition   = "else :\n" Body
-  ElseIfCondition = "else if " Expression ":\n" Body
+  Conditional     = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
+  ElseCondition   = "else" ":" newLine+ Body
+  ElseIfCondition = "else if" Expression ":" newLine+ Body
 
   id              = varId | constId | packageId | propertyId
-  ids             = nonemptyListOf<id, ",">
+  Ids             = NonemptyListOf<(varId | constId), ",">
 
   varId           = ~keyword ("_" | lower) idrest*
   constId         = upper ("_" | upper | digit)* ~lower
@@ -68,20 +72,27 @@ Jen {
 
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
                   | "false" | "typeof" | "return") ~idrest
-  type            = "string" | "boolean" | "char" | "number" | "list"
+
+  funcId          = "typeof" | "print"
+
+  Type            = basicType | ListType | SumType
+  basicType       = "string" | "boolean" | "char" | "number"
                   | "object" | "any" | "void" | "error"
+
+  ListType        = "list" nonemptyListOf<Type, ","> ~"list"
+  SumType         = ((basicType | id) "|")+
+  booleanLiteral  = "true" | "false"
   numLiteral      = digit+
   stringLiteral   = "\"" (~"\"" char | "'")* "\""
                   | "'" (~"'"char | "\"")* "'"
   charLiteral     = ("'" char "'" | "\"" char "\"")
   char            = escape
-                  | ~";" ~"\n" any
-  escape          = "\\n" | "\\" booleanLiteral  = "true" | "false"
-
+                  | ~";" ~newLine any
+  escape          = "\\n" | "\\"
 
   addop           = "+" | "-"
   mulop           = "*" | "%" | "//" | "/%" | "/"
-  relop           = ">" | "<" | "==" | "!=" | "<=" | ">="
+  relop           = "<=" | ">=" | ">" | "<" | "==" | "!="
 
   space           := " " | comment
   newLine         = "\r"? "\n"
