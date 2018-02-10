@@ -1,6 +1,6 @@
-// for a list of strings, return a new list with the first char of every
-// string capitalized, and then make sure the last string is entirely
-// capitalized
+; for a list of strings, return a new list with the first char of every
+; string capitalized, and then make sure the last string is entirely
+; capitalized
 
 ascendedFounders := ['jen', 'anthony', 'elizabeth', 'thomas', 'justin', 'moreJen']
 TEST_FOUNDERS := ['Jen', 'Anthony', 'Elizabeth', 'Thomas', 'Justin', 'MOREJEN']

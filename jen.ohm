@@ -3,11 +3,11 @@ Jen {
   Body            =  (newLine* Statement newLine* | newLine* Expression newLine*)*
 
   Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
-                  | ReturnExp | TypeDeclaration
+                  | ReturnExp | TypeDec
 
   FuncDec         = Annotation newLine Signature newLine Body
   Annotation      = (varId | constId) ":" ParamTypes "->" ParamTypes
-  ParamTypes      = NonemptyListOf<Type, ",">
+  ParamTypes      = NonemptyListOf<(Type | id), ",">
   Signature       = (varId | constId) "(" Params "):"
   Params          = NonemptyListOf<varId, ",">
   ReturnExp       = "return" ListOf<Expression, ",">
@@ -37,41 +37,48 @@ Jen {
                   | stringLiteral
                   | charLiteral
                   | booleanLiteral
-                  | ListExp
+                  | SubscriptExp
                   | FuncCall
                   | id
                   | "(" Expression ")"                                 -- parens
 
-  Exps            = NonemptyListOf<Expression, ",">
-  ListExp         = id List                                            -- subscript
-                  | List
+  SubscriptExp    = id "[" Expression"]"                               -- subscript
+
   List            = "[" ListOf<Expression, ","> "]"
+  ListAndExp      = ListOf<(Expression | List), ",">
+  NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
+
 
   Loop            = For | While
-  For             = "for " id "in" (Expression) ":" Body
+  For             = "for " ListAndExp "in" (Expression) ":" Body
   While           = "while" Expression ":" Body
 
-  Declaration     = Ids ":=" Exps
-  TypeDeclaration = "type" varId (Type)+
-  Assignment      = Ids "=" Exps
-  FuncCall        = (varId | funcId) "("ListOf<Expression, ",">")"
+  Declaration     = Ids ":=" NonemptyListAndExp
+  TypeDec         = "type" varId SumType
+  Assignment      = Ids "=" NonemptyListAndExp
+  FuncCall        = (varId | funcId | SubscriptExp) "("ListAndExp")"
 
   Conditional     = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
   ElseCondition   = "else" ":" newLine+ Body
   ElseIfCondition = "else if" Expression ":" newLine+ Body
 
-  id              = varId | constId | packageId | propertyId
-  Ids             = NonemptyListOf<(varId | constId), ",">
+  id              = varId | constId | packageId
+  Ids             = NonemptyListOf<(SubscriptExp | id), ",">
+  // we need ~[ because it attempts to match id with name[ and fails.
+  // we want it to match with name and NOT "["
 
+  // we dont need ~[ because it cant match the id when we tell it no ids
+  // have a [ after it.
+
+  // second one sounds more valid
   varId           = ~keyword ("_" | lower) idrest*
   constId         = upper ("_" | upper | digit)* ~lower
   packageId       = upper idrest*
-  propertyId      = id "." id
 
   idrest          =  "_" | alnum
 
   keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                  | "false" | "typeof" | "return") ~idrest
+                  | "false" | "typeof" | "return" | "type") ~idrest
 
   funcId          = "typeof" | "print"
 
@@ -79,8 +86,8 @@ Jen {
   basicType       = "string" | "boolean" | "char" | "number"
                   | "object" | "any" | "void" | "error"
 
-  ListType        = "list" nonemptyListOf<Type, ","> ~"list"
-  SumType         = ((basicType | id) "|")+
+  ListType        = "list"+ ( id | basicType | SumType ) ~"list"
+  SumType         = ((basicType | id) "|" (basicType | id))+
   booleanLiteral  = "true" | "false"
   numLiteral      = digit+ ~letter
   stringLiteral   = "\"" (~"\"" char | "'")* "\""

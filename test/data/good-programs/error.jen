@@ -1,5 +1,4 @@
 
-result, error := someFunction()
-if error == errorTrue {
+result, err := someFunction()
+if err == errorTrue:
     print('File could not open')
-}
