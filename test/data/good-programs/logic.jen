@@ -1,4 +1,4 @@
-justOnePerson: String, String -> boolean
+justOnePerson: string, string -> boolean
 justOnePerson(x, y):
   return x=='jen' &!& y=='justin'
 

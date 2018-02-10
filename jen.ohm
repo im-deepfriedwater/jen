@@ -48,8 +48,8 @@ Jen {
   List            = "[" ListOf<Expression, ","> "]"
 
   Loop            = For | While
-  For             = "for " id "in" (id | ListExp)
-  While           = "while" Expression ":" newLine Body
+  For             = "for " id "in" (Expression) ":" Body
+  While           = "while" Expression ":" Body
 
   Declaration     = Ids ":=" Exps
   TypeDeclaration = "type" varId (Type)+
@@ -82,7 +82,7 @@ Jen {
   ListType        = "list" nonemptyListOf<Type, ","> ~"list"
   SumType         = ((basicType | id) "|")+
   booleanLiteral  = "true" | "false"
-  numLiteral      = digit+
+  numLiteral      = digit+ ~letter
   stringLiteral   = "\"" (~"\"" char | "'")* "\""
                   | "'" (~"'"char | "\"")* "'"
   charLiteral     = ("'" char "'" | "\"" char "\"")
