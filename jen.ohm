@@ -64,13 +64,7 @@ Jen {
 
   id              = varId | constId | packageId
   Ids             = NonemptyListOf<(SubscriptExp | id), ",">
-  // we need ~[ because it attempts to match id with name[ and fails.
-  // we want it to match with name and NOT "["
 
-  // we dont need ~[ because it cant match the id when we tell it no ids
-  // have a [ after it.
-
-  // second one sounds more valid
   varId           = ~keyword ("_" | lower) idrest*
   constId         = upper ("_" | upper | digit)* ~lower
   packageId       = upper idrest*
