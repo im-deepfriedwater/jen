@@ -1,6 +1,6 @@
 Jen {
   Program         = Body
-  Body            = (Statement | Expression)* newLine*
+  Body            =  (newLine* Statement newLine* | newLine* Expression newLine*)*
 
   Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
                   | ReturnExp
@@ -33,9 +33,10 @@ Jen {
   Exp6            = numLiteral
                   | stringLiteral
                   | charLiteral
-                  | id
                   | booleanLiteral
                   | ListExp
+                  | FuncCall
+                  | id
                   | "(" Expression ")"                                 -- parens
 
   Exps            = NonemptyListOf<Expression, ",">
@@ -79,7 +80,7 @@ Jen {
 
 
   addop           = "+" | "-"
-  mulop           = "*" | "%" | "/" | "//" | "/%"
+  mulop           = "*" | "%" | "//" | "/%" | "/"
   relop           = ">" | "<" | "==" | "!=" | "<=" | ">="
 
   space           := " " | comment
