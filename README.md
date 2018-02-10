@@ -228,11 +228,11 @@ def fib(num):
 areaOfCircle: number -> number
 areaOfCircle(radius):
    PI = Math.pi()
-   return (PI * radius) ^ 2
+   return PI * radius ^ 2
 
 
 def areaOfCircle(radius):
-return Math.PI() * 2 * radius
+  return math.pi * radius ** 2
 ```
 
 ```
@@ -273,4 +273,3 @@ def checkIfBothPositive(x, y):
 - Justin Torres
 - Thomas O'Brien
 - Tyler Edmiston
-
