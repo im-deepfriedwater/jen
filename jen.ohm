@@ -31,6 +31,7 @@ Jen {
                      | stringLiteral
                      | charLiteral
                      | booleanLiteral
+                     | errLiteral
                      | SubscriptExp
                      | FuncCall
                      | id
@@ -67,7 +68,7 @@ Jen {
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type") ~idrest
+                     | "false" | "typeof" | "return" | "type" | "errTrue" | "errFalse") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
@@ -81,6 +82,7 @@ Jen {
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
   SumType            = ((basicType | id) "|" (basicType | id))+
   booleanLiteral     = "true" | "false"
+  errLiteral         = "errTrue" | "errFalse"
   numLiteral         = digit+ ~letter
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
