@@ -4,6 +4,7 @@
 </p>
 
 
+
 ## Introduction
 
 jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
@@ -14,108 +15,105 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 
 ```
 Jen {
-  Program         = Body
-  Body            =  (newLine* Statement newLine* | newLine* Expression newLine*)*
+  Program            = Body
+  Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
 
-  Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
-                  | ReturnExp | TypeDec
+  Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
+                     | TypeDec | ReturnExp
 
-  FuncDec         = Annotation newLine Signature newLine Body
-  Annotation      = (varId | constId) ":" ParamTypes "->" ParamTypes
-  ParamTypes      = NonemptyListOf<(Type | id), ",">
-  Signature       = (varId | constId) "(" Params "):"
-  Params          = NonemptyListOf<varId, ",">
-  ReturnExp       = "return" ListOf<Expression, ",">
+  Expression         = (Exp0 "?" Expression ":" Expression)               -- ternary
+                     | Exp0
+  Exp0               = Exp0 "&&" Exp1                                     -- and
+                     | Exp0 "||" Exp1                                     -- or
+                     | Exp0 "&!&" Exp1                                    -- xor
+                     | Exp1
 
+  Exp1               = (Exp1 addop Exp2)                                  -- binary
+                     | Exp2
+  Exp2               = (Exp2 mulop Exp3)                                  -- binary
+                     | Exp3
+  Exp3               = (Exp3 "^" Exp4)                                    -- binary
+                     | Exp4
+  Exp4               = (Exp4 relop Exp5)                                  -- binary
+                     | Exp5
+  Exp5               = "!" Exp5                                           -- not
+                     | Exp6
+  Exp6               = Exp6 "." Exp7 ~"("                                 -- accessor
+                     | Exp6 "." FuncCall                                  -- binary
+                     | Exp7
+  Exp7               = numLiteral
+                     | stringLiteral
+                     | charLiteral
+                     | booleanLiteral
+                     | SubscriptExp
+                     | FuncCall
+                     | id
+                     | "(" Expression ")"                                 -- parens
 
-  Expression      = (Exp0 "?" Expression ":" Expression)               -- ternary
-                  | Exp0
-  Exp0            = Exp0 "&&" Exp1                                     -- and
-                  | Exp0 "||" Exp1                                     -- or
-                  | Exp0 "&!&" Exp1                                    -- xor
-                  | Exp1
+  SubscriptExp       = id "[" Expression"]"                               -- subscript
 
-  Exp1            = (Exp1 addop Exp2)                                  -- binary
-                  | Exp2
-  Exp2            = (Exp2 mulop Exp3)                                  -- binary
-                  | Exp3
-  Exp3            = (Exp3 "^" Exp4)                                    -- binary
-                  | Exp4
-  Exp4            = (Exp4 relop Exp5)                                  -- binary
-                  | Exp5
-  Exp5            = "!" Exp5                                           -- not
-                  | Exp6
-  Exp6            = Exp6 "." Exp7 ~"("                                 -- accessor
-                  | Exp6 "." FuncCall                                  -- binary
-                  | Exp7
-  Exp7            = numLiteral
-                  | stringLiteral
-                  | charLiteral
-                  | booleanLiteral
-                  | SubscriptExp
-                  | FuncCall
-                  | id
-                  | "(" Expression ")"                                 -- parens
-
-  SubscriptExp    = id "[" Expression"]"                               -- subscript
-
-  List            = "[" ListOf<Expression, ","> "]"
-  ListAndExp      = ListOf<(Expression | List), ",">
+  List               = "[" ListOf<Expression, ","> "]"
+  ListAndExp         = ListOf<(Expression | List), ",">
   NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
 
+  Loop               = For | While
+  For                = "for " ListAndExp "in" (Expression) ":" Body
+  While              = "while" Expression ":" Body
 
-  Loop            = For | While
-  For             = "for " ListAndExp "in" (Expression) ":" Body
-  While           = "while" Expression ":" Body
+  FuncDec            = Annotation newLine Signature newLine Body ReturnExp?
+  Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
+  ParamTypes         = NonemptyListOf<(Type | id), ",">
+  Signature          = (varId | constId) "(" Params "):"
+  Params             = NonemptyListOf<varId, ",">
+  ReturnExp          = "return" ListOf<Expression, ",">
 
-  Declaration     = Ids ":=" NonemptyListAndExp
-  TypeDec         = "type" varId SumType
-  Assignment      = Ids "=" NonemptyListAndExp
-  FuncCall        = (varId | funcId | SubscriptExp) "("ListAndExp")"
+  FuncCall           = (varId | funcId | SubscriptExp) "("ListAndExp")"
 
-  Conditional     = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
-  ElseCondition   = "else" ":" newLine+ Body
-  ElseIfCondition = "else if" Expression ":" newLine+ Body
+  TypeDec            = "type" varId SumType
+  Declaration        = Ids ":=" NonemptyListAndExp
+  Assignment         = Ids "=" NonemptyListAndExp
 
-  id              = varId | constId | packageId
-  Ids             = NonemptyListOf<(SubscriptExp | id), ",">
+  Conditional        = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
+  ElseCondition      = "else" ":" newLine+ Body
+  ElseIfCondition    = "else if" Expression ":" newLine+ Body
 
-  varId           = ~keyword ("_" | lower) idrest*
-  constId         = upper ("_" | upper | digit)* ~lower
-  packageId       = upper idrest*
+  id                 = varId | constId | packageId
+  Ids                = NonemptyListOf<(SubscriptExp | id), ",">
+  keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
+                     | "false" | "typeof" | "return" | "type") ~idrest
+  idrest             =  "_" | alnum
+  varId              = ~keyword ("_" | lower) idrest*
+  constId            = upper ("_" | upper | digit)* ~lower
+  packageId          = upper idrest*
+  funcId             = "typeof" | "print"
 
-  idrest          =  "_" | alnum
+  Type               = basicType | ListType | SumType
+  basicType          = "string" | "boolean" | "char" | "number"
+                     | "object" | "any" | "void" | "error"
 
-  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                  | "false" | "typeof" | "return" | "type") ~idrest
+  ListType           = "list"+ ( id | basicType | SumType ) ~"list"
+  SumType            = ((basicType | id) "|" (basicType | id))+
+  booleanLiteral     = "true" | "false"
+  numLiteral         = digit+ ~letter
+  stringLiteral      = "\"" (~"\"" char | "'")* "\""
+                     | "'" (~"'"char | "\"")* "'"
+  charLiteral        = ("'" char "'" | "\"" char "\"")
+  char               = escape
+                     | ~";" ~newLine any
 
-  funcId          = "typeof" | "print"
+  addop              = "+" | "-"
+  mulop              = "*" | "%" | "//" | "/%" | "/"
+  relop              = "<=" | ">=" | ">" | "<" | "==" | "!="
 
-  Type            = basicType | ListType | SumType
-  basicType       = "string" | "boolean" | "char" | "number"
-                  | "object" | "any" | "void" | "error"
-
-  ListType        = "list"+ ( id | basicType | SumType ) ~"list"
-  SumType         = ((basicType | id) "|" (basicType | id))+
-  booleanLiteral  = "true" | "false"
-  numLiteral      = digit+ ~letter
-  stringLiteral   = "\"" (~"\"" char | "'")* "\""
-                  | "'" (~"'"char | "\"")* "'"
-  charLiteral     = ("'" char "'" | "\"" char "\"")
-  char            = escape
-                  | ~";" ~newLine any
-  escape          = "\\n" | "\\"
-
-  addop           = "+" | "-"
-  mulop           = "*" | "%" | "//" | "/%" | "/"
-  relop           = "<=" | ">=" | ">" | "<" | "==" | "!="
-
-  space           := " " | comment
-  newLine         = "\r"? "\n"
-  comment         = ";" (~newLine any)* newLine*
-                  | ";;" any* ";;"
+  escape             = "\\n" | "\\"
+  space              := " " | comment
+  newLine            = "\r"? "\n"
+  comment            = ";" (~newLine any)* newLine*
+                     | ";;" any* ";;"
 }
 ```
+
+
 
 ## List of Features
 
@@ -127,38 +125,8 @@ Jen {
 
 
 
-## Comments
-```
-; This is a single line comment
-
-;;
-   This is a multiple line comment.
-;;
-```
-
-
 
 ## Type
-
-- **Constants** must start with uppercase letters followed by uppercase letters, numbers, and underscores
-- **Variables** must start with a lowercase letter or underscore and can be followed by both lower and upper case letters, numbers, and underscores
-
-
-```
-; Examples of constants
-HELLO2018 := 'jen'
-LULU_LEMON := true
-
-; Examples of variables
-jenEator := 'pho'
-jenErator = 'ramen'
-_JEN := 'udon'
-
-; Will crash at compile time
-1dog := 'corgi'
-$myFortune := 2
-Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
-```
 
 
 
@@ -176,9 +144,34 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 
 
 
+###Constants and Variables
+
+**Constants** must start with uppercase letters followed by uppercase letters, numbers, and underscores.
+
+**Variables** must start with a lowercase letter or underscore and can be followed by both lower and upper case letters, numbers, and underscores.
+
+```
+; Examples of constants
+HELLO2018 := 'jen'
+LULU_LEMON := true
+
+; Examples of variables
+jen3at0r := 'pho'
+jenErator = 'ramen'
+_JeN_01 := 'udon'
+
+; Will crash at compile time
+1dog := 'corgi'
+$myFortune := 2
+Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
+```
+
+
+
+
 ### Sum and Product Typing
 
-jen allows the user to create custom types
+jen allows the user to create custom types.
 
 ```
 ; This type alias can be either a string or number
@@ -206,7 +199,32 @@ if error == errorTrue {
 
 
 
-### Declaration and Assignment
+##Operators
+
+- Equal **==**
+- Not equal **!=**
+- Less than **<**
+- Greater than **>**
+- Less than or equal **<=**
+- Greater than or equal **>=**
+- Add **+**
+- Subtract **-**
+- Divide **/**
+- Integer Divide **//**
+- Modulus **%**
+- DivMod **/&**
+- Multiply **&ast;**
+- Postfix increment **x++**
+- Postfix decrement **x--**
+- Assignment operators **+=**, **-=**, **&ast;=**, **/=**, **//=**, **%=**
+- And **&&**
+- Or **||**
+- Not **!**
+- XOR **&!&**
+
+
+
+##Declaration and Assignment
 
 In jen, variables must be declared using the **:=** syntax. Without using this first, jen will error out at compile time. For variable reassignment, jen requires the **=** syntax. jen also allows parallel declaration and assignment as well.
 
@@ -229,7 +247,18 @@ a, b = "smol", "puppers"
 
 
 
-### Ternary
+## Function Declaration
+
+```
+; Declares the function isOdd with type annotation and function signature
+isOdd: number -> boolean
+isOff(x):
+  return x % 2 != 0 
+```
+
+
+
+## Ternary
 
 ```
 ; An example of how to call a Ternary
@@ -238,36 +267,7 @@ x := 1 > 2 ? 'one is greater' : 'two is greater'
 
 
 
-### Operators
-
-- Equal **==**
-- Not equal **!=**
-- Less than **<**
-- Greater than **>**
-- Less than or equal **<=**
-- Greater than or equal **>=**
-
-- Add **+**
-- Subtract **-**
-- Divide **/**
-- Integer Divide **//**
-- Modulus **%**
-- DivMod **/&**
-- Multiply **&ast;**
-
-- Postfix increment **x++**
-- Postfix decrement **x--**
-- Assignment operators **+=**, **-=**, **&ast;=**, **/=**, **//=**, **%=**
-
-- And **&&**
-- Or **||**
-- Not **!**
-- XOR **&!&**
-
-
-
-
-### Conditionals
+## Conditional
 
 ```
 x := 4
@@ -281,7 +281,7 @@ else:
 
 
 
-### Loops
+## Loop
 
 ```
 iterable = [1, 2, 3, 4]
@@ -295,6 +295,18 @@ i := true
 ; Classic infinite loop example
 while i:
   print(i)
+```
+
+
+
+## Comments
+
+```
+; This is a single line comment
+
+;;
+   This is a multiple line comment.
+;;
 ```
 
 
@@ -368,7 +380,7 @@ def checkIfBothPositive(x, y):
 
 
 
-### Developers
+## Developers
 
 - Anthony Keba
 - Elizabeth Shen

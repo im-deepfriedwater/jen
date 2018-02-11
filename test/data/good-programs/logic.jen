@@ -6,5 +6,7 @@ eitherIsTrue: boolean, boolean -> boolean
 eitherIsTrue(x, y):
   return x || y
 
-if !evenNumber(x):
-  return y=='The number is odd'
+isOdd: number -> boolean
+idOff(x):
+  if !evenNumber(x):
+    return y=='The number is odd'
