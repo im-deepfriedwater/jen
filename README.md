@@ -12,7 +12,110 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 
 ## Grammar
 
+```
+Jen {
+  Program         = Body
+  Body            =  (newLine* Statement newLine* | newLine* Expression newLine*)*
 
+  Statement       = Conditional | Loop | Declaration | Assignment | FuncDec
+                  | ReturnExp | TypeDec
+
+  FuncDec         = Annotation newLine Signature newLine Body
+  Annotation      = (varId | constId) ":" ParamTypes "->" ParamTypes
+  ParamTypes      = NonemptyListOf<(Type | id), ",">
+  Signature       = (varId | constId) "(" Params "):"
+  Params          = NonemptyListOf<varId, ",">
+  ReturnExp       = "return" ListOf<Expression, ",">
+
+
+  Expression      = (Exp0 "?" Expression ":" Expression)               -- ternary
+                  | Exp0
+  Exp0            = Exp0 "&&" Exp1                                     -- and
+                  | Exp0 "||" Exp1                                     -- or
+                  | Exp0 "&!&" Exp1                                    -- xor
+                  | Exp1
+
+  Exp1            = (Exp1 addop Exp2)                                  -- binary
+                  | Exp2
+  Exp2            = (Exp2 mulop Exp3)                                  -- binary
+                  | Exp3
+  Exp3            = (Exp3 "^" Exp4)                                    -- binary
+                  | Exp4
+  Exp4            = (Exp4 relop Exp5)                                  -- binary
+                  | Exp5
+  Exp5            = "!" Exp5                                           -- not
+                  | Exp6
+  Exp6            = Exp6 "." Exp7 ~"("                                 -- accessor
+                  | Exp6 "." FuncCall                                  -- binary
+                  | Exp7
+  Exp7            = numLiteral
+                  | stringLiteral
+                  | charLiteral
+                  | booleanLiteral
+                  | SubscriptExp
+                  | FuncCall
+                  | id
+                  | "(" Expression ")"                                 -- parens
+
+  SubscriptExp    = id "[" Expression"]"                               -- subscript
+
+  List            = "[" ListOf<Expression, ","> "]"
+  ListAndExp      = ListOf<(Expression | List), ",">
+  NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
+
+
+  Loop            = For | While
+  For             = "for " ListAndExp "in" (Expression) ":" Body
+  While           = "while" Expression ":" Body
+
+  Declaration     = Ids ":=" NonemptyListAndExp
+  TypeDec         = "type" varId SumType
+  Assignment      = Ids "=" NonemptyListAndExp
+  FuncCall        = (varId | funcId | SubscriptExp) "("ListAndExp")"
+
+  Conditional     = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
+  ElseCondition   = "else" ":" newLine+ Body
+  ElseIfCondition = "else if" Expression ":" newLine+ Body
+
+  id              = varId | constId | packageId
+  Ids             = NonemptyListOf<(SubscriptExp | id), ",">
+
+  varId           = ~keyword ("_" | lower) idrest*
+  constId         = upper ("_" | upper | digit)* ~lower
+  packageId       = upper idrest*
+
+  idrest          =  "_" | alnum
+
+  keyword         = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
+                  | "false" | "typeof" | "return" | "type") ~idrest
+
+  funcId          = "typeof" | "print"
+
+  Type            = basicType | ListType | SumType
+  basicType       = "string" | "boolean" | "char" | "number"
+                  | "object" | "any" | "void" | "error"
+
+  ListType        = "list"+ ( id | basicType | SumType ) ~"list"
+  SumType         = ((basicType | id) "|" (basicType | id))+
+  booleanLiteral  = "true" | "false"
+  numLiteral      = digit+ ~letter
+  stringLiteral   = "\"" (~"\"" char | "'")* "\""
+                  | "'" (~"'"char | "\"")* "'"
+  charLiteral     = ("'" char "'" | "\"" char "\"")
+  char            = escape
+                  | ~";" ~newLine any
+  escape          = "\\n" | "\\"
+
+  addop           = "+" | "-"
+  mulop           = "*" | "%" | "//" | "/%" | "/"
+  relop           = "<=" | ">=" | ">" | "<" | "==" | "!="
+
+  space           := " " | comment
+  newLine         = "\r"? "\n"
+  comment         = ";" (~newLine any)* newLine*
+                  | ";;" any* ";;"
+}
+```
 
 ## List of Features
 
