@@ -144,7 +144,7 @@ Jen {
 
 
 
-###Constants and Variables
+### Constants and Variables
 
 **Constants** must start with uppercase letters followed by uppercase letters, numbers, and underscores.
 
@@ -199,7 +199,7 @@ if error == errorTrue {
 
 
 
-##Operators
+## Operators
 
 - Equal **==**
 - Not equal **!=**
@@ -224,7 +224,7 @@ if error == errorTrue {
 
 
 
-##Declaration and Assignment
+## Declaration and Assignment
 
 In jen, variables must be declared using the **:=** syntax. Without using this first, jen will error out at compile time. For variable reassignment, jen requires the **=** syntax. jen also allows parallel declaration and assignment as well.
 
