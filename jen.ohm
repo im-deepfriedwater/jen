@@ -2,6 +2,8 @@ Jen {
   Program            = Body
   Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
 
+  Suite              = newLine* indent Body dedent
+
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
 
@@ -40,11 +42,12 @@ Jen {
   ListAndExp         = ListOf<(Expression | List), ",">
   NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
 
-  Loop               = For | While
-  For                = "for " ListAndExp "in" (Expression) ":" Body
-  While              = "while" Expression ":" Body
 
-  FuncDec            = Annotation newLine Signature newLine Body ReturnExp?
+  Loop               = For | While
+  For                = "for " ListAndExp "in" (Expression) ":" Suite
+  While              = "while" Expression ":" Suite
+
+  FuncDec            = Annotation newLine Signature newLine Suite ReturnExp?
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<(Type | id), ",">
   Signature          = (varId | constId) "(" Params "):"
@@ -57,9 +60,9 @@ Jen {
   Declaration        = Ids ":=" NonemptyListAndExp
   Assignment         = Ids "=" NonemptyListAndExp
 
-  Conditional        = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
-  ElseCondition      = "else" ":" newLine+ Body
-  ElseIfCondition    = "else if" Expression ":" newLine+ Body
+  Conditional        = "if" Expression ":" newLine+ Suite (ElseIfCondition)* (ElseCondition)?
+  ElseCondition      = "else" ":" newLine+ Suite
+  ElseIfCondition    = "else if" Expression ":" newLine+ Suite
 
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
@@ -94,4 +97,6 @@ Jen {
   newLine            = "\r"? "\n"
   comment            = ";" (~newLine any)* newLine*
                      | ";;" any* ";;"
+  indent             =  "⇨"
+  dedent             =  "⇦"
 }
