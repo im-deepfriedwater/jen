@@ -11,11 +11,12 @@
 
 const ohm = require('ohm-js');
 const fs = require('fs');
+const withIndentsAndDedents = require('./preparser.js');
 
 const grammar = ohm.grammar(fs.readFileSync('./jen.ohm'));
 
 module.exports = (text) => {
-  const match = grammar.match(text);
+  const match = grammar.match(withIndentsAndDedents(text));
   if (!match.succeeded()) {
     throw match.message;
   } else {

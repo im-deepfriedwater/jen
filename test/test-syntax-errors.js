@@ -1,5 +1,6 @@
-// Borrowed from rtoal's test suite from iki!
-// https://github.com/rtoal/iki-compiler
+/* By Ray Toal:
+*  https://github.com/rtoal/iki-compiler
+*/
 const fs = require('fs');
 const assert = require('assert');
 const parse = require('../parser');
