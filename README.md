@@ -7,7 +7,7 @@
 
 ## Introduction
 
-jen is a scripting language meant to be your new best friend. Drawing inspiration from JavaScript, Python, and some creative features from Go, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to.
+jen is a scripting language meant to be your new best friend! Drawing inspiration from JavaScript, Python, Go, and Typescript's sum type, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to!
 
 
 
@@ -15,8 +15,10 @@ jen is a scripting language meant to be your new best friend. Drawing inspiratio
 
 ```
 Jen {
-  Program            = Body
+  Program            = newLine* Body newLine*
   Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
+
+  Suite              = newLine* indent Body dedent
 
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
@@ -45,6 +47,7 @@ Jen {
                      | stringLiteral
                      | charLiteral
                      | booleanLiteral
+                     | errLiteral
                      | SubscriptExp
                      | FuncCall
                      | id
@@ -56,11 +59,12 @@ Jen {
   ListAndExp         = ListOf<(Expression | List), ",">
   NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
 
-  Loop               = For | While
-  For                = "for " ListAndExp "in" (Expression) ":" Body
-  While              = "while" Expression ":" Body
 
-  FuncDec            = Annotation newLine Signature newLine Body ReturnExp?
+  Loop               = For | While
+  For                = "for " ListAndExp "in" (Expression) ":" Suite
+  While              = "while" Expression ":" Suite
+
+  FuncDec            = Annotation newLine Signature newLine Suite ReturnExp?
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<(Type | id), ",">
   Signature          = (varId | constId) "(" Params "):"
@@ -73,14 +77,14 @@ Jen {
   Declaration        = Ids ":=" NonemptyListAndExp
   Assignment         = Ids "=" NonemptyListAndExp
 
-  Conditional        = "if" Expression ":" newLine+ Body (ElseIfCondition)* (ElseCondition)?
-  ElseCondition      = "else" ":" newLine+ Body
-  ElseIfCondition    = "else if" Expression ":" newLine+ Body
+  Conditional        = "if" Expression ":" newLine+ Suite (ElseIfCondition)* (ElseCondition)?
+  ElseCondition      = "else" ":" newLine+ Suite
+  ElseIfCondition    = "else if" Expression ":" newLine+ Suite
 
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type") ~idrest
+                     | "false" | "typeof" | "return" | "type" | "errTrue" | "errFalse") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
@@ -94,6 +98,7 @@ Jen {
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
   SumType            = ((basicType | id) "|" (basicType | id))+
   booleanLiteral     = "true" | "false"
+  errLiteral         = "errTrue" | "errFalse"
   numLiteral         = digit+ ~letter
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
@@ -108,11 +113,15 @@ Jen {
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
-  comment            = ";" (~newLine any)* newLine*
-                     | ";;" any* ";;"
+
+  comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
+                     | multiLineComment
+
+  multiLineComment   = ";;" (~";" any)* ";;"
+  indent             =  "⇨"
+  dedent             =  "⇦"
 }
 ```
-
 
 
 ## List of Features
@@ -169,7 +178,7 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 
 
 
-### Sum and Product Typing
+### Sum Typing
 
 jen allows the user to create custom types.
 
@@ -180,7 +189,6 @@ type stringOrNumber string | number
 ; This type alias is list of stringOrNumber
 type listStringOrNumber list stringOrNumber
 
-;TODO: ask Toal about Product typing
 ```
 
 
@@ -253,7 +261,7 @@ a, b = "smol", "puppers"
 ; Declares the function isOdd with type annotation and function signature
 isOdd: number -> boolean
 isOff(x):
-  return x % 2 != 0 
+  return x % 2 != 0
 ```
 
 
@@ -353,7 +361,7 @@ def areaOfCircle(radius):
 ```
 type id: string | number
 
-LIST_OF_EMPLOYEES := [1, 2, "3", "4", 5]
+LIST_OF_EMPLOYEES := [1, 2, "thomas", "elizabeth", 5]
 
 printEmployees: List id -> void
 printEmployees(employeeList):
