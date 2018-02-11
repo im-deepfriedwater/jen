@@ -7,7 +7,6 @@ const parse = require('../parser');
 const TEST_DIR = 'test/data/good-programs';
 
 const runSyntaxTest = () => {
-  console.log("hello");
   describe('The compiler', () => {
     fs.readdirSync(TEST_DIR).forEach((name) => {
       it(`should compile ${name} without errors`, (done) => {

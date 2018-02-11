@@ -1,5 +1,5 @@
 Jen {
-  Program            = Body
+  Program            = newLine* Body newLine*
   Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
 
   Suite              = newLine* indent Body dedent
@@ -95,8 +95,11 @@ Jen {
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
-  comment            = ";" (~newLine any)* newLine*
-                     | ";;" any* ";;"
+
+  comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
+                     | multiLineComment
+
+  multiLineComment   = ";;" (~";" any)* ";;"
   indent             =  "⇨"
   dedent             =  "⇦"
 }
