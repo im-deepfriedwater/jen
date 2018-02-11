@@ -79,10 +79,10 @@ jen allows the user to create custom types
 
 ```
 ; This type alias can be either a string or number
-type stringOrNumber: string | number
+type stringOrNumber string | number
 
 ; This type alias is list of stringOrNumber
-type listStringOrNumber: list stringOrNumber
+type listStringOrNumber list stringOrNumber
 
 ;TODO: ask Toal about Product typing
 ```
