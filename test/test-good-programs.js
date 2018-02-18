@@ -10,7 +10,7 @@ const runSyntaxTest = () => {
   describe('The compiler', () => {
     fs.readdirSync(TEST_DIR).forEach((name) => {
       it(`should compile ${name} without errors`, (done) => {
-        const program = parse(fs.readFileSync(`${TEST_DIR}/${name}`, 'utf-8'));
+        parse(fs.readFileSync(`${TEST_DIR}/${name}`, 'utf-8'));
         done();
       });
     });

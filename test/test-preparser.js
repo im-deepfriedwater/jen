@@ -13,7 +13,8 @@
 const fs = require('fs');
 const assert = require('assert');
 const withIndentsAndDedents = require('../preparser');
-const fileDirectory = __dirname + "/data/preparser";
+
+const fileDirectory = `${__dirname}/data/preparser`;
 
 const preparserTest = () => {
   describe('The pre-parser', () => {
@@ -70,7 +71,6 @@ const preparserTest = () => {
       done();
     });
   });
-
 };
 
 module.exports = () => {
