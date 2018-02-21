@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint **/*.js;exit 0",
     "start": "node jen.ohm",
-    "test": "mocha test/test-syntax.js"
+    "test": "mocha test/test-syntax.js && node node_modules/eslint/bin/eslint.js ."
   },
   "repository": {
     "type": "git",

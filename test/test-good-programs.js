@@ -2,7 +2,7 @@
 // https://github.com/rtoal/iki-compiler
 
 const fs = require('fs');
-const parse = require('../parser');
+const parse = require('../syntax/parser');
 
 const TEST_DIR = 'test/data/good-programs';
 

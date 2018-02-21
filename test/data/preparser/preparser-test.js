@@ -9,7 +9,7 @@
 
 const fs = require('fs');
 const assert = require('assert');
-const withIndentsAndDedents = require('../../syntax/preparser');
+const withIndentsAndDedents = require('../../../syntax/preparser');
 
 describe('The pre-parser', () => {
   // When testing that the preprocessor works as intended, we scan a bunch of

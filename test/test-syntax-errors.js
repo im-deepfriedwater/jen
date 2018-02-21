@@ -3,7 +3,7 @@
 */
 const fs = require('fs');
 const assert = require('assert');
-const parse = require('../parser');
+const parse = require('../syntax/parser');
 
 const TEST_DIR = 'test/data/syntax-errors';
 
