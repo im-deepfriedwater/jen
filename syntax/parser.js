@@ -15,16 +15,32 @@ const withIndentsAndDedents = require('./preparser.js');
 const Program = require('../ast/program');
 const Body = require('../ast/body');
 const BooleanLiteral = require('../ast/boolean-literal');
-const VariableDeclaration = require('../ast/variable-declaration');
-const VariableAssignment = require('../ast/assignment-statement');
+const Declaration = require('../ast/variable-declaration');
+const Assignment = require('../ast/assignment-statement');
+
+const BinaryExpression = require('../ast/binary-expression.js');
+const TernaryExpression = require('../ast/ternary-expression.js');
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 
 const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program (_1, body, _2) { return new Program(body.ast()); },
   Body (_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
-  VariableDeclaration (ids, _, exps) { return new VariableDeclaration(ids.ast(), exps.ast()); },
-  id (_1, _2) { return this.sourceString; }
+  Declaration (ids, _, exps) { return new Declaration(ids.ast(), exps.ast()); },
+  Assignment () {}
+
+
+
+
+  // vThis might be right - Thomas
+  Exp_ternary(left, _1, middle, _2, right) { return new TernaryExpression(left.ast(), middle.ast() right.ast()); },
+  Exp1_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
+  Exp2_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
+  Exp3_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
+  Exp4_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
+  // ^This might be right - Thomas
+
+  id (name) { return ; }
 });
 
 module.exports = (text) => {
