@@ -200,7 +200,7 @@ Since jen does not have exceptions, there is a built in error type called **err*
 ```
 ; Example of using the err type
 result, error := someFunction()
-if error == errorTrue {
+if error == errTrue {
     print('File could not open')
 }
 ```
