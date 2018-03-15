@@ -22,7 +22,6 @@ const Assignment = require('../ast/assignment-statement');
 // const TernaryExpression = require('../ast/ternary-expression.js');
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
-
 const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program (_1, body, _2) { return new Program(body.ast()); },
   Body (_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
