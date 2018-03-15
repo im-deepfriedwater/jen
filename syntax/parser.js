@@ -14,9 +14,9 @@ const withIndentsAndDedents = require('./preparser.js');
 
 const Program = require('../ast/program');
 const Body = require('../ast/body');
-const BooleanLiteral = require('../ast/boolean-literal');
 const VarDec = require('../ast/variable-declaration');
-const Assignment = require('../ast/assignment-statement');
+const VarAsgn = require('../ast/assignment-statement');
+const BooleanLiteral = require('../ast/boolean-literal');
 
 // const BinaryExpression = require('../ast/binary-expression.js');
 // const TernaryExpression = require('../ast/ternary-expression.js');
@@ -26,8 +26,12 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program (_1, body, _2) { return new Program(body.ast()); },
   Body (_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
   Declaration (ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
+  Assignment (ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   NonemptyListOf (first, _, rest) { return [first.ast(), ...rest.ast()]; },
   varId (_1, _2) { return this.sourceString; },
+  constId (_1, _2) { return this.sourceString; },
+  packageId (_1, _2) { return this.sourceString; },
+  booleanLiteral (_) { return new BooleanLiteral(!!this.sourceString); },
   _terminal () { return this.sourceString; },
   // Assignment () {}
 
