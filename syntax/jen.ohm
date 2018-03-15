@@ -7,25 +7,25 @@ Jen {
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
 
-  Expression         = (Exp0 "?" Expression ":" Expression)               -- ternary
+  Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
                      | Exp0
-  Exp0               = Exp0 "&&" Exp1                                     -- and
-                     | Exp0 "||" Exp1                                     -- or
-                     | Exp0 "&!&" Exp1                                    -- xor
+  Exp0               = Exp0 "&&" Exp1                                      -- and
+                     | Exp0 "||" Exp1                                      -- or
+                     | Exp0 "&!&" Exp1                                     -- xor
                      | Exp1
 
-  Exp1               = (Exp1 addop Exp2)                                  -- binary
+  Exp1               = (Exp1 addop Exp2)                                   -- binary
                      | Exp2
-  Exp2               = (Exp2 mulop Exp3)                                  -- binary
+  Exp2               = (Exp2 mulop Exp3)                                   -- binary
                      | Exp3
-  Exp3               = (Exp3 "^" Exp4)                                    -- binary
+  Exp3               = (Exp3 "^" Exp4)                                     -- binary
                      | Exp4
-  Exp4               = (Exp4 relop Exp5)                                  -- binary
+  Exp4               = (Exp4 relop Exp5)                                   -- binary
                      | Exp5
-  Exp5               = "!" Exp5                                           -- not
+  Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = Exp6 "." Exp7 ~"("                                 -- accessor
-                     | Exp6 "." FuncCall                                  -- binary
+  Exp6               = Exp6 "." Exp7 ~"("                                  -- accessor
+                     | Exp6 "." FuncCall                                   -- binary
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
@@ -35,9 +35,9 @@ Jen {
                      | SubscriptExp
                      | FuncCall
                      | id
-                     | "(" Expression ")"                                 -- parens
+                     | "(" Expression ")"                                  -- parens
 
-  SubscriptExp       = id "[" Expression"]"                               -- subscript
+  SubscriptExp       = id "[" Expression "]"                               -- subscript
 
   List               = "[" ListOf<Expression, ","> "]"
   ListAndExp         = ListOf<(Expression | List), ",">
