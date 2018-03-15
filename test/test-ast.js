@@ -2,6 +2,15 @@ const fs = require('fs');
 const parse = require('../syntax/parser');
 
 
+// declaration
+let dec = parse("sad := true");
+
+// const declaration
+let constDec = parse("RICH := false");
+
+// assignment
+let ass = parse("sad = false")
+
 
 let file = parse("lulu := true");
 const util = require('util');
@@ -28,3 +37,8 @@ describe('Declarations', () => {
     expect(parse(grammar, "")).toBe(false);
   });
 });
+const util = require('util')
+
+console.log(util.inspect(dec, {showHidden: false, depth: null}));
+console.log(util.inspect(constDec, {showHidden: false, depth: null}));
+console.log(util.inspect(ass, {showHidden: false, depth: null}));
