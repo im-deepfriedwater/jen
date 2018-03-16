@@ -6,10 +6,10 @@ const parse = require('../syntax/parser');
 let dec = parse("sad := true");
 
 // const declaration
-let constDec = parse("RICH := false");
+let constDec = parse("RICH := 12");
 
 // assignment
-let ass = parse("sad = false")
+let ass = parse("sad = \"woof\"")
 
 
 let file = parse("lulu := true");
