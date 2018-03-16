@@ -1,3 +1,6 @@
+
+// THIS HAS BEEN DEPRECATED BY test-ast-literals.js <- Follow that for test guidelines
+
 const fs = require('fs');
 const parse = require('../syntax/parser');
 
