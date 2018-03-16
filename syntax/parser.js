@@ -45,7 +45,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp6_binary (left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens (_1, expression, _2) { return expression.ast(); },
 
-  // SubscriptExp (id, _1, expression, _2) { return new SubscriptedExpression(id.ast(), expression.ast()); },
+  SubscriptExp (id, _1, expression, _2) { return new SubscriptedExpression(id.ast(), expression.ast()); },
   NonemptyListOf (first, _, rest) { return [first.ast(), ...rest.ast()]; },
   varId (_1, _2) { return this.sourceString; },
   constId (_1, _2) { return this.sourceString; },

@@ -37,7 +37,7 @@ Jen {
                      | id
                      | "(" Expression ")"                                  -- parens
 
-  SubscriptExp       = id "[" Expression "]"                               -- subscript
+  SubscriptExp       = id "[" Expression "]"
 
   List               = "[" ListOf<Expression, ","> "]"
   ListAndExp         = ListOf<(Expression | List), ",">
