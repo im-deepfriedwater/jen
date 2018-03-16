@@ -1,16 +1,16 @@
 const Context = require('../semantics/context');
 
 module.exports = class Program {
-  constructor (body) {
+  constructor(body) {
     this.body = body;
   }
 
-  analyze () {
+  analyze() {
     const context = new Context({ parent: Context.INITIAL });
     this.body.analyze(context);
   }
 
-  optimize () {
+  optimize() {
     this.body.optimize();
     return this;
   }

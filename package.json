@@ -2,7 +2,6 @@
   "name": "language-repo",
   "version": "1.0.0",
   "description": "jen-lang",
-  "main": "index.js",
   "dependencies": {
     "ohm-js": "^0.14.0"
   },
@@ -14,7 +13,6 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint **/*.js;exit 0",
-    "start": "node jen.ohm",
     "test": "mocha test/test-syntax.js && node node_modules/eslint/bin/eslint.js ."
   },
   "repository": {

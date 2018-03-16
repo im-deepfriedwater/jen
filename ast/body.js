@@ -1,16 +1,16 @@
 const Context = require('../semantics/context');
 
 module.exports = class Body {
-  constructor (statements) {
+  constructor(statements) {
     this.statements = statements;
   }
 
-  analyze () {
+  analyze() {
     const context = new Context({ parent: Context.INITIAL });
     this.statements.forEach(s => s.analyze(context));
   }
 
-  optimize () {
+  optimize() {
     this.statements.map(s => s.optimize()).filter(s => s !== null);
     return this;
   }

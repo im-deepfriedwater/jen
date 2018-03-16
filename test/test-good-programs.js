@@ -2,14 +2,15 @@
 // https://github.com/rtoal/iki-compiler
 
 const fs = require('fs');
-const parse = require('../syntax/parser');
+const parse = require('./test-syntax-parser');
 
 const TEST_DIR = 'test/data/good-programs';
 
 const runSyntaxTest = () => {
+  /* eslint-disable no-undef */
   describe('The compiler', () => {
     fs.readdirSync(TEST_DIR).forEach((name) => {
-      it(`should compile ${name} without errors`, (done) => {
+      it(`should parse syntax for ${name} without errors`, (done) => {
         parse(fs.readFileSync(`${TEST_DIR}/${name}`, 'utf-8'));
         done();
       });

@@ -6,11 +6,11 @@ module.exports = class VariableDeclaration {
   // During syntax analysis (parsing), all we do is collect the variable names.
   // We will make the variable objects later, because we have to add them to a
   // semantic analysis context.
-  constructor (ids, initializers) {
+  constructor(ids, initializers) {
     Object.assign(this, { ids, initializers });
   }
 
-  analyze (context) {
+  analyze(context) {
     if (this.ids.length !== this.initializers.length) {
       throw new Error('Number of variables does not equal number of initializers');
     }
@@ -25,7 +25,7 @@ module.exports = class VariableDeclaration {
     this.variables.forEach(variable => context.add(variable));
   }
 
-  optimize () {
+  optimize() {
     return this;
   }
 };

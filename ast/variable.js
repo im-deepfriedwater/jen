@@ -1,13 +1,13 @@
 module.exports = class Variable {
-  constructor (id) {
+  constructor(id) {
     this.id = id;
   }
 
-  analyze () {
-
+  analyze() {
+    // empty on purpose
   }
 
-  optimize () {
+  optimize() {
     return this;
   }
 };

@@ -14,7 +14,9 @@ const Parameter = require('../ast/parameter');
 
 class Context {
   constructor({ parent = null, currentFunction = null, inLoop = false } = {}) {
-    Object.assign(this, { parent, currentFunction, inLoop, declarations: Object.create(null) });
+    Object.assign(this, {
+      parent, currentFunction, inLoop, declarations: Object.create(null),
+    });
   }
 
   createChildContextForFunctionBody(currentFunction) {
