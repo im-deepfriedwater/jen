@@ -1,9 +1,9 @@
 module.exports = class AssignmentStatement {
-  constructor (targets, sources) {
+  constructor(targets, sources) {
     Object.assign(this, { targets, sources });
   }
 
-  analyze (context) {
+  analyze(context) {
     if (this.targets.length !== this.sources.length) {
       throw new Error('Number of variables does not equal number of expressions');
     }
@@ -12,7 +12,7 @@ module.exports = class AssignmentStatement {
     this.targets.forEach(t => t.analyze(context));
   }
 
-  optimize () {
+  optimize() {
     this.sources.forEach(s => s.optimize());
     this.targets.forEach(t => t.optimize());
     return this;

@@ -6,9 +6,7 @@ const assert = require('assert');
 
 // to debug failing tests, use     console.log(JSON.stringify(result));
 
-const astCompare = (x, y) => {
-  return JSON.stringify(x) === JSON.stringify(y);
-};
+const astCompare = (x, y) => JSON.stringify(x) === JSON.stringify(y);
 
 // console.log(util.inspect(file, {showHidden: false, depth: null}));
 /* eslint-disable no-undef */
@@ -18,17 +16,17 @@ describe('Declarations', () => {
       statements: [
         {
           ids: ['sad'],
-          initializers: [{value: true}]
-        }
-      ]
-    }
+          initializers: [{ value: true }],
+        },
+      ],
+    },
   };
 
   beforeEach(() => {
     // Clear out the test object before each run.
     expected.body.statements[0] = {
       ids: [],
-      initializers: [{}]
+      initializers: [{}],
     };
   });
   it('should correctly parse boolean literal declarations', () => {

@@ -3,6 +3,7 @@
 
 const fs = require('fs');
 const parse = require('./test-syntax-parser');
+
 const TEST_DIR = 'test/data/good-programs';
 
 const runSyntaxTest = () => {
