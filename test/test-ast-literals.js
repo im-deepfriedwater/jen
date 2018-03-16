@@ -62,4 +62,21 @@ describe('Declarations', () => {
     result = parse('timeForRest := -0.1');
     assert.equal(astCompare(expected, result), true);
   });
+
+  it('should properly parse string literal declarations', () => {
+      expected.body.statements[0].ids[0] = 'stringA';
+      expected.body.statements[0].initializers[0] = {value: "this is string A"};
+      result = parse("stringA := 'this is string A'");
+      assert.equal(astCompare(expected, result), true);
+
+      expected.body.statements[0].ids[0] = 'stringB';
+      expected.body.statements[0].initializers[0] = {value: 's'};
+      result = parse("stringB := 's'");
+      assert.equal(astCompare(expected, result), true);
+
+      expected.body.statements[0].ids[0] = 'stringC';
+      expected.body.statements[0].initializers = {value: ''};
+      result = parse("stringC := ''");
+      assert.equal(astCompare(expected, result), true);
+  });
 });
