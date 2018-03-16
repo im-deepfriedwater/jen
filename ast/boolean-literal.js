@@ -1,13 +1,13 @@
 module.exports = class BooleanLiteral {
-  constructor (value) {
+  constructor(value) {
     this.value = value;
   }
 
-  analyze () {
+  analyze() {
     // empty on purpose!
   }
 
-  optimize () {
+  optimize() {
     return this;
   }
 };
