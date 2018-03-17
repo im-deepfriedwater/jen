@@ -20,13 +20,13 @@ const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
 const WhileStatement = require('../ast/while-statement');
-const BinaryExpression = require('../ast/binary-expression.js');
-const UnaryExpression = require('../ast/unary-expression.js');
+const BinaryExpression = require('../ast/binary-expression');
+const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
 const FunctionCall = require('../ast/function-call');
 const Return = require('../ast/return');
-const TernaryExpression = require('../ast/ternary-expression.js');
-const ErrorLiteral = require('../ast/error-literal.js');
+const TernaryExpression = require('../ast/ternary-expression');
+const ErrorLiteral = require('../ast/error-literal');
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 const astGenerator = grammar.createSemantics().addOperation('ast', {
@@ -48,6 +48,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
   Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
+
 
   ReturnExp(_, e) { return new Return(unpack(e.ast())); },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
