@@ -1,6 +1,7 @@
+/* eslint-disable */
+
 const fs = require('fs');
 const parse = require('../syntax/parser');
-
 
 // declaration
 const dec = parse('sad := true');
