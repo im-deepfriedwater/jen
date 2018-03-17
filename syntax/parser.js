@@ -25,7 +25,8 @@ const UnaryExpression = require('../ast/unary-expression.js');
 const SubscriptedExpression = require('../ast/subscripted-expression');
 const FunctionCall = require('../ast/function-call');
 const Return = require('../ast/return');
-// const TernaryExpression = require('../ast/ternary-expression.js');
+const TernaryExpression = require('../ast/ternary-expression.js');
+const ErrorLiteral = require('../ast/error-literal.js');
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 const astGenerator = grammar.createSemantics().addOperation('ast', {
@@ -36,6 +37,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
+  Expression_ternary(conditional, _1, trueValue, _2, falseValue) { return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast()); },
   Exp0_and(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp0_or(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp0_xor(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
@@ -56,6 +58,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   packageId(_1, _2) { return this.sourceString; },
   booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
   numLiteral(_) { return new NumericLiteral(+this.sourceString); },
+  errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
   _terminal() { return this.sourceString; },
 });
