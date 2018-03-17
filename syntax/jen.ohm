@@ -33,7 +33,7 @@ Jen {
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
-  SubscriptExp       = id "[" Expression "]"                               -- subscript
+  SubscriptExp       = id "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
