@@ -28,8 +28,8 @@ const Return = require('../ast/return');
 const TernaryExpression = require('../ast/ternary-expression');
 const ErrorLiteral = require('../ast/error-literal');
 const Accessor = require('../ast/accessor');
-const List = require('../ast/list');
-const ListType = require('../ast/list-type');
+const ListExpression = require('../ast/list');
+const ListTypeExpression = require('../ast/list-type');
 
 
 
@@ -56,8 +56,8 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp6_accessor(object, _1, _property, _2) { return new Accessor(object.ast(), property.ast()); },
   Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
-  List(_1, values, _2) { return new List( values.ast()); },
-  ListType(_1, type, _2) { return new ListType( type.ast()); },
+  List(_1, values, _2) { return new ListExpression( values.ast()); },
+  ListType(_1, type) { return new ListTypeExpression( type.ast()); },
 
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) { return new SubscriptedExpression(id.ast(), expression.ast()); },

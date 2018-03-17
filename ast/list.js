@@ -1,4 +1,4 @@
-module.exports = class List {
+module.exports = class ListExpression {
   constructor(values) {
     Object.assign(this, { values });
   }
@@ -8,7 +8,6 @@ module.exports = class List {
   }
 
   optimize() {
-    this.values = this.listExpression.optimize();
     return this;
   }
 };
