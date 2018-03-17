@@ -37,6 +37,8 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
+  ReturnExp(_, e) { return new Return(unpack(e.ast())); },
+  // FuncDec(annotation, _1, signature, _2, suite) { return new FunctionDeclaration(id.ast(), params.ast(), suite.ast()); },
   Expression_ternary(conditional, _1, trueValue, _2, falseValue) { return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast()); },
   Exp0_and(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp0_or(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
@@ -51,8 +53,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
   List(_1, values, _2) { return new List( values.ast()); },
 
-
-  ReturnExp(_, e) { return new Return(unpack(e.ast())); },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) { return new SubscriptedExpression(id.ast(), expression.ast()); },
   NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
