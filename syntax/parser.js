@@ -46,7 +46,10 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
   Body(_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
-  Conditional(_1, firstTest, _2, _3, firstSuite, _4, moreTests, _5, _6, moreSuites, _7, _8, _9, lastSuite) {
+  Conditional(
+    _1, firstTest, _2, firstSuite, _3, moreTests, _4, _5, moreSuites,
+    _6, _7, _8, lastSuite,
+  ) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
     const cases = tests.map((test, index) => new Case(test, bodies[index]));
