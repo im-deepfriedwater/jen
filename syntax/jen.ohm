@@ -26,6 +26,7 @@ Jen {
   Exp7               = numLiteral
                      | stringLiteral
                      | charLiteral
+                     | RecordLiteral
                      | SubscriptExp
                      | FuncCall
                      | id
@@ -69,6 +70,8 @@ Jen {
   SumType            = (basicType | id) "|" (basicType | id) ("|" (basicType | id))*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
   Field              = id ":" Type
+  FieldValue         = id ":" Expression
+  RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
   numLiteral         = digit+ ~letter
