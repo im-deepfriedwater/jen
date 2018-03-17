@@ -17,110 +17,96 @@ jen is a scripting language meant to be your new best friend! Drawing inspiratio
 Jen {
   Program            = newLine* Body newLine*
   Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
-
   Suite              = newLine* indent Body dedent
-
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
-
-  Expression         = (Exp0 "?" Expression ":" Expression)               -- ternary
+  Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
                      | Exp0
-  Exp0               = Exp0 "&&" Exp1                                     -- and
-                     | Exp0 "||" Exp1                                     -- or
-                     | Exp0 "&!&" Exp1                                    -- xor
+  Exp0               = Exp0 "&&" Exp1                                      -- and
+                     | Exp0 "||" Exp1                                      -- or
+                     | Exp0 "&!&" Exp1                                     -- xor
                      | Exp1
-
-  Exp1               = (Exp1 addop Exp2)                                  -- binary
+  Exp1               = (Exp1 addop Exp2)                                   -- binary
                      | Exp2
-  Exp2               = (Exp2 mulop Exp3)                                  -- binary
+  Exp2               = (Exp2 mulop Exp3)                                   -- binary
                      | Exp3
-  Exp3               = (Exp3 "^" Exp4)                                    -- binary
+  Exp3               = (Exp3 "^" Exp4)                                     -- binary
                      | Exp4
-  Exp4               = (Exp4 relop Exp5)                                  -- binary
+  Exp4               = (Exp4 relop Exp5)                                   -- binary
                      | Exp5
-  Exp5               = "!" Exp5                                           -- not
+  Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = Exp6 "." Exp7 ~"("                                 -- accessor
-                     | Exp6 "." FuncCall                                  -- binary
+  Exp6               = Exp6 "." FuncCall                                   -- binary
+                     | Exp6 "." id                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
-                     | charLiteral
-                     | booleanLiteral
-                     | errLiteral
+                     | RecordLiteral
                      | SubscriptExp
                      | FuncCall
-                     | id
-                     | "(" Expression ")"                                 -- parens
-
-  SubscriptExp       = id "[" Expression"]"                               -- subscript
-
-  List               = "[" ListOf<Expression, ","> "]"
-  ListAndExp         = ListOf<(Expression | List), ",">
-  NonemptyListAndExp = NonemptyListOf<(Expression | List), ",">
-
-
+                     | id ~Expression                                     -- id
+                     | booleanLiteral
+                     | errLiteral
+                     | List
+                     | "(" Expression ")"                                  -- parens
+  SubscriptExp       = id "[" Expression "]"                               -- subscript
+  List               =  "[" ListOf<Expression, ","> "]"
+  NonemptyExpressionList
+                     = NonemptyListOf<Expression, ",">
   Loop               = For | While
-  For                = "for " ListAndExp "in" (Expression) ":" Suite
+  For                = "for" NonemptyListOf<id, ","> "in" Expression ":" Suite
   While              = "while" Expression ":" Suite
-
-  FuncDec            = Annotation newLine Signature newLine Suite ReturnExp?
+  FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
-  ParamTypes         = NonemptyListOf<(Type | id), ",">
+  ParamTypes         = NonemptyListOf<Type, ",">
   Signature          = (varId | constId) "(" Params "):"
   Params             = NonemptyListOf<varId, ",">
   ReturnExp          = "return" ListOf<Expression, ",">
-
-  FuncCall           = (varId | funcId | SubscriptExp) "("ListAndExp")"
-
+  FuncCall           = (varId | funcId | SubscriptExp) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId SumType
-  Declaration        = Ids ":=" NonemptyListAndExp
-  Assignment         = Ids "=" NonemptyListAndExp
-
-  Conditional        = "if" Expression ":" newLine+ Suite (ElseIfCondition)* (ElseCondition)?
-  ElseCondition      = "else" ":" newLine+ Suite
-  ElseIfCondition    = "else if" Expression ":" newLine+ Suite
-
+  Declaration        = Ids ":=" NonemptyExpressionList
+  Assignment         = Ids "=" NonemptyExpressionList
+  Conditional        = "if" Expression ":" Suite (ElseIfCondition)* (ElseCondition)?
+  ElseCondition      = "else" ":" Suite
+  ElseIfCondition    = "else if" Expression ":" Suite
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type" | "errTrue" | "errFalse") ~idrest
+                     | "false" | "typeof" | "return" | "type" | "ok" | "err") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
   funcId             = "typeof" | "print"
-
-  Type               = basicType | ListType | SumType
+  Type               = basicType | ListType | SumType | RecordType | id
   basicType          = "string" | "boolean" | "char" | "number"
                      | "object" | "any" | "void" | "error"
-
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
-  SumType            = ((basicType | id) "|" (basicType | id))+
+  SumType            = (basicType | id) "|" (basicType | id) ("|" (basicType | id))*
+  RecordType         = "{" NonemptyListOf<Field, ","> "}"
+  Field              = id ":" Type
+  FieldValue         = id ":" Expression
+  RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
-  errLiteral         = "errTrue" | "errFalse"
+  errLiteral         = "ok" | "err"
   numLiteral         = digit+ ~letter
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
-  charLiteral        = ("'" char "'" | "\"" char "\"")
   char               = escape
                      | ~";" ~newLine any
-
   addop              = "+" | "-"
   mulop              = "*" | "%" | "//" | "/%" | "/"
   relop              = "<=" | ">=" | ">" | "<" | "==" | "!="
-
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
-
   comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
                      | multiLineComment
-
   multiLineComment   = ";;" (~";" any)* ";;"
   indent             =  "⇨"
   dedent             =  "⇦"
 }
+
 ```
 
 
@@ -143,7 +129,6 @@ Jen {
 
 - string
 - boolean
-- char
 - number
 - list (homogenous)
 - object
@@ -195,12 +180,12 @@ type listStringOrNumber list stringOrNumber
 
 ### Error Type
 
-Since jen does not have exceptions, there is a built in error type called **err**. **err** has two different potential values: **errTrue** or **errFalse**.
+Since jen does not have exceptions, there is a built in error type called **error**. **error** has two different potential values: **ok** or **err**.
 
 ```
 ; Example of using the err type
-result, error := someFunction()
-if error == errTrue {
+result, errorCheck := someFunction()
+if errorCheck == ok {
     print('File could not open')
 }
 ```
@@ -269,7 +254,7 @@ isOff(x):
 ## Ternary
 
 ```
-; An example of how to call a Ternary
+; An example of how to write a ternary
 x := 1 > 2 ? 'one is greater' : 'two is greater'
 ```
 
@@ -396,3 +381,4 @@ def checkIfBothPositive(x, y):
 - Justin Torres
 - Thomas O'Brien
 - Tyler Edmiston
+- Ray Toal
