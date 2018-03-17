@@ -26,11 +26,11 @@ Jen {
   Exp7               = numLiteral
                      | stringLiteral
                      | charLiteral
-                     | booleanLiteral
-                     | errLiteral
                      | SubscriptExp
                      | FuncCall
                      | id
+                     | booleanLiteral
+                     | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
   SubscriptExp       = id "[" Expression "]"                               -- subscript
@@ -38,7 +38,7 @@ Jen {
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
   Loop               = For | While
-  For                = "for" id "in" Expression ":" Suite
+  For                = "for" NonemptyListOf<id, ","> "in" Expression ":" Suite
   While              = "while" Expression ":" Suite
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
@@ -56,7 +56,7 @@ Jen {
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type" | "errTrue" | "errFalse") ~idrest
+                     | "false" | "typeof" | "return" | "type" | "ok" | "err") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
