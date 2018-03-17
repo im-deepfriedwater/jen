@@ -29,12 +29,12 @@ const TernaryExpression = require('../ast/ternary-expression');
 const ErrorLiteral = require('../ast/error-literal');
 const ForStatement = require('../ast/for-statement');
 const Case = require('../ast/case');
-const IfStatement = require('../ast/if-statement')
+const IfStatement = require('../ast/if-statement');
 const Accessor = require('../ast/accessor');
 const ListExpression = require('../ast/list');
 const ListTypeExpression = require('../ast/list-type');
-const TypeDeclaration = require('..ast/type-declaration');
-const SumTypeClass = require('..ast/sum-type');
+const TypeDeclaration = require('../ast/type-declaration');
+const SumTypeClass = require('../ast/sum-type');
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 const astGenerator = grammar.createSemantics().addOperation('ast', {
@@ -42,10 +42,10 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Body(_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
   Conditional(_1, firstTest, _2, _3, firstSuite, _4, moreTests, _5, _6, moreSuites, _7, _8, _9, lastSuite) {
-      const tests = [firstTest.ast(), ...moreTests.ast()];
-      const bodies = [firstSuite.ast(), ...moreSuites.ast()];
-      const cases = tests.map((test, index) => new Case(test, bodies[index]));
-      return new IfStatement(cases, unpack(lastSuite.ast()));
+    const tests = [firstTest.ast(), ...moreTests.ast()];
+    const bodies = [firstSuite.ast(), ...moreSuites.ast()];
+    const cases = tests.map((test, index) => new Case(test, bodies[index]));
+    return new IfStatement(cases, unpack(lastSuite.ast()));
   },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
@@ -67,9 +67,9 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
 
-  List(_1, values, _2) { return new ListExpression( values.ast()); },
-  ListType(_1, type) { return new ListTypeExpression( type.ast()); },
-  SumType(basicTypeOrId1, _1, moreBasicTypeOrId1) { return new SumTypeClass (basicTypeOrId1.ast(), moreBasicTypeOrId1.ast()); },
+  List(_1, values, _2) { return new ListExpression(values.ast()); },
+  ListType(_1, type) { return new ListTypeExpression(type.ast()); },
+  SumType(basicTypeOrId1, _1, moreBasicTypeOrId1) { return new SumTypeClass(basicTypeOrId1.ast(), moreBasicTypeOrId1.ast()); },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) { return new SubscriptedExpression(id.ast(), expression.ast()); },
   NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
