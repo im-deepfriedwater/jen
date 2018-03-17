@@ -45,7 +45,7 @@ Jen {
 
 
   Loop               = For | While
-  For                = "for " ListAndExp "in" (Expression) ":" Suite
+  For                = "for " NonemptyListAndExp "in" (Expression) ":" Suite
   While              = "while" Expression ":" Suite
 
   FuncDec            = Annotation newLine Signature newLine Suite ReturnExp?

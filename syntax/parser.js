@@ -27,15 +27,24 @@ const FunctionCall = require('../ast/function-call');
 const Return = require('../ast/return');
 const TernaryExpression = require('../ast/ternary-expression');
 const ErrorLiteral = require('../ast/error-literal');
+const ForStatement = require('../ast/for-statement');
+const Case = require('../ast/case');
+const IfStatement = require('../ast/if-statement')
 
 const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
   Body(_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
-
+  Conditional(_1, firstTest, _2, _3, firstSuite, _4, moreTests, _5, _6, moreSuites, _7, _8, _9, lastSuite) {
+      const tests = [firstTest.ast(), ...moreTests.ast()];
+      const bodies = [firstSuite.ast(), ...moreSuites.ast()];
+      const cases = tests.map((test, index) => new Case(test, bodies[index]));
+      return new IfStatement(cases, unpack(lastSuite.ast()));
+  },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
+  For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
   ReturnExp(_, e) { return new Return(unpack(e.ast())); },
   // FuncDec(annotation, _1, signature, _2, suite) { return new FunctionDeclaration(id.ast(), params.ast(), suite.ast()); },
