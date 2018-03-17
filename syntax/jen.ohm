@@ -21,7 +21,7 @@ Jen {
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
   Exp6               = Exp6 "." FuncCall                                   -- binary
-                     | Exp6 "." id                                          -- accessor
+                     | Exp6 "." id                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
@@ -29,13 +29,13 @@ Jen {
                      | RecordLiteral
                      | SubscriptExp
                      | FuncCall
-                     | id
+                     | id ~(Expression)                                    -- id
                      | booleanLiteral
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
   SubscriptExp       = id "[" Expression "]"                               -- subscript
-  List               = "[" ListOf<Expression, ","> "]"
+  List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
   Loop               = For | While
