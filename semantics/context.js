@@ -8,9 +8,7 @@
  *   const Context = require('./semantics/context');
  */
 
-const FunctionDeclaration = require('../ast/function-declaration');
 const FunctionObject = require('../ast/function-object');
-const Parameter = require('../ast/parameter');
 
 class Context {
   constructor({ parent = null, currentFunction = null, inLoop = false } = {}) {
