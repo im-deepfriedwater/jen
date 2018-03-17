@@ -1,5 +1,3 @@
-const SumType = require('./sum-type');
-
 module.exports = class TypeDeclaration {
   constructor(id, sumtype) {
     this.id = id;
