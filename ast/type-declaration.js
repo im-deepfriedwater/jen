@@ -1,6 +1,5 @@
 const SumType = require('./sum-type');
 
-// A function declaration binds a function object to a name.
 module.exports = class TypeDeclaration {
   constructor(id, sumtype) {
     this.id = id;
