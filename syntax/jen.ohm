@@ -1,7 +1,7 @@
 Jen {
-  Program            = newLine* Body newLine*
-  Body               = (Statement newLine* | Expression newLine*)*
-  Suite              = newLine* indent Body dedent
+  Program            = newLine* Body? newLine*
+  Body               = (Statement newLine+ | Expression newLine+)* (Statement | Expression) newLine*
+  Suite              = newLine* indent Body newLine* dedent newLine*
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
@@ -28,7 +28,7 @@ Jen {
                      | RecordLiteral
                      | SubscriptExp
                      | FuncCall
-                     | id ~Expression                                     -- id
+                     | id
                      | booleanLiteral
                      | errLiteral
                      | List
@@ -56,7 +56,7 @@ Jen {
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type" | "ok" | "err") ~idrest
+                     | "false" | "typeof" | "return" | "type" | "ok" | "err" | basicType) ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
@@ -66,7 +66,7 @@ Jen {
   basicType          = "string" | "boolean" | "char" | "number"
                      | "object" | "any" | "void" | "error"
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
-  SumType            = (basicType | id) "|" (basicType | id) ("|" (basicType | id))*
+  SumType            = (id | basicType) "|" (id | basicType) ("|" (id | basicType))*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
   Field              = id ":" Type
   FieldValue         = id ":" Expression
@@ -84,9 +84,9 @@ Jen {
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
+  indent             =  "⇨"
   comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
                      | multiLineComment
   multiLineComment   = ";;" (~";" any)* ";;"
-  indent             =  "⇨"
   dedent             =  "⇦"
 }
