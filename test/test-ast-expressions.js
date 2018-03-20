@@ -3,7 +3,7 @@ const assert = require('assert');
 
 // TODO Consider switching to Jest, but we would need to rename a few files
 // and refactor a few as well.
-// HELLO, WORLD!
+
 
 // to debug failing tests, use     console.log(JSON.stringify(result));
 
