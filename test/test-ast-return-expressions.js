@@ -16,7 +16,7 @@ describe('Return Expressions', () => {
     body: {
       statements: [
         {
-            returnValue: "temp"
+          returnValue: 'temp',
         },
       ],
     },
@@ -25,7 +25,7 @@ describe('Return Expressions', () => {
   beforeEach(() => {
     // Clear out the test object before each run.
     expected.body.statements[0] = {
-        returnValue: "temp"
+      returnValue: 'temp',
     };
   });
   it('should correctly parse Return Expressions', () => {
@@ -33,20 +33,20 @@ describe('Return Expressions', () => {
     let result = parse('return 10');
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].returnValue = { value: "'test'"};
+    expected.body.statements[0].returnValue = { value: "'test'" };
     result = parse("return 'test'");
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].returnValue = { op: "+", left: { value: 3}, right: { value: 3}};
-    result = parse("return 3 + 3");
+    expected.body.statements[0].returnValue = { op: '+', left: { value: 3 }, right: { value: 3 } };
+    result = parse('return 3 + 3');
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].returnValue = {callee: "functionTest", args: []};
-    result = parse("return functionTest()");
+    expected.body.statements[0].returnValue = { callee: 'functionTest', args: [] };
+    result = parse('return functionTest()');
     assert.equal(astCompare(expected, result), true);
 
     expected.body.statements[0].returnValue = null;
-    result = parse("return");
+    result = parse('return');
     assert.equal(astCompare(expected, result), true);
-    });
+  });
 });

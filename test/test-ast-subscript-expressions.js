@@ -16,8 +16,8 @@ describe('Subscript Expressions', () => {
     body: {
       statements: [
         {
-            variable: "temp",
-            subscript: "temp"
+          variable: 'temp',
+          subscript: 'temp',
         },
       ],
     },
@@ -26,13 +26,13 @@ describe('Subscript Expressions', () => {
   beforeEach(() => {
     // Clear out the test object before each run.
     expected.body.statements[0] = {
-      variable: "temp",
-      subscript: "temp"
+      variable: 'temp',
+      subscript: 'temp',
     };
   });
   it('should correctly parse Subscript Expressions', () => {
     expected.body.statements[0].variable = 'arrayA';
-    expected.body.statements[0].subscript = { value: 0};
+    expected.body.statements[0].subscript = { value: 0 };
     let result = parse('arrayA[0]');
     assert.equal(astCompare(expected, result), true);
 
@@ -42,13 +42,13 @@ describe('Subscript Expressions', () => {
     assert.equal(astCompare(expected, result), true);
 
     expected.body.statements[0].variable = 'arrayB';
-    expected.body.statements[0].subscript = {op: "+", left: {value: 3}, right: {value: 7}};
+    expected.body.statements[0].subscript = { op: '+', left: { value: 3 }, right: { value: 7 } };
     result = parse('arrayB[3 + 7]');
     assert.equal(astCompare(expected, result), true);
 
     expected.body.statements[0].variable = 'arrayC';
-    expected.body.statements[0].subscript = { op: "+", left: { op: "/", left: { value: 9 }, right: { value: 3 }}, right: { value: 2 }}
-    result = parse('arrayC[(9 / 3) + 2]')
+    expected.body.statements[0].subscript = { op: '+', left: { op: '/', left: { value: 9 }, right: { value: 3 } }, right: { value: 2 } };
+    result = parse('arrayC[(9 / 3) + 2]');
     assert.equal(astCompare(expected, result), true);
   });
 });
