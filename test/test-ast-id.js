@@ -18,12 +18,17 @@ describe('id', () => {
   it('should correctly parse varId', () => {
     expected.body.statements[0].ids[0] = 'lowerUPPER';
     expected.body.statements[0].initializers[0] = { value: true };
-    const result = parse('lowerUPPER := true');
+    let result = parse('lowerUPPER := true');
     assert.equal(astCompare(expected, result), true);
 
-    // expected.body.statements[0].ids[0] = 'rich';
-    // expected.body.statements[0].initializers[0] = { value: false };
-    // const result1 = parse('rich := false');
-    // assert.equal(astCompare(expected, result1), true);
+    expected.body.statements[0].ids[0] = '_jen01';
+    expected.body.statements[0].initializers[0] = { value: true };
+    result = parse('_jen01 := true');
+    assert.equal(astCompare(expected, result), true);
+
+    expected.body.statements[0].ids[0] = 'CONSTANT';
+    expected.body.statements[0].initializers[0] = { value: true };
+    result = parse('CONSTANT := true');
+    assert.equal(astCompare(expected, result), false);
   });
 });
