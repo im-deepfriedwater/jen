@@ -44,16 +44,13 @@ const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 /* eslint-disable no-unused-vars */
 const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
-  Body(_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
+  Body(expressionsAndStatements, _) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
-  Conditional(
-    _1, firstTest, _2, firstSuite, _3, moreTests, _4, _5, moreSuites,
-    _6, _7, _8, lastSuite,
-  ) {
+  Conditional(_1, firstTest, _2, firstSuite, elseIfs, elseSuite) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
     const cases = tests.map((test, index) => new Case(test, bodies[index]));
-    return new IfStatement(cases, unpack(lastSuite.ast()));
+    return new IfStatement(cases, unpack(elseSuite.ast()));
   },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
@@ -75,14 +72,14 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp3_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp4_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
-  Exp6_accessor(object, _1, property, _2) { return new Accessor(object.ast(), property.ast()); },
+  Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
 
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
-  SumType(basicTypeOrId1, _1, moreBasicTypeOrId1) {
-    return new SumTypeClass(basicTypeOrId1.ast(), moreBasicTypeOrId1.ast());
+  SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
+    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId().ast());
   },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) {
