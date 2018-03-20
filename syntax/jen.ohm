@@ -18,7 +18,7 @@ Jen {
                      | Exp4
   Exp4               = (Exp4 relop Exp5)                                   -- binary
                      | Exp5
-  Exp5               = prefixop Exp6                                       -- unary
+  Exp5               = "!" Exp5                                            -- not
                      | Exp6
   Exp6               = Exp6 "." FuncCall                                   -- binary
                      | Exp6 "." id                                         -- accessor
@@ -81,7 +81,6 @@ Jen {
   addop              = "+" | "-"
   mulop              = "*" | "%" | "//" | "/%" | "/"
   relop              = "<=" | ">=" | ">" | "<" | "==" | "!="
-  prefixop           = "-" | "!"
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
