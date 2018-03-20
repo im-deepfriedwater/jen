@@ -90,7 +90,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
-  booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
+  booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
   numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
