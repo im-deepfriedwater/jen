@@ -16,7 +16,7 @@ jen is a scripting language meant to be your new best friend! Drawing inspiratio
 ```
 Jen {
   Program            = newLine* Body newLine*
-  Body               = (newLine* Statement newLine* | newLine* Expression newLine*)*
+  Body               = (Statement newLine* | Expression newLine*)*
   Suite              = newLine* indent Body dedent
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
@@ -49,7 +49,7 @@ Jen {
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
-  SubscriptExp       = id "[" Expression "]"                               -- subscript
+  SubscriptExp       = id "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
@@ -89,7 +89,7 @@ Jen {
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
-  numLiteral         = digit+ ~letter
+  numLiteral         = digit+ ("." digit+)?
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
   char               = escape
