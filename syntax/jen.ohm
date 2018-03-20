@@ -20,8 +20,7 @@ Jen {
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = Exp6 "." FuncCall                                   -- binary
-                     | Exp6 "." id                                         -- accessor
+  Exp6               = id "." Exp6                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
@@ -73,7 +72,7 @@ Jen {
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
-  numLiteral         = digit+ ("." digit+)?
+  numLiteral         = digit+ ("." digit+)? ~letter
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
   char               = escape

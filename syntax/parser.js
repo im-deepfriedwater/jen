@@ -46,6 +46,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
   Body(expressionsAndStatements, _) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
+  /* eslint-disable no-undef */
   Conditional(_1, firstTest, _2, firstSuite, elseIfs, elseSuite) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
@@ -73,7 +74,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp4_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
   Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
-  Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
 
   List(_1, values, _2) { return new ListExpression(values.ast()); },
@@ -90,7 +90,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
-  booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
+  booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
   numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
