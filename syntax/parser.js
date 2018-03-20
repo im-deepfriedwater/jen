@@ -79,7 +79,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
-    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId().ast());
+    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId.ast());
   },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) {
