@@ -47,11 +47,11 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Body(expressionsAndStatements, _) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
   /* eslint-disable no-undef */
-  Conditional(_1, firstTest, _2, firstSuite, elseIfs, elseSuite) {
+  Conditional(_1, firstTest, _2, firstSuite, _3, moreTests, _4, moreSuites, _5, _6, lastSuite) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
     const cases = tests.map((test, index) => new Case(test, bodies[index]));
-    return new IfStatement(cases, unpack(elseSuite.ast()));
+    return new IfStatement(cases, unpack(lastSuite.ast()));
   },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
