@@ -1,12 +1,6 @@
 const parse = require('../syntax/parser');
 const assert = require('assert');
 
-// TODO Consider switching to Jest, but we would need to rename a few files
-// and refactor a few as well.
-
-// to debug failing tests, use     console.log(JSON.stringify(result));
-const astCompare = (x, y) => JSON.stringify(x) === JSON.stringify(y);
-
 /* eslint-disable no-undef */
 describe('Exp3 Binary', () => {
   const expected = {
@@ -34,19 +28,19 @@ describe('Exp3 Binary', () => {
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     let result = parse('x ^ y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = { value: 123 };
     expected.body.statements[0].right = 'z';
     result = parse('123 ^ z');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = 'a';
     expected.body.statements[0].right = { value: 321 };
     result = parse('a ^ 321');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = {
@@ -64,6 +58,6 @@ describe('Exp3 Binary', () => {
     };
     expected.body.statements[0].right = 'asd';
     result = parse('123^a^b^123^asd');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
   });
 });

@@ -1,12 +1,6 @@
 const parse = require('../syntax/parser');
 const assert = require('assert');
 
-// TODO Consider switching to Jest, but we would need to rename a few files
-// and refactor a few as well.
-
-// to debug failing tests, use     console.log(JSON.stringify(result));
-const astCompare = (x, y) => JSON.stringify(x) === JSON.stringify(y);
-
 /* eslint-disable no-undef */
 describe('Exp2 Binary', () => {
   const expected = {
@@ -34,31 +28,31 @@ describe('Exp2 Binary', () => {
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     let result = parse('x * y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '%';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x % y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '//';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x // y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '/%';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x /% y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '/';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x / y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
 
     expected.body.statements[0].op = '/';
     expected.body.statements[0].left = {
@@ -80,6 +74,6 @@ describe('Exp2 Binary', () => {
     };
     expected.body.statements[0].right = 'y';
     result = parse('x * z % 123 // 321 /% 21323 / y');
-    assert.equal(astCompare(expected, result), true);
+    assert.deepEqual(expected, result);
   });
 });
