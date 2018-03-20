@@ -79,18 +79,19 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
-    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId().ast());
+    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId.ast());
   },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
   NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
+  EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
   booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
-  numLiteral(_) { return new NumericLiteral(+this.sourceString); },
+  numLiteral(_1, _2) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
   _terminal() { return this.sourceString; },
