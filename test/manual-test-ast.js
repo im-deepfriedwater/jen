@@ -17,7 +17,7 @@ const or = parse('big := (3 > 1) || !true');
 
 const util = require('util');
 
-console.log(util.inspect(dec, { showHidden: false, depth: null }));
-console.log(util.inspect(constDec, { showHidden: false, depth: null }));
-console.log(util.inspect(ass, { showHidden: false, depth: null }));
-console.log(util.inspect(or, { showHidden: false, depth: null }));
+// console.log(util.inspect(dec, { showHidden: false, depth: null }));
+// console.log(util.inspect(constDec, { showHidden: false, depth: null }));
+// console.log(util.inspect(ass, { showHidden: false, depth: null }));
+// console.log(util.inspect(or, { showHidden: false, depth: null }));
