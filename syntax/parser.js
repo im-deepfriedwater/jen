@@ -91,7 +91,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
   booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
-  numLiteral(_1, _2) { return new NumericLiteral(+this.sourceString); },
+  numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
   _terminal() { return this.sourceString; },
