@@ -29,3 +29,20 @@ describe('Declarations', () => {
       initializers: [{}],
     };
   });
+  it('should correctly parse Subscript Expressions', () => {
+    expected.body.statements[0].variable[0] = 'arrayA';
+    expected.body.statements[0].subscript[0] = { value: 0 };
+    let result = parse('arrayA[0]');
+    assert.equal(astCompare(expected, result), true);
+
+    expected.body.statements[0].variable[0] = 'arrayB';
+    expected.body.statements[0].subscript[0] = { value: 10 };
+    result = parse('arrayB[10]');
+    assert.equal(astCompare(expected, result), true);
+
+    expected.body.statements[0].variable[0] = 'arrayB';
+    expected.body.statements[0].subscript[0] = { value: 3 + 10 };
+    result = parse('arrayB[3 + 7]');
+    assert.equal(astCompare(expected, result), true);
+  });
+});
