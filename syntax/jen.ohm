@@ -49,9 +49,7 @@ Jen {
   TypeDec            = "type" varId SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
-  Conditional        = "if" Expression ":" Suite (ElseIfCondition)* (ElseCondition)?
-  ElseCondition      = "else" ":" Suite
-  ElseIfCondition    = "else if" Expression ":" Suite
+  Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
