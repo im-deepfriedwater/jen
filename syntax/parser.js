@@ -46,6 +46,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
   Body(expressionsAndStatements, _) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
+  /* eslint-disable no-undef */
   Conditional(_1, firstTest, _2, firstSuite, elseIfs, elseSuite) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
