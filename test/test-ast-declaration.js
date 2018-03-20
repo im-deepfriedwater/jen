@@ -50,23 +50,23 @@ describe('Declarations', () => {
     expected.body.statements[0].ids[0] = 'skillAfterCompilers';
     expected.body.statements[0].initializers[0] = { value: 1 };
     const result1 = parse('skillAfterCompilers := 1');
-    assert.equal(astCompare(result1expected), true);
+    assert.deepEqual(result1, expected);
   });
 
   it('should properly parse string literal declarations', () => {
     expected.body.statements[0].ids[0] = 'stringA';
-    expected.body.statements[0].initializers[0] = { value: 'this is string A' };
-    result = parse("stringA := 'this is string A'");
-    assert.equal(astCompare(expected, result), true);
+    expected.body.statements[0].initializers[0] = { value: "'this is string A'" };
+    const result = parse("stringA := 'this is string A'");
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].ids[0] = 'stringB';
-    expected.body.statements[0].initializers[0] = { value: 's' };
-    result = parse("stringB := 's'");
-    assert.equal(astCompare(expected, result), true);
+    expected.body.statements[0].initializers[0] = { value: "'s'" };
+    const result1 = parse("stringB := 's'");
+    assert.deepEqual(result1, expected);
 
     expected.body.statements[0].ids[0] = 'stringC';
-    expected.body.statements[0].initializers = { value: '' };
-    result = parse("stringC := ''");
-    assert.equal(astCompare(expected, result), true);
+    expected.body.statements[0].initializers[0] = { value: "''" };
+    const result2 = parse("stringC := ''");
+    assert.deepEqual(result2, expected);
   });
 });
