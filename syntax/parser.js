@@ -86,6 +86,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
   NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
+  EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
