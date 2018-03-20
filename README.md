@@ -89,7 +89,7 @@ Jen {
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
-  numLiteral         = digit+ ("." digit+)?
+  numLiteral         = digit+ ("." digit+)? ~letter
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
   char               = escape
