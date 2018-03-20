@@ -11,13 +11,12 @@ const astCompare = (x, y) => JSON.stringify(x) === JSON.stringify(y);
 
 // console.log(util.inspect(file, {showHidden: false, depth: null}));
 /* eslint-disable no-undef */
-describe('Declarations', () => {
+describe('Return Expressions', () => {
   const expected = {
     body: {
       statements: [
         {
-          ids: ['sad'],
-          initializers: [{ value: true }],
+            returnValue: "temp"
         },
       ],
     },
@@ -26,24 +25,28 @@ describe('Declarations', () => {
   beforeEach(() => {
     // Clear out the test object before each run.
     expected.body.statements[0] = {
-      ids: [],
-      initializers: [{}],
+        returnValue: "temp"
     };
   });
-  it('should correctly parse Subscript Expressions', () => {
-    expected.body.statements[0].variable[0] = 'arrayA';
-    expected.body.statements[0].subscript[0] = { value: 0 };
-    let result = parse('arrayA[0]');
+  it('should correctly parse Return Expressions', () => {
+    expected.body.statements[0].returnValue = { value: 10 };
+    let result = parse('return 10');
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].variable[0] = 'arrayB';
-    expected.body.statements[0].subscript[0] = { value: 10 };
-    result = parse('arrayB[10]');
+    expected.body.statements[0].returnValue = { value: "'test'"};
+    result = parse("return 'test'");
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].variable[0] = 'arrayB';
-    expected.body.statements[0].subscript[0] = { value: 3 + 10 };
-    result = parse('arrayB[3 + 7]');
+    expected.body.statements[0].returnValue = { op: "+", left: { value: 3}, right: { value: 3}};
+    result = parse("return 3 + 3");
     assert.equal(astCompare(expected, result), true);
-  });
+
+    expected.body.statements[0].returnValue = {};
+    result = parse("return functionTest()");
+    assert.equal(astCompare(expected, result), true);
+
+    expected.body.statements[0].returnValue = {emptyListOf};
+    result = parse("return");
+    assert.equal(astCompare(expected, result), true);
+    });
 });
