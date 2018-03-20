@@ -41,11 +41,11 @@ describe('Return Expressions', () => {
     result = parse("return 3 + 3");
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].returnValue = {};
+    expected.body.statements[0].returnValue = {callee: "functionTest", args: []};
     result = parse("return functionTest()");
     assert.equal(astCompare(expected, result), true);
 
-    expected.body.statements[0].returnValue = {emptyListOf};
+    expected.body.statements[0].returnValue = null;
     result = parse("return");
     assert.equal(astCompare(expected, result), true);
     });
