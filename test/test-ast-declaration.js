@@ -9,12 +9,13 @@ const assert = require('assert');
 // console.log(util.inspect(file, {showHidden: false, depth: null}));
 /* eslint-disable no-undef */
 describe('Declarations', () => {
+  // Initialize test object for reuse.
   const expected = {
     body: {
       statements: [
         {
-          ids: ['sad'],
-          initializers: [{ value: true }],
+          ids: [''],
+          initializers: [{ value: false }],
         },
       ],
     },
@@ -42,24 +43,14 @@ describe('Declarations', () => {
 
   it('should correctly parse numeric literal declarations', () => {
     expected.body.statements[0].ids[0] = 'skillBeforeCompilers';
-    expected.body.statements[0].initializers[0] = { value: -1 };
-    let result = parse('skillBeforeCompilers := -0.2');
-    assert.equal(astCompare(expected, result), true);
+    expected.body.statements[0].initializers[0] = { value: 0.2 };
+    const result = parse('skillBeforeCompilers := 0.2');
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].ids[0] = 'skillAfterCompilers';
     expected.body.statements[0].initializers[0] = { value: 1 };
-    result = parse('skillAfterCompilers := 1');
-    assert.equal(astCompare(expected, result), true);
-
-    expected.body.statements[0].ids[0] = 'timeForRest';
-    expected.body.statements[0].initializers[0] = { value: 0.1 };
-    result = parse('timeForRest := 0.1');
-    assert.equal(astCompare(expected, result), true);
-
-    expected.body.statements[0].ids[0] = 'timeForRestAfterBeingLate';
-    expected.body.statements[0].initializers[0] = { value: -0.1 };
-    result = parse('timeForRest := -0.1');
-    assert.equal(astCompare(expected, result), true);
+    const result1 = parse('skillAfterCompilers := 1');
+    assert.equal(astCompare(result1expected), true);
   });
 
   it('should properly parse string literal declarations', () => {
