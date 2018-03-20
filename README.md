@@ -36,15 +36,14 @@ Jen {
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = Exp6 "." FuncCall                                   -- binary
-                     | Exp6 "." id                                         -- accessor
+  Exp6               = id "." Exp6                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
                      | RecordLiteral
                      | SubscriptExp
                      | FuncCall
-                     | id ~Expression                                     -- id
+                     | id ~Expression                                      -- id
                      | booleanLiteral
                      | errLiteral
                      | List
@@ -66,9 +65,7 @@ Jen {
   TypeDec            = "type" varId SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
-  Conditional        = "if" Expression ":" Suite (ElseIfCondition)* (ElseCondition)?
-  ElseCondition      = "else" ":" Suite
-  ElseIfCondition    = "else if" Expression ":" Suite
+  Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
@@ -100,7 +97,7 @@ Jen {
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
-  comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
+  comment            = ";" ~";" (~newLine ~";" any)*                       -- comment
                      | multiLineComment
   multiLineComment   = ";;" (~";" any)* ";;"
   indent             =  "⇨"
