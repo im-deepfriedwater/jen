@@ -10,7 +10,7 @@ const not = parse('bang := !true');
 const dec = parse('sad := true && false');
 
 // const declaration
-const constDec = parse('RICH := (4 + 3) * 2');
+const constDec = parse('RICH := (4 + 3 + 1) * 2');
 
 // assignment
 const ass = parse('sad = "woof"');
