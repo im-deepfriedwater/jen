@@ -27,7 +27,7 @@ Jen {
                      | RecordLiteral
                      | SubscriptExp
                      | FuncCall
-                     | id ~Expression                                     -- id
+                     | id ~Expression                                      -- id
                      | booleanLiteral
                      | errLiteral
                      | List
@@ -81,7 +81,7 @@ Jen {
   escape             = "\\n" | "\\"
   space              := " " | comment
   newLine            = "\r"? "\n"
-  comment            = ";" ~";" (~newLine ~";" any)*                              -- comment
+  comment            = ";" ~";" (~newLine ~";" any)*                       -- comment
                      | multiLineComment
   multiLineComment   = ";;" (~";" any)* ";;"
   indent             =  "⇨"
