@@ -1,12 +1,7 @@
 const parse = require('../syntax/parser');
 const assert = require('assert');
 
-// TODO Consider switching to Jest, but we would need to rename a few files
-// and refactor a few as well.
 
-// to debug failing tests, use console.log(JSON.stringify(result));
-
-// console.log(util.inspect(file, {showHidden: false, depth: null}));
 /* eslint-disable no-undef */
 describe('Function Declarations', () => {
   // Initialize test object for reuse.
