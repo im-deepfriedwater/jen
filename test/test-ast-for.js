@@ -26,4 +26,28 @@ describe('For', () => {
     const result = parse('for a in b : \n 1+1');
     assert.deepEqual(result, expected);
   });
+  it('should correctly parse a for loop with multiple function calls', () => {
+    const result = parse('for n in 1000 : \n dothisfirst() \n dothissecond()');
+
+    expected.body.statements[0] = {
+      test: [
+        'n',
+      ],
+      testObject: {
+        value: 1000,
+      },
+      body: {
+        statements: [
+          {
+            args: [],
+            callee: 'dothisfirst',
+          },
+          {
+            args: [],
+            callee: 'dothissecond',
+          }],
+      },
+    };
+    assert.deepEqual(result, expected);
+  });
 });
