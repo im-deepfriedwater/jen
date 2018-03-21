@@ -1,7 +1,7 @@
 // /* eslint-disable */
 //
-// const fs = require('fs');
-// const parse = require('../syntax/parser');
+const fs = require('fs');
+ const parse = require('../syntax/parser');
 //
 // // not
 // const not = parse('bang := !true');
@@ -16,12 +16,12 @@
 // const ass = parse('sad = "woof"');
 //
 // // or
-// const or = parse('big := (3 > 1) || !true');
+ const or = parse('[bread, steam, rice]');
 //
-// const util = require('util');
+ const util = require('util');
 //
 // console.log(util.inspect(not, { showHidden: false, depth: null }));
 // console.log(util.inspect(dec, { showHidden: false, depth: null }));
 // console.log(util.inspect(constDec, { showHidden: false, depth: null }));
 // console.log(util.inspect(ass, { showHidden: false, depth: null }));
-// console.log(util.inspect(or, { showHidden: false, depth: null }));
+console.log(util.inspect(or, { showHidden: false, depth: null }));
