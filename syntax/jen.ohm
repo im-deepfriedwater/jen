@@ -42,8 +42,8 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params "):"
-  Params             = NonemptyListOf<varId, ",">
+  Signature          = (varId | constId) "(" Params? "):"
+  Params             =  NonemptyListOf<varId, ",">
   ReturnExp          = "return" ListOf<Expression, ",">
   FuncCall           = (varId | funcId | SubscriptExp) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId SumType
