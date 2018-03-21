@@ -4,16 +4,13 @@ const assert = require('assert');
 describe('List', () => {
   const expected = {
     body: {
-      statements: [
-        {
-            values: [],
-        },
-      ],
+      statements: [{
+        values: [],
+      }],
     },
   };
 
   beforeEach(() => {
-      // Clear out the test object before each run.
     expected.body.statements[0] = {
       values: [],
     };
@@ -36,5 +33,4 @@ describe('List', () => {
     const result = parse('[]');
     assert.deepEqual(result, expected);
   });
-
 });
