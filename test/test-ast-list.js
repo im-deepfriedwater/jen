@@ -12,12 +12,12 @@ describe('List', () => {
     },
   };
 
-beforeEach(() => {
-    // Clear out the test object before each run.
-  expected.body.statements[0] = {
-    values: [],
-  };
-});
+  beforeEach(() => {
+      // Clear out the test object before each run.
+    expected.body.statements[0] = {
+      values: [],
+    };
+  });
 
   it('should correctly parse a list', () => {
     expected.body.statements[0].values = ['bread', 'cheese', 'wine'];
