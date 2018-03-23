@@ -161,14 +161,11 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 
 ### Sum Typing
 
-jen allows the user to create custom types.
+jen allows the user to create custom union types.
 
 ```
-; This type alias can be either a string or number
+; This type sum type can be either a string or number
 type stringOrNumber string | number
-
-; This type alias is list of stringOrNumber
-type listStringOrNumber list stringOrNumber
 
 ```
 
