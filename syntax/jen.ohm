@@ -1,7 +1,7 @@
 Jen {
   Program            = newLine* Body newLine*
-  Body               = ((Statement | Expression) newLine+)* (Statement | Expression)
-  Suite              = newLine+ indent  Body newLine dedent newLine*
+  Body               = (((Statement | Expression) newLine+ ~dedent)* (Statement | Expression))?
+  Suite              = newLine* indent  Body newLine+ dedent newLine*
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
