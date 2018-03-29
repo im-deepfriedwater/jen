@@ -1,6 +1,6 @@
 Jen {
   Program            = newLine* Body newLine*
-  Body               = (((Statement | Expression) newLine+ ~dedent)* (Statement | Expression))?
+  Body               = (((Statement | Expression) newLine+ & (Statement|Expression) ~dedent)* (Statement | Expression))?
   Suite              = newLine* indent  Body newLine+ dedent newLine*
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
                      | TypeDec | ReturnExp
