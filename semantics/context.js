@@ -1,4 +1,6 @@
 /*
+ * Credit to @rtoal
+ * https://github.com/rtoal/plainscript
  * Semantic Analysis Context
  *
  * A context object holds state for the semantic analysis phase, such as the
