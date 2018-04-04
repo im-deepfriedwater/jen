@@ -31,30 +31,30 @@ describe('Accessor Expressions', () => {
     assert.deepEqual(result, expected);
   });
 
-  it('should correctly parse a function call as a property', () => {
+  it('should correctly parse a function call whose callee is a member', () => {
     expected.body.statements[0].ids[0] = 'HOISIN_SAUCE';
     expected.body.statements[0].initializers[0] = {
-      object: 'jen',
-      property: {
-        args: [],
-        callee: 'consume',
+      callee: {
+        object: 'jen',
+        property: 'consume',
       },
+      args: [],
     };
-    const result = parse('HOISIN_SAUCE := jen.consume()');
+    const result = parse('HOISIN_SAUCE := jen.consume()\n\n\n');
     assert.deepEqual(result, expected);
   });
 
   it('should correctly parse multiple chained accessors', () => {
     expected.body.statements[0].ids[0] = 'infinity';
     expected.body.statements[0].initializers[0] = {
-      object: 'loop',
-      property: {
-        object: 'loop',
-        property: {
+      object: {
+        object: {
           object: 'loop',
           property: 'loop',
         },
+        property: 'loop',
       },
+      property: 'loop',
     };
     const result = parse('infinity := loop.loop.loop.loop');
     assert.deepEqual(result, expected);

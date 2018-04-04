@@ -17,7 +17,7 @@ Jen {
   Body               = (Statement newLine* | Expression newLine*)*
   Suite              = newLine* indent Body dedent
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
-                     | TypeDec | ReturnExp
+                     | TypeDec | Return
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
                      | Exp0
   Exp0               = Exp0 "&&" Exp1                                      -- and
@@ -58,7 +58,7 @@ Jen {
   ParamTypes         = NonemptyListOf<Type, ",">
   Signature          = (varId | constId) "(" Params? "):"
   Params             =  NonemptyListOf<varId, ",">
-  ReturnExp          = "return" ListOf<Expression, ",">
+  Return             = "return" ListOf<Expression, ",">
   FuncCall           = (varId | funcId | SubscriptExp) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId SumType
   Declaration        = Ids ":=" NonemptyExpressionList

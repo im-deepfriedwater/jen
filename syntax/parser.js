@@ -59,7 +59,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
-  ReturnExp(_, e) { return new Return(e.ast()); },
+  Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
     return new FunctionDeclaration(annotation.sourceString, signature.sourceString, suite.ast());
   },
