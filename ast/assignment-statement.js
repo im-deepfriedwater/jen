@@ -10,6 +10,10 @@ module.exports = class AssignmentStatement {
 
     this.sources.forEach(s => s.analyze(context));
     this.targets.forEach(t => t.analyze(context));
+
+    this.targets.forEach((t, i) => {
+      t.type.mustBeCompatibleWith(this.sources[i], 'Type Mismatch at Assignment');
+    });
   }
 
   optimize() {

@@ -9,6 +9,18 @@ class Type {
   mustBeBoolean(message) {
     return this.mustBeCompatibleWith(Type.BOOLEAN, message);
   }
+  mustBeString(message) {
+    return this.mustBeCompatibleWith(Type.STRING, message);
+  }
+  mustBeError(message) {
+    return this.mustBeCompatibleWith(Type.ERROR, message);
+  }
+  mustBeVoid(message) {
+    return this.mustBeCompatibleWith(Type.VOID, message);
+  }
+  mustBeAny(message) {
+    return this.mustBeCompatibleWith(Type.ANY, message);
+  }
   mustBeCompatibleWith(otherType, message) {
     if (!this.isCompatibleWith(otherType)) {
       throw message;

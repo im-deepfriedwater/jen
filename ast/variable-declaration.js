@@ -14,11 +14,14 @@ module.exports = class VariableDeclaration {
     if (this.ids.length !== this.initializers.length) {
       throw new Error('Number of variables does not equal number of initializers');
     }
-
     // We don't want the declared variables to come into scope until after the
     // declaration line, so we will analyze all the initializing expressions
     // first.
-    this.initializers.forEach(e => e.analyze(context));
+    this.initializers.forEach((e, i) => {
+      e.analyze(context);
+      e.type.mustBeCompatibleWith(this.ids[i], 'Type Mismatch in Variable Declaration');
+    }); // <- types get put in here
+
 
     // Now we can create actual variable objects and add to the current context.
     this.variables = this.ids.map(id => new Variable(id));
