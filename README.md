@@ -74,8 +74,8 @@ Jen {
   packageId          = upper idrest*
   funcId             = "typeof" | "print"
   Type               = basicType | ListType | SumType | RecordType | id
-  basicType          = "string" | "boolean" | "char" | "number"
-                     | "object" | "any" | "void" | "error"
+  basicType          = "string" | "boolean" | "number" | "record"
+                     | "any" | "void" | "error"
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
   SumType            = (basicType | id) "|" (basicType | id) ("|" (basicType | id))*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
