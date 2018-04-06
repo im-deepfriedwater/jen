@@ -24,6 +24,7 @@ const BinaryExpression = require('../ast/binary-expression');
 const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
 const FunctionCall = require('../ast/function-call');
+const FunctionDeclaration = require('../ast/function-declaration');
 const Return = require('../ast/return');
 const TernaryExpression = require('../ast/ternary-expression');
 const ErrorLiteral = require('../ast/error-literal');
@@ -58,10 +59,10 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
-  ReturnExp(_, e) { return new Return(unpack(e.ast())); },
-  // FuncDec(annotation, _1, signature, _2, suite) {
-  //   return new FunctionDeclaration(id.ast(), params.ast(), suite.ast());
-  // },
+  Return(_, e) { return new Return(e.ast()); },
+  FuncDec(annotation, _1, signature, _2, suite) {
+    return new FunctionDeclaration(annotation.sourceString, signature.sourceString, suite.ast());
+  },
   Expression_ternary(conditional, _1, trueValue, _2, falseValue) {
     return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast());
   },

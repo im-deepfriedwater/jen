@@ -7,9 +7,7 @@
 
 ## Introduction
 
-jen is a scripting language meant to be your new best friend! Drawing inspiration from JavaScript, Python, Go, and Typescript's sum type, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to!
-
-
+jen is a scripting language meant to be your new best friend! Drawing inspiration from JavaScript, Python, Go, Typescript's sum type, and even Elm, jen provides a pleasant and happy programming experience for all your high level needs. jen's powerful type system provides expressiveness, but also watches your back to prevent head-scratching type errors. With conciseness, elegance, and functionality, jen works hard as a language so you don't have to!
 
 ## Grammar
 
@@ -19,7 +17,7 @@ Jen {
   Body               = (Statement newLine* | Expression newLine*)*
   Suite              = newLine* indent Body dedent
   Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
-                     | TypeDec | ReturnExp
+                     | TypeDec | Return
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
                      | Exp0
   Exp0               = Exp0 "&&" Exp1                                      -- and
@@ -58,9 +56,9 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params "):"
-  Params             = NonemptyListOf<varId, ",">
-  ReturnExp          = "return" ListOf<Expression, ",">
+  Signature          = (varId | constId) "(" Params? "):"
+  Params             =  NonemptyListOf<varId, ",">
+  Return             = "return" ListOf<Expression, ",">
   FuncCall           = (varId | funcId | SubscriptExp) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId SumType
   Declaration        = Ids ":=" NonemptyExpressionList
@@ -103,6 +101,7 @@ Jen {
   indent             =  "⇨"
   dedent             =  "⇦"
 }
+
 
 ```
 
@@ -162,14 +161,11 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 
 ### Sum Typing
 
-jen allows the user to create custom types.
+jen allows the user to create custom union types.
 
 ```
-; This type alias can be either a string or number
+; This type sum type can be either a string or number
 type stringOrNumber string | number
-
-; This type alias is list of stringOrNumber
-type listStringOrNumber list stringOrNumber
 
 ```
 
@@ -182,9 +178,9 @@ Since jen does not have exceptions, there is a built in error type called **erro
 ```
 ; Example of using the err type
 result, errorCheck := someFunction()
-if errorCheck == ok {
+if errorCheck == err:
     print('File could not open')
-}
+
 ```
 
 
@@ -308,32 +304,32 @@ jen code is located on top, and the corresponding python code is right below it!
 ```
 add: number, number -> number
 add (a, b):
-   return a + b
+  return a + b
 
 
 def add(a, b):
-    return a + b
+  return a + b
 ```
 
 ```
 fib: number -> number
 fib(num):
-   if num <= 1:
-      return 1
+  if num <= 1:
+    return 1
    return fib(num - 1) + fib(num - 2)
 
 
 def fib(num):
- if num <= 1:
-     return 1
- return fib(num - 1) + fib(num - 2)
+  if num <= 1:
+    return 1
+  return fib(num - 1) + fib(num - 2)
 ```
 
 ```
 areaOfCircle: number -> number
 areaOfCircle(radius):
-   PI = Math.pi()
-   return PI * radius ^ 2
+  PI = Math.pi()
+  return PI * radius ^ 2
 
 
 def areaOfCircle(radius):
@@ -341,31 +337,31 @@ def areaOfCircle(radius):
 ```
 
 ```
-type id: string | number
+type id string | number
 
 LIST_OF_EMPLOYEES := [1, 2, "thomas", "elizabeth", 5]
 
 printEmployees: List id -> void
 printEmployees(employeeList):
-    for employeeId in employeeList:
-        print(employeeId)
+  for employeeId in employeeList:
+    print(employeeId)
 
 
 LIST_OF_EMPLOYEES = [1, 2, "thomas", "elizabeth", 5]
 
 def printEmployees(employeeList):
-    for employeeId in employeeList:
-        print(employeeId)
+  for employeeId in employeeList:
+    print(employeeId)
 ```
 
 ```
 checkIfBothPositive: number, number -> boolean, boolean
 checkIfBothPositive(x, y):
-    return x >= 0, y >= 0
+  return x >= 0, y >= 0
 
 
 def checkIfBothPositive(x, y):
-   return (x >= 0, y >= 0)
+  return (x >= 0, y >= 0)
 ```
 
 
