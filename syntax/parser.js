@@ -24,6 +24,7 @@ const BinaryExpression = require('../ast/binary-expression');
 const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
 const FunctionCall = require('../ast/function-call');
+const FunctionDeclaration = require('../ast/function-declaration');
 const Return = require('../ast/return');
 const TernaryExpression = require('../ast/ternary-expression');
 const ErrorLiteral = require('../ast/error-literal');
@@ -44,12 +45,10 @@ const grammar = ohm.grammar(fs.readFileSync('./syntax/jen.ohm'));
 /* eslint-disable no-unused-vars */
 const astGenerator = grammar.createSemantics().addOperation('ast', {
   Program(_1, body, _2) { return new Program(body.ast()); },
-  Body(_1, expressionsAndStatements, _2) { return new Body(expressionsAndStatements.ast()); },
+  Body(expressionsAndStatements, _) { return new Body(expressionsAndStatements.ast()); },
   Suite(_1, _2, body, _3) { return body.ast(); },
-  Conditional(
-    _1, firstTest, _2, firstSuite, _3, moreTests, _4, _5, moreSuites,
-    _6, _7, _8, lastSuite,
-  ) {
+  /* eslint-disable no-undef */
+  Conditional(_1, firstTest, _2, firstSuite, _3, moreTests, _4, moreSuites, _5, _6, lastSuite) {
     const tests = [firstTest.ast(), ...moreTests.ast()];
     const bodies = [firstSuite.ast(), ...moreSuites.ast()];
     const cases = tests.map((test, index) => new Case(test, bodies[index]));
@@ -60,10 +59,10 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
-  ReturnExp(_, e) { return new Return(unpack(e.ast())); },
-  // FuncDec(annotation, _1, signature, _2, suite) {
-  //   return new FunctionDeclaration(id.ast(), params.ast(), suite.ast());
-  // },
+  Return(_, e) { return new Return(e.ast()); },
+  FuncDec(annotation, _1, signature, _2, suite) {
+    return new FunctionDeclaration(annotation.sourceString, signature.sourceString, suite.ast());
+  },
   Expression_ternary(conditional, _1, trueValue, _2, falseValue) {
     return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast());
   },
@@ -75,25 +74,25 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp3_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp4_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
-  Exp6_accessor(object, _1, property, _2) { return new Accessor(object.ast(), property.ast()); },
-  Exp6_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
+  Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
 
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
-  SumType(basicTypeOrId1, _1, moreBasicTypeOrId1) {
-    return new SumTypeClass(basicTypeOrId1.ast(), moreBasicTypeOrId1.ast());
+  SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
+    return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId.ast());
   },
   FuncCall(callee, _1, args, _2) { return new FunctionCall(callee.ast(), args.ast()); },
   SubscriptExp(id, _1, expression, _2) {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
   NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
+  EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
-  booleanLiteral(_) { return new BooleanLiteral(!!this.sourceString); },
-  numLiteral(_) { return new NumericLiteral(+this.sourceString); },
+  booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
+  numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
   stringLiteral(_1, chars, _2) { return new StringLiteral(this.sourceString); },
   _terminal() { return this.sourceString; },

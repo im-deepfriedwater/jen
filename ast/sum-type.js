@@ -1,7 +1,8 @@
 module.exports = class SumType {
-  constructor(basicTypeOrId, moreBasicTypeOrId1) {
-    this.basicTypeOrId = basicTypeOrId;
-    this.moreBasicTypeOrId1 = moreBasicTypeOrId1;
+  constructor(basicTypeOrId1, basicTypeOrId2, moreBasicTypesOrIds) {
+    this.basicTypeOrId1 = basicTypeOrId1;
+    this.basicTypeOrId2 = basicTypeOrId2;
+    this.moreBasicTypesOrIds = moreBasicTypesOrIds;
   }
 
   analyze(context) {
