@@ -10,7 +10,7 @@ module.exports = class AssignmentStatement {
 
     this.sources.forEach(s => s.analyze(context));
     this.targets.forEach(t => t.analyze(context));
-
+    // we have to look up the variable from context
     this.targets.forEach((t, i) => {
       t.type.mustBeCompatibleWith(this.sources[i], 'Type Mismatch at Assignment');
     });

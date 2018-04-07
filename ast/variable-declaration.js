@@ -17,12 +17,12 @@ module.exports = class VariableDeclaration {
     // We don't want the declared variables to come into scope until after the
     // declaration line, so we will analyze all the initializing expressions
     // first.
+
     this.initializers.forEach((e, i) => {
       e.analyze(context);
-      e.type.mustBeCompatibleWith(this.ids[i], 'Type Mismatch in Variable Declaration');
-    }); // <- types get put in here
-
-
+      console.log("id type: ", this.variables[i].type);
+      console.log("initializers type: ", this.e.type);
+    });
     // Now we can create actual variable objects and add to the current context.
     this.variables = this.ids.map(id => new Variable(id));
     this.variables.forEach(variable => context.add(variable));
