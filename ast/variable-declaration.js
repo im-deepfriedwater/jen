@@ -18,11 +18,7 @@ module.exports = class VariableDeclaration {
     // declaration line, so we will analyze all the initializing expressions
     // first.
 
-    this.initializers.forEach((e, i) => {
-      e.analyze(context);
-      console.log("id type: ", this.variables[i].type);
-      console.log("initializers type: ", this.e.type);
-    });
+    this.initializers.forEach(e => e.analyze(context));
     // Now we can create actual variable objects and add to the current context.
     this.variables = this.ids.map(id => new Variable(id));
     this.variables.forEach(variable => context.add(variable));

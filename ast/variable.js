@@ -2,12 +2,10 @@ module.exports = class Variable {
   constructor(id) {
     this.id = id;
   }
-  /* eslint-disable */
-  analyze() {
-    // empty on purpose
+  analyze(context) {
+    context.variableMustNotBeAlreadyDeclared(this.id);
+    context.addVariable(this.id, this);
   }
-  /* eslint-enable */
-
   optimize() {
     return this;
   }
