@@ -20,6 +20,7 @@ const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
 const WhileStatement = require('../ast/while-statement');
+const BreakStatement = require('../ast/break');
 const BinaryExpression = require('../ast/binary-expression');
 const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
@@ -58,6 +59,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
+  Break(_1) { return new BreakStatement(); },
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
