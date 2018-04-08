@@ -54,6 +54,11 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
     const cases = tests.map((test, index) => new Case(test, bodies[index]));
     return new IfStatement(cases, unpack(lastSuite.ast()));
   },
+  Statement_declaration(body, _) { return body.ast(); },
+  Statement_assignment(body, _) { return body.ast(); },
+  Statement_typedec(body, _) { return body.ast(); },
+  Statement_return(body, _) { return body.ast(); },
+  Statement_expression(body, _) { return body.ast(); },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
