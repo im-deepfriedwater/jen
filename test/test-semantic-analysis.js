@@ -19,7 +19,6 @@ const BAD_PROGRAMS_DIR = 'test/data/semantic-errors';
 describe('The semantic analyzer', () => {
   fs.readdirSync(BAD_PROGRAMS_DIR).forEach((name) => {
     const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '');
-    console.log('TEST');
     it(`detects a ${errorName} error`, () => {
       const program = parse(fs.readFileSync(`${BAD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       const errorPattern = RegExp(errorName, 'i');
@@ -27,12 +26,12 @@ describe('The semantic analyzer', () => {
     });
   });
 
-  // fs.readdirSync(GOOD_PROGRAMS_DIR).forEach((name) => {
-  //   it(`should analyze ${name} without errors`, () => {
-  //     // For now, we are happy to know that these files pass semantic analysis.
-  //     // We eventually need to check that the ASTs are properly decorated.
-  //     const program = parse(fs.readFileSync(`${GOOD_PROGRAMS_DIR}/${name}`, 'utf-8'));
-  //     program.analyze();
-  //   });
-  // });
+  fs.readdirSync(GOOD_PROGRAMS_DIR).forEach((name) => {
+    it(`should analyze ${name} without errors`, () => {
+      // For now, we are happy to know that these files pass semantic analysis.
+      // We eventually need to check that the ASTs are properly decorated.
+      const program = parse(fs.readFileSync(`${GOOD_PROGRAMS_DIR}/${name}`, 'utf-8'));
+      program.analyze();
+    });
+  });
 });
