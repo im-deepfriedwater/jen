@@ -75,6 +75,12 @@ class Context {
       throw new Error(`${entity.id} is not a function`);
     }
   }
+
+  assertInLoop(message) {
+    if (!this.inLoop) {
+      throw new Error(message);
+    }
+  }
 }
 
 Context.INITIAL = new Context();
