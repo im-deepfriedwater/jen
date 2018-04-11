@@ -7,6 +7,7 @@ module.exports = class VariableDeclaration {
   // We will make the variable objects later, because we have to add them to a
   // semantic analysis context.
   constructor(ids, initializers) {
+    this.used = false;
     Object.assign(this, { ids, initializers });
   }
 

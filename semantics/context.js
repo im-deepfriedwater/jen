@@ -73,6 +73,15 @@ class Context {
       throw new Error(`${entity.id} is not a function`);
     }
   }
+
+  checkForUnusedDeclared() {
+    for (let id = 0; id < Object.keys(this.declarations).length; id += 1) {
+      if (!Object.keys(this.declarations)[id].used) {
+        // console.log('warning');
+        throw new Error('Unused');
+      }
+    }
+  }
 }
 
 Context.INITIAL = new Context();

@@ -3,8 +3,14 @@ module.exports = class Variable {
     this.id = id;
   }
   /* eslint-disable */
-  analyze() {
-    // empty on purpose
+  analyze(context) {
+
+    // This is inteded that if the context is looked up, it will set the flag.
+    // This logic doesnt seem quite right though.
+    if(context.lookup(this.id)) {
+      this.used = true;
+    }
+
   }
   /* eslint-enable */
 
