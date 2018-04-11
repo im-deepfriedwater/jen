@@ -1,6 +1,120 @@
 <!DOCTYPE html>
 <head>
+    <link href="gh-pages/css/style.css" type="text/css" rel="stylesheet" />
+    <meta name="theme-color" content="#4A148C">
+    <link rel="shortcut icon" href="gh-pages/assets/favicon.ico" type="image/x-icon">
+    <title>jen</title>
 </head>
 <body>
-  <h1>test</h1>
+    <div class="main-container">
+        <div class="grid-wrapper">
+            <div class="header-wrapper">
+                <div class=center-wrapped-text>
+                    <ul>
+                        <li>
+                            <a target="_blank" href="http://www.github.com/catloverkid" >Anthony Keba</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://github.com/eshen1" >Elizabeth Shen</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://github.com/jtorre39" >Justin Torres</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://github.com/yshin4" >jen Shin</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://github.com/obrienthomas13" >Thomas O'Brien</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="https://github.com/tedmist1" >Tyler Edmiston</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tagline-wrapper">
+                <div class="center-wrapped-text tagline-container">
+                    <p>Say hello to your new best friend:</p>
+                </div>
+            </div>
+            <div class="title">
+                <p>jen</p>
+            </div>
+            <div class="content-wrapper">
+                <div class="introduction-wrapper content-container">
+                    <p>
+                        Drawing inspiration from JavaScript, Python, Go, Typescript's sum type, and even Elm,
+                        jen provides a pleasant and happy programming experience for all your high level needs.
+                        jen's powerful type system provides expressiveness, but also watches your back to prevent
+                        head-scratching type errors. With conciseness, elegance, and functionality,
+                        jen works hard as a language so you don't have to!
+                    </p>
+                </div>
+                <div class="logo-wrapper content-container">
+                    <image src="gh-pages/assets/jen.png" class="logo">
+                </div>
+                <hr>
+                <div class="subheader-wrapper content-container">
+                    <h2>
+                        Example jen Code:
+                    </h2>
+                </div>
+                <div class="grid-wrapper code-examples-wrapper">
+                    <div class="jen-code">
+                        <p class="comment">; Examples of literals<br></p>
+                        <p>HELLO2018 := </p><p class="literal-string">'jen'<br></p>
+                        <p>LULU_LEMON := </p><p class="literal-bool">true<br></p>
+                        <br>
+                        <p class="comment">; Examples of variables<br></p>
+                        <p>jen3at0r := </p><p class="literal-string">'pho'<br></p>
+                        <p>jenErator = </p><p class="literal-string">'ramen'<br></p>
+                        <p>_jen_01 := </p><p class="literal-string">'udon'<br></p>
+                        <br>
+                        <p class="comment">; Will crash at compile time<br></p>
+                        <p>dog := </p><p class="literal-string">'corgi'<br></p>
+                        <p>$myFortune := </p><p class="literal-num">2<br></p>
+                        <p>Kbbq := {</p><p class="literal-string">'Budnamu'</p><p>: </p><p class="literal-num">14.99</p><p>, </p><p class="literal-string">'Road-to-seoul'</p><p>: </p><p class="literal-num">22.99</p><p>}</p>
+                    </div>
+
+                    <div class="jen-code">
+                        <p>x := </p><p class="literal-num">4</p><p><br></p>
+                        <p class="keyword">if</p><p> x <= </p><p class="literal-num">3</p><p>:<br></p>
+                        <p class="indent">print(</p><p class="literal-string">'Less than or equal to 3 '</p><p>)<br></p>
+                        <p class="keyword">else if </p><p> x >= </p><p class="literal-num">5</p><p>:<br></p>
+                        <p class="indent">print(</p><p class="literal-string">'Greater than or equal to 5'</p><p>)<br></p>
+                        <p class="keyword">else:<br></p>
+                        <p class="indent">print(</p><p class="literal-string">'In between 3 and 5'</p><p>)</p>
+                    </div>
+
+                    <div class="jen-code">
+                        <p>iterable = [</p><p class="literal-num">1</p>, </p><p class="literal-num">2</p>, </p><p class="literal-num">3</p>, </p><p class="literal-num">4</p>]<br></p>
+                        <br>
+                        <p class="comment">; Will print out the values in iterable<br></p>
+                        <p class="keyword">for</p><p> i </p><p class="keyword">in </p>iterable:<br></p>
+                          <p class="indent">print(i)<br></p>
+                        <br>
+                        <p>i := </p><p class="literal-num">true<br></p>
+                        <br>
+                        <p class="comment">; Classic infinite loop example<br></p>
+                        <p class="keyword">while</p><p> i:<br></p>
+                          <p class="indent">print(i)</p>
+                    </div>
+
+                    <div class="jen-code">
+                        <p>add: </p><p class="keyword">number</p>, <p class="keyword">number</p><p> -> </p><p class="keyword">number<br></p>
+                        <p>add (a, b):<br></p>
+                        <p class="indent keyword">return</p><p> a + b<br></p>
+                    </div>
+
+                    <div class="jen-code">
+                        <p>fib: </p><p class="keyword">number</p><p> -> </p><p class="keyword">number<br></p>
+                        <p>fib(num):<br></p>
+                        <p class="indent">  if num <= </p><p class="literal-num">1</p><p>:<br></p>
+                        <p class="indent"><p class="indent">    return </p><p class="literal-num">1<br></p></p>
+                        <p class="indent">   return fib(num - </p><p class="literal-num">1</p><p>) + fib(num - </p><p class="literal-num">2</p><p>)<br></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
