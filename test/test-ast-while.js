@@ -12,6 +12,7 @@ describe('While', () => {
           statements: [{
             ids: ['sheep'],
             initializers: ['ba'],
+            used: false,
           }],
         },
       }],

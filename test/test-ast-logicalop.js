@@ -22,6 +22,7 @@ describe('logicalop', () => {
   it('should correctly parse and &&', () => {
     expected.body.statements[0].ids[0] = 'and_test01';
     expected.body.statements[0].initializers[0].op = '&&';
+    expected.body.statements[0].used = false;
     let result = parse('and_test01 := true && true');
     assert.deepEqual(result, expected);
 
@@ -39,6 +40,7 @@ describe('logicalop', () => {
   it('should correctly parse or ||', () => {
     expected.body.statements[0].ids[0] = 'or_test01';
     expected.body.statements[0].initializers[0].op = '||';
+    expected.body.statements[0].used = false;
     let result = parse('or_test01 := false || false');
     assert.deepEqual(result, expected);
 
@@ -58,6 +60,7 @@ describe('logicalop', () => {
     expected.body.statements[0].initializers[0].op = '&!&';
     expected.body.statements[0].initializers[0].left = { value: 1 };
     expected.body.statements[0].initializers[0].right = { value: 1 };
+    expected.body.statements[0].used = false;
     let result = parse('xor_test01 := 1 &!& 1');
     assert.deepEqual(result, expected);
 

@@ -27,6 +27,7 @@ describe('Accessor Expressions', () => {
   it('should correctly parse a simple property access', () => {
     expected.body.statements[0].ids[0] = 'jensKnowledge';
     expected.body.statements[0].initializers[0] = { object: 'jen', property: 'knowledge' };
+    expected.body.statements[0].used = false;
     const result = parse('jensKnowledge := jen.knowledge');
     assert.deepEqual(result, expected);
   });
@@ -40,6 +41,7 @@ describe('Accessor Expressions', () => {
       },
       args: [],
     };
+    expected.body.statements[0].used = false;
     const result = parse('HOISIN_SAUCE := jen.consume()\n\n\n');
     assert.deepEqual(result, expected);
   });
@@ -56,6 +58,7 @@ describe('Accessor Expressions', () => {
       },
       property: 'loop',
     };
+    expected.body.statements[0].used = false;
     const result = parse('infinity := loop.loop.loop.loop');
     assert.deepEqual(result, expected);
   });

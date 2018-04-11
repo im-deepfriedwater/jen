@@ -22,6 +22,8 @@ describe('prefix', () => {
     expected.body.statements[0].ids[0] = 'bang';
     expected.body.statements[0].initializers[0].op = '!';
     let result = parse('bang := !true');
+    expected.body.statements[0].used = false;
+
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].ids[0] = 'not_false';

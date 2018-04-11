@@ -32,6 +32,7 @@ describe('Declarations', () => {
   it('should correctly parse boolean literal declarations', () => {
     expected.body.statements[0].ids[0] = 'sad';
     expected.body.statements[0].initializers[0] = { value: true };
+    expected.body.statements[0].used = false;
     const result = parse('sad := true');
     assert.deepEqual(result, expected);
 
@@ -49,6 +50,7 @@ describe('Declarations', () => {
   it('should correctly parse numeric literal declarations', () => {
     expected.body.statements[0].ids[0] = 'skillBeforeCompilers';
     expected.body.statements[0].initializers[0] = { value: 0.2 };
+    expected.body.statements[0].used = false;
     const result = parse('skillBeforeCompilers := 0.2');
     assert.deepEqual(result, expected);
 
@@ -61,6 +63,7 @@ describe('Declarations', () => {
   it('should properly parse string literal declarations', () => {
     expected.body.statements[0].ids[0] = 'stringA';
     expected.body.statements[0].initializers[0] = { value: "'this is string A'" };
+    expected.body.statements[0].used = false;
     const result = parse("stringA := 'this is string A'");
     assert.deepEqual(result, expected);
 
