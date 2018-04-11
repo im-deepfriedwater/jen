@@ -15,6 +15,7 @@ module.exports = class FunctionObject {
   analyze(context) {
     // Each parameter will be declared in the function's scope, mixed in
     // with the function's local variables. This is by design.
+    // console.log(this.params);
     this.params.forEach(p => p.analyze(context));
 
     // Make sure all required parameters come before optional ones, and

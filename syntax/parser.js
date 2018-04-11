@@ -11,6 +11,8 @@
 const ohm = require('ohm-js');
 const fs = require('fs');
 const withIndentsAndDedents = require('./preparser.js');
+const util = require('util');
+
 
 const Program = require('../ast/program');
 const Body = require('../ast/body');
@@ -37,6 +39,8 @@ const ListExpression = require('../ast/list');
 const ListTypeExpression = require('../ast/list-type');
 const TypeDeclaration = require('../ast/type-declaration');
 const SumTypeClass = require('../ast/sum-type');
+const FuncSignature = require('../ast/signature');
+const FuncAnnotation = require('../ast/annotation');
 
 // Credit to Ray Toal:
 // Ohm turns `x?` into either [x] or [], which we should clean up for our AST.
@@ -63,7 +67,12 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
-    return new FunctionDeclaration(annotation.sourceString, signature.sourceString, suite.ast());
+    // console.log(signature);
+    return new FunctionDeclaration(annotation.ast(), signature.ast(), suite.ast());
+  },
+  Signature(id, _2, params, _3) { return new FuncSignature(id.ast(), params.ast()); },
+  Annotation(id, _1, paramTypes, _2, resultTypes) {
+    return new FuncAnnotation(id.ast(), paramTypes.ast(), resultTypes.ast());
   },
   Expression_ternary(conditional, _1, trueValue, _2, falseValue) {
     return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast());
@@ -88,7 +97,10 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   SubscriptExp(id, _1, expression, _2) {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
-  NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
+  NonemptyListOf(first, _, rest) {
+    // console.log(first.sourceString, "hello", rest.sourceString);
+    return [first.ast(), ...rest.ast()];
+  },
   EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },

@@ -44,8 +44,8 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params? "):"
-  Params             =  NonemptyListOf<varId, ",">
+  Signature          = (varId | constId) "(" Params "):"
+  Params             =  ListOf<varId, ",">
   Return             = "return" ListOf<Expression, ",">
   Break              = "break"
   FuncCall           = ( Exp6_accessor | SubscriptExp | varId | funcId) "(" ListOf<Expression, ","> ")"
