@@ -19,6 +19,8 @@ const VarAsgn = require('../ast/assignment-statement');
 const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
+const RecordLiteral = require('../ast/record-literal');
+const FieldValue = require('../ast/field-value');
 const WhileStatement = require('../ast/while-statement');
 const BreakStatement = require('../ast/break');
 const BinaryExpression = require('../ast/binary-expression');
@@ -93,6 +95,8 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
+  FieldValue(id, _1, expression) { return new FieldValue(id.ast(), expression.ast()); },
+  RecordLiteral(_1, fields, _2) { return new RecordLiteral(fields.ast()); },
   booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
   numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
