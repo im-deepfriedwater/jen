@@ -19,7 +19,6 @@ describe('parens', () => {
     expected.body.statements[0].initializers[0].op = '*';
     expected.body.statements[0].initializers[0].left = { op: '+', left: { value: 4 }, right: { value: 3 } };
     expected.body.statements[0].initializers[0].right = { value: 2 };
-    expected.body.statements[0].used = false;
     let result = parse('fourteen := (4 + 3) * 2');
     assert.deepEqual(result, expected);
 

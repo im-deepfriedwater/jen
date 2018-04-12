@@ -17,7 +17,6 @@ describe('id', () => {
   it('should correctly parse variables - varId', () => {
     expected.body.statements[0].ids[0] = 'lowerUPPER';
     expected.body.statements[0].initializers[0] = { value: true };
-    expected.body.statements[0].used = false;
     let result = parse('lowerUPPER := true');
     assert.deepEqual(result, expected);
 
@@ -36,7 +35,6 @@ describe('id', () => {
 
   it('should correctly parse constants - constId', () => {
     expected.body.statements[0].ids[0] = 'MARCH14';
-    expected.body.statements[0].used = false;
     let result = parse('MARCH14 := true');
     assert.deepEqual(result, expected);
 
@@ -47,7 +45,6 @@ describe('id', () => {
 
   it('should correctly parse package ids - packageId', () => {
     expected.body.statements[0].ids[0] = 'P_ackage';
-    expected.body.statements[0].used = false;
     let result = parse('P_ackage := true');
     assert.deepEqual(result, expected);
 
