@@ -5,12 +5,14 @@ module.exports = class Variable {
   /* eslint-disable */
   analyze(context) {
     // No idea if this is remotely correct, I think this is the right idea but the
-    // function probably needs some tweaking
+    // function probably needs some tweaking. Might just not be the right place at
+    // all to be doing this.
     context.checkIfThisIsUnused(this);
   }
   /* eslint-enable */
 
-  optimize() {
+  optimize(context) {
+    context.checkIfThisIsUnused(this);
     return this;
   }
 };

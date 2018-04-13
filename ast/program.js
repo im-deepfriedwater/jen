@@ -8,6 +8,8 @@ module.exports = class Program {
   analyze() {
     const context = new Context({ parent: Context.INITIAL });
     this.body.analyze(context);
+    throw new Error('a');
+    // context.checkForUnusedDeclared();
   }
 
   optimize() {
