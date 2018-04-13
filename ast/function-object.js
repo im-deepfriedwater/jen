@@ -1,3 +1,5 @@
+const Variable = require('./variable');
+
 module.exports = class FunctionObject {
   constructor(id, inputTypes, outputTypes, params, suite) {
     Object.assign(this, {
@@ -15,21 +17,26 @@ module.exports = class FunctionObject {
   analyze(context) {
     // Each parameter will be declared in the function's scope, mixed in
     // with the function's local variables. This is by design.
-    // console.log(this.params);
-    this.params.forEach(p => p.analyze(context));
+
+
+    // create a new variable and give it a type
+
+    this.params.forEach((p, i) => {
+      context.add(new Variable(p, this.inputTypes[i]));
+    });
 
     // Make sure all required parameters come before optional ones, and
     // gather the names up into sets for quick lookup.
-    this.requiredParameterNames = new Set();
+    // this.requiredParameterNames = new Set();
     this.allParameterNames = new Set();
     this.params.forEach((p) => {
       this.allParameterNames.add(p.id);
-      if (p.isRequired) {
-        this.requiredParameterNames.add(p.id);
-        if (this.requiredParameterNames.size < this.allParameterNames.size) {
-          throw new Error('Required parameter cannot appear after an optional parameter');
-        }
-      }
+      // if (p.isRequired) {
+      //   this.requiredParameterNames.add(p.id);
+      //   if (this.requiredParameterNames.size < this.allParameterNames.size) {
+      //     throw new Error('Required parameter cannot appear after an optional parameter');
+      //   }
+      // }
     });
 
     // Now we analyze the body with the local context. Note that recursion is

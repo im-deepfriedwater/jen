@@ -87,7 +87,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
   Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
-
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
@@ -98,7 +97,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
   NonemptyListOf(first, _, rest) {
-    // console.log(first.sourceString, "hello", rest.sourceString);
     return [first.ast(), ...rest.ast()];
   },
   EmptyListOf() { return []; },
