@@ -1,4 +1,6 @@
 /*
+ * Credit to @rtoal
+ * https://github.com/rtoal/plainscript
  * Semantic Analysis Context
  *
  * A context object holds state for the semantic analysis phase, such as the
@@ -84,6 +86,7 @@ class Context {
     }
   }
 
+<<<<<<< HEAD
   // Dont really know what to do with this. Its a function that is supposed to loop
   // through all the variables but I dont know where to call it or if its even right
   checkForUnusedDeclared() {
@@ -99,6 +102,11 @@ class Context {
   checkIfThisIsUnused(variable) { // eslint-disable-line class-methods-use-this
     if (!variable.used) {
       throw new Error('Unused variable');
+=======
+  assertInLoop(message) {
+    if (!this.inLoop) {
+      throw new Error(message);
+>>>>>>> 195ea00dfe2bf3ececf636c0c91e1fabe4f41cf0
     }
   }
 }

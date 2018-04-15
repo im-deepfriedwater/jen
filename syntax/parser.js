@@ -19,7 +19,10 @@ const VarAsgn = require('../ast/assignment-statement');
 const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
+const RecordLiteral = require('../ast/record-literal');
+const FieldValue = require('../ast/field-value');
 const WhileStatement = require('../ast/while-statement');
+const BreakStatement = require('../ast/break');
 const BinaryExpression = require('../ast/binary-expression');
 const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
@@ -58,6 +61,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
+  Break(_1) { return new BreakStatement(); },
   TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
@@ -91,6 +95,8 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
+  FieldValue(id, _1, expression) { return new FieldValue(id.ast(), expression.ast()); },
+  RecordLiteral(_1, fields, _2) { return new RecordLiteral(fields.ast()); },
   booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
   numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },
