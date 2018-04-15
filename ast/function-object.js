@@ -18,9 +18,7 @@ module.exports = class FunctionObject {
     // Each parameter will be declared in the function's scope, mixed in
     // with the function's local variables. This is by design.
 
-
-    // create a new variable and give it a type
-
+    // create a new variable and give it a 
     this.params.forEach((p, i) => {
       context.add(new Variable(p, this.inputTypes[i]));
     });
@@ -31,12 +29,6 @@ module.exports = class FunctionObject {
     this.allParameterNames = new Set();
     this.params.forEach((p) => {
       this.allParameterNames.add(p.id);
-      // if (p.isRequired) {
-      //   this.requiredParameterNames.add(p.id);
-      //   if (this.requiredParameterNames.size < this.allParameterNames.size) {
-      //     throw new Error('Required parameter cannot appear after an optional parameter');
-      //   }
-      // }
     });
 
     // Now we analyze the body with the local context. Note that recursion is
