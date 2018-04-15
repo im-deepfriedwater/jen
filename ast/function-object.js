@@ -1,9 +1,9 @@
 const Variable = require('./variable');
 
 module.exports = class FunctionObject {
-  constructor(id, inputTypes, outputTypes, params, suite) {
+  constructor(id, paramTypes, resultTypes, params, suite) {
     Object.assign(this, {
-      id, inputTypes, outputTypes, params, suite,
+      id, paramTypes, resultTypes, params, suite,
     });
   }
 
@@ -18,9 +18,9 @@ module.exports = class FunctionObject {
     // Each parameter will be declared in the function's scope, mixed in
     // with the function's local variables. This is by design.
 
-    // create a new variable and give it a 
+    // create a new variable and give it a
     this.params.forEach((p, i) => {
-      context.add(new Variable(p, this.inputTypes[i]));
+      context.add(new Variable(p, this.paramTypes[i]));
     });
 
     // Make sure all required parameters come before optional ones, and
