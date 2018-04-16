@@ -42,7 +42,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
@@ -61,7 +61,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
@@ -77,7 +77,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test2"' }],
         },
       ],
@@ -96,7 +96,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
@@ -112,7 +112,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test2"' }],
         },
       ],
@@ -120,7 +120,7 @@ describe('Conditionals', () => {
     expected.body.statements[0].alternate = {};
     expected.body.statements[0].alternate.statements = [
       {
-        callee: 'print',
+        callee: { id: 'print' },
         args: [{ value: '"test3"' }],
       },
     ];

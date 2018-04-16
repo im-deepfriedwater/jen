@@ -5,7 +5,7 @@ describe('Function Call', () => {
   const expected = {
     body: {
       statements: [{
-        callee: 'eat',
+        callee: { id: 'eat' },
         args: [
           { id: 'orange' },
           { id: 'green' },
@@ -23,18 +23,18 @@ describe('Function Call', () => {
     const result = parse('draw(paint(), crayons(), charcoal())');
     expected.body.statements[0] =
       {
-        callee: 'draw',
+        callee: { id: 'draw' },
         args: [
           {
-            callee: 'paint',
+            callee: { id: 'paint' },
             args: [],
           },
           {
-            callee: 'crayons',
+            callee: { id: 'crayons' },
             args: [],
           },
           {
-            callee: 'charcoal',
+            callee: { id: 'charcoal' },
             args: [],
           },
         ],

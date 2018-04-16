@@ -4,7 +4,6 @@ module.exports = class Call {
   }
 
   analyze(context) {
-    console.log(this.callee);
     this.callee.analyze(context);
     context.assertIsFunction(this.callee.referent);
     this.checkArgumentMatching(this.callee.referent);

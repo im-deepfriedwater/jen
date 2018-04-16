@@ -11,7 +11,7 @@ describe('While', () => {
         body: {
           statements: [{
             ids: ['sheep'],
-            initializers: ['ba'],
+            initializers: [{ id: 'ba' }],
           }],
         },
       }],
@@ -26,22 +26,22 @@ describe('While', () => {
     expected.body.statements[0].test = {
       left: {
         left: {
-          left: 'a',
+          left: { id: 'a' },
           op: '==',
-          right: 'b',
+          right: { id: 'b' },
         },
         op: '&&',
         right: {
-          left: 'grass',
+          left: { id: 'grass' },
           op: '==',
-          right: 'green',
+          right: { id: 'green' },
         },
       },
       op: '&&',
       right: {
-        left: 'sky',
+        left: { id: 'sky' },
         op: '!=',
-        right: 'blue',
+        right: { id: 'blue' },
       },
     };
     const result = parse('while a == b && grass == green && sky != blue  : \n  sheep := ba');

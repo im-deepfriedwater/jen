@@ -40,11 +40,11 @@ describe('For', () => {
         statements: [
           {
             args: [],
-            callee: 'dothisfirst',
+            callee: { id: 'dothisfirst' },
           },
           {
             args: [],
-            callee: 'dothissecond',
+            callee: { id: 'dothissecond' },
           }],
       },
     };
