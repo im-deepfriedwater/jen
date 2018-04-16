@@ -49,7 +49,7 @@ Jen {
   Return             = "return" ListOf<Expression, ",">
   Break              = "break"
   FuncCall           = ( Exp6_accessor | SubscriptExp | varId | funcId) "(" ListOf<Expression, ","> ")"
-  TypeDec            = "type" varId SumType
+  TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?

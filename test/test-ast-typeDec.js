@@ -32,7 +32,7 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'boolean',
       moreBasicTypesOrIds: [],
     };
-    let result = parse('type x string | boolean');
+    let result = parse('type x: string | boolean');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'y';
@@ -41,7 +41,7 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'boolean',
       moreBasicTypesOrIds: ['number', 'error'],
     };
-    result = parse('type y string | boolean | number | error');
+    result = parse('type y: string | boolean | number | error');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'z';
@@ -50,7 +50,7 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'y',
       moreBasicTypesOrIds: [],
     };
-    result = parse('type z string | y');
+    result = parse('type z: string | y');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'a';
@@ -59,7 +59,7 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'c',
       moreBasicTypesOrIds: ['d', 'e', 'f', 'g'],
     };
-    result = parse('type a b | c | d | e | f | g');
+    result = parse('type a: b | c | d | e | f | g');
     assert.deepEqual(result, expected);
   });
 });

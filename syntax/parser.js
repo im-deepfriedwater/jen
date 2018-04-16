@@ -11,7 +11,6 @@
 const ohm = require('ohm-js');
 const fs = require('fs');
 const withIndentsAndDedents = require('./preparser.js');
-const util = require('util');
 
 const Program = require('../ast/program');
 const Body = require('../ast/body');
@@ -65,7 +64,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
   Break(_1) { return new BreakStatement(); },
-  TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
+  TypeDec(_1, id, _2, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
     // console.log(signature);
