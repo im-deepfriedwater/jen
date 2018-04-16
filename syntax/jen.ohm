@@ -56,7 +56,8 @@ Jen {
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "break" | "type" | "ok" | "err") ~idrest
+                     | "false" | "typeof" | "return" | "break" | "type" | "ok" | "err"
+                     | "list") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
