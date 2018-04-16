@@ -5,11 +5,7 @@ describe('Exp1 Binary', () => {
   const expected = {
     body: {
       statements: [
-        {
-          op: '+',
-          left: 'x',
-          right: 'y',
-        },
+        {},
       ],
     },
   };
@@ -24,14 +20,13 @@ describe('Exp1 Binary', () => {
   });
   it('should correctly parse Exp1 Binary Expressions', () => {
     expected.body.statements[0].op = '+';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
+    expected.body.statements[0].left = { id: 'x' };
+    expected.body.statements[0].right = { id: 'y' };
     let result = parse('x + y');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '-';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
+
     result = parse('x - y');
     assert.deepEqual(result, expected);
 
@@ -42,8 +37,8 @@ describe('Exp1 Binary', () => {
         op: '+',
         left: {
           op: '+',
-          left: 'x',
-          right: 'y',
+          left: { id: 'x' },
+          right: { id: 'y' },
         },
         right: { value: 3 },
       },
