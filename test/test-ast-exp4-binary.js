@@ -28,13 +28,13 @@ describe('Exp4 Binary', () => {
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     let result = parse('x <= y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '>=';
     expected.body.statements[0].left = { value: 123 };
     expected.body.statements[0].right = 'z';
     result = parse('123 >= z');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '>';
     expected.body.statements[0].left = { value: 321 };
@@ -45,19 +45,19 @@ describe('Exp4 Binary', () => {
     expected.body.statements[0].left = 'a';
     expected.body.statements[0].right = { value: 526 };
     result = parse('a < 526');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '==';
     expected.body.statements[0].left = 'a';
     expected.body.statements[0].right = 'b';
     result = parse('a == b');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '!=';
     expected.body.statements[0].left = 'a';
     expected.body.statements[0].right = 'b';
     result = parse('a != b');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '!=';
     expected.body.statements[0].left = {
@@ -79,6 +79,6 @@ describe('Exp4 Binary', () => {
       right: 'u',
     };
     result = parse('(x > y <= 123) != (z < 3 == u)');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
   });
 });

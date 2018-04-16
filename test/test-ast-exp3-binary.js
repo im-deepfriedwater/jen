@@ -28,19 +28,19 @@ describe('Exp3 Binary', () => {
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     let result = parse('x ^ y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = { value: 123 };
     expected.body.statements[0].right = 'z';
     result = parse('123 ^ z');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = 'a';
     expected.body.statements[0].right = { value: 321 };
     result = parse('a ^ 321');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '^';
     expected.body.statements[0].left = {
@@ -58,6 +58,6 @@ describe('Exp3 Binary', () => {
     };
     expected.body.statements[0].right = 'asd';
     result = parse('123^a^b^123^asd');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
   });
 });

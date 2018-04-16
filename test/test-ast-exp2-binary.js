@@ -28,31 +28,31 @@ describe('Exp2 Binary', () => {
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     let result = parse('x * y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '%';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x % y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '//';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x // y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/%';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x /% y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/';
     expected.body.statements[0].left = 'x';
     expected.body.statements[0].right = 'y';
     result = parse('x / y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/';
     expected.body.statements[0].left = {
@@ -74,6 +74,6 @@ describe('Exp2 Binary', () => {
     };
     expected.body.statements[0].right = 'y';
     result = parse('x * z % 123 // 321 /% 21323 / y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
   });
 });
