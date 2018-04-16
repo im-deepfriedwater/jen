@@ -6,7 +6,11 @@ describe('Function Call', () => {
     body: {
       statements: [{
         callee: 'eat',
-        args: ['orange', 'green', 'blue'],
+        args: [
+          { id: 'orange' },
+          { id: 'green' },
+          { id: 'blue' },
+        ],
       }],
     },
   };
@@ -21,9 +25,18 @@ describe('Function Call', () => {
       {
         callee: 'draw',
         args: [
-          { callee: 'paint', args: [] },
-          { callee: 'crayons', args: [] },
-          { callee: 'charcoal', args: [] },
+          {
+            callee: 'paint',
+            args: [],
+          },
+          {
+            callee: 'crayons',
+            args: [],
+          },
+          {
+            callee: 'charcoal',
+            args: []
+          },
         ],
       };
     assert.deepEqual(result, expected);

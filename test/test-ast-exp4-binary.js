@@ -6,11 +6,7 @@ describe('Exp4 Binary', () => {
   const expected = {
     body: {
       statements: [
-        {
-          op: '<=',
-          left: 'x',
-          right: 'y',
-        },
+        { },
       ],
     },
   };
@@ -25,14 +21,14 @@ describe('Exp4 Binary', () => {
   });
   it('should correctly parse Exp4 Binary Expressions', () => {
     expected.body.statements[0].op = '<=';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
+    expected.body.statements[0].left = { id: 'x' };
+    expected.body.statements[0].right = { id: 'y' };
     let result = parse('x <= y');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '>=';
     expected.body.statements[0].left = { value: 123 };
-    expected.body.statements[0].right = 'z';
+    expected.body.statements[0].right = { id: 'z' };
     result = parse('123 >= z');
     assert.deepEqual(result, expected);
 
@@ -42,20 +38,18 @@ describe('Exp4 Binary', () => {
     result = parse('321 > 1241234');
 
     expected.body.statements[0].op = '<';
-    expected.body.statements[0].left = 'a';
+    expected.body.statements[0].left = { id: 'a' };
     expected.body.statements[0].right = { value: 526 };
     result = parse('a < 526');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '==';
-    expected.body.statements[0].left = 'a';
-    expected.body.statements[0].right = 'b';
+    expected.body.statements[0].left = { id: 'a' };
+    expected.body.statements[0].right = { id: 'b' };
     result = parse('a == b');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '!=';
-    expected.body.statements[0].left = 'a';
-    expected.body.statements[0].right = 'b';
     result = parse('a != b');
     assert.deepEqual(result, expected);
 
@@ -64,8 +58,8 @@ describe('Exp4 Binary', () => {
       op: '<=',
       left: {
         op: '>',
-        left: 'x',
-        right: 'y',
+        left: { id: 'x' },
+        right: { id: 'y' },
       },
       right: { value: 123 },
     };
@@ -73,10 +67,10 @@ describe('Exp4 Binary', () => {
       op: '==',
       left: {
         op: '<',
-        left: 'z',
+        left: { id: 'z' },
         right: { value: 3 },
       },
-      right: 'u',
+      right: { id: 'u' },
     };
     result = parse('(x > y <= 123) != (z < 3 == u)');
     assert.deepEqual(result, expected);
