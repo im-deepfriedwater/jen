@@ -64,7 +64,7 @@ Jen {
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
-  Type               = basicType | ListType | SumType | RecordType | id
+  Type               = basicType | ListType | SumType | RecordType | VariableExpression
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
