@@ -1,6 +1,6 @@
 i := 0
 j := 2
-k := True
+k := true
 someList := [1, 2, 3]
 
 for x in someList:

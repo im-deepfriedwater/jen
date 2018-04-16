@@ -6,7 +6,7 @@ describe('For', () => {
     body: {
       statements: [{
         test: ['a'],
-        testObject: 'b',
+        testObject: { id: 'b' },
         body: {
           statements: [{
             op: '+',
@@ -40,11 +40,11 @@ describe('For', () => {
         statements: [
           {
             args: [],
-            callee: 'dothisfirst',
+            callee: { id: 'dothisfirst' },
           },
           {
             args: [],
-            callee: 'dothissecond',
+            callee: { id: 'dothissecond' },
           }],
       },
     };

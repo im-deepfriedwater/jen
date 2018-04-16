@@ -29,11 +29,13 @@ Jen {
                      | stringLiteral
                      | RecordLiteral
                      | SubscriptExp
-                     | id ~Expression                                      -- id
+                     | VariableExpression
                      | booleanLiteral
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
+  VariableExpression = id ~Expression
+                     | id                                                  -- simple
   SubscriptExp       = id "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
@@ -44,25 +46,25 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params? "):"
-  Params             =  NonemptyListOf<varId, ",">
+  Signature          = (varId | constId) "(" Params "):"
+  Params             =  ListOf<varId, ",">
   Return             = "return" ListOf<Expression, ",">
   Break              = "break"
-  FuncCall           = ( Exp6_accessor | SubscriptExp | varId | funcId) "(" ListOf<Expression, ","> ")"
-  TypeDec            = "type" varId SumType
+  FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
+  TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
-  keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "break" | "type" | "ok" | "err") ~idrest
+  keyword            = ("if" | "while" | "else" | "for" | "else if" | "true"
+                     | "false" | "return" | "break" | "type" | "ok" | "err"
+                     | "list") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
-  funcId             = "typeof" | "print"
-  Type               = basicType | ListType | SumType | RecordType | id
+  Type               = basicType | ListType | SumType | RecordType | VariableExpression
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"

@@ -1,4 +1,4 @@
-type id string | number
+type id: string | number
 
 LIST_OF_EMPLOYEES := [1, 2, "3", "4", 5]
 

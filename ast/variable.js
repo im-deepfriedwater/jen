@@ -1,6 +1,7 @@
 module.exports = class Variable {
-  constructor(id) {
+  constructor(id, type) {
     this.id = id;
+    this.type = type;
   }
   /* eslint-disable */
   analyze() {
