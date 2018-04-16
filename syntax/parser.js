@@ -13,7 +13,6 @@ const fs = require('fs');
 const withIndentsAndDedents = require('./preparser.js');
 const util = require('util');
 
-
 const Program = require('../ast/program');
 const Body = require('../ast/body');
 const VarDec = require('../ast/variable-declaration');
@@ -41,6 +40,8 @@ const TypeDeclaration = require('../ast/type-declaration');
 const SumTypeClass = require('../ast/sum-type');
 const FuncSignature = require('../ast/signature');
 const FuncAnnotation = require('../ast/annotation');
+const IdentifierExpression = require('../ast/identifier-expression');
+
 
 // Credit to Ray Toal:
 // Ohm turns `x?` into either [x] or [], which we should clean up for our AST.
@@ -87,6 +88,9 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
   Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
+  Exp7_id(id) {
+    return new IdentifierExpression(id.ast());
+  },
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
