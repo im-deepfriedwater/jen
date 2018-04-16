@@ -35,7 +35,7 @@ describe('Function Call', () => {
           },
           {
             callee: 'charcoal',
-            args: []
+            args: [],
           },
         ],
       };
