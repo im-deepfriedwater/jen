@@ -81,8 +81,17 @@ class Context {
       throw new Error(message);
     }
   }
-}
 
+  assertRecordNoDuplicates(message) {
+    
+  }
+
+  assertIsField(nameOfRecord, field) { // eslint-disable-line class-methods-use-this
+    const currentRecord = this.lookup(nameOfRecord);
+    const fieldTest = currentField => currentField === field;
+    return currentRecord.fields.some(fieldTest);
+  }
+}
 Context.INITIAL = new Context();
 // new FunctionDeclaration('print', [new Parameter('_', null)], null).analyze(Context.INITIAL);
 // new FunctionDeclaration('sqrt', [new Parameter('_', null)], null).analyze(Context.INITIAL);

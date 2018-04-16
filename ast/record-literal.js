@@ -4,7 +4,11 @@ module.exports = class RecordLiteral {
   }
   /* eslint-disable */
   analyze() {
-    // empty on purpose!
+    // TODO prevent duplicate fields
+    context.assertRecordNoDuplicates('Duplicate field names');
+    // if (this.fields) {
+    //   this.fields.analyze(context);
+    // }
   }
   /* eslint-enable */
 
