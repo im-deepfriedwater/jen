@@ -35,6 +35,7 @@ Jen {
                      | List
                      | "(" Expression ")"                                  -- parens
   VariableExpression = id ~Expression
+                     | id                                                  -- simple
   SubscriptExp       = id "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
