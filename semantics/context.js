@@ -52,10 +52,7 @@ class Context {
       throw new Error(`Identitier ${entity.id} already declared in this scope`);
     }
     this.declarations[entity.id] = entity;
-    // What if instead when declared, here if its a variable set property
-    if ((typeof entity).equals(Variable)) {
-      this.declarations[entity.id].used = false;
-    }
+    // // What if instead when declared, here if its a variable set property
   }
 
   // Returns the entity bound to the given identifier, starting from this
@@ -65,7 +62,9 @@ class Context {
       // The idea here is it only will be false if its a variable that hasnt been used yet
       if (this.declarations[id].used === false) {
         this.declarations[id].used = true;
+        throw new Error('Accessed a variable, as intended use');
       }
+
       return this.declarations[id];
     } else if (this.parent === null) {
       throw new Error(`Identifier ${id} has not been declared`);
@@ -86,12 +85,11 @@ class Context {
     }
   }
 
-<<<<<<< HEAD
   // Dont really know what to do with this. Its a function that is supposed to loop
   // through all the variables but I dont know where to call it or if its even right
   checkForUnusedDeclared() {
-    for (let id = 0; id < Object.keys(this.declarations).length; id += 1) {
-      if (!Object.keys(this.declarations)[id].used) {
+    for (let id = 0; id < this.declarations.length; id += 1) {
+      if (!this.declarations[id].used) {
         // console.log('warning');
         throw new Error('Unused');
       }
@@ -102,11 +100,11 @@ class Context {
   checkIfThisIsUnused(variable) { // eslint-disable-line class-methods-use-this
     if (!variable.used) {
       throw new Error('Unused variable');
-=======
+    }
+  }
   assertInLoop(message) {
     if (!this.inLoop) {
       throw new Error(message);
->>>>>>> 195ea00dfe2bf3ececf636c0c91e1fabe4f41cf0
     }
   }
 }
