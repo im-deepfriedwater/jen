@@ -2,7 +2,7 @@ const parse = require('../syntax/parser');
 const assert = require('assert');
 
 /* eslint-disable no-undef */
-describe('Return Expressions', () => {
+describe('Return Statement', () => {
   const expected = {
     body: {
       statements: [
@@ -18,7 +18,7 @@ describe('Return Expressions', () => {
       returnValue: 'temp',
     };
   });
-  it('should correctly parse Return Expressions', () => {
+  it('should correctly parse Return Statement', () => {
     expected.body.statements[0].returnValue = [{ value: 10 }];
     let result = parse('return 10');
     assert.deepEqual(result, expected);

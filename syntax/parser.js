@@ -64,7 +64,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Statement_declaration(body, _) { return body.ast(); },
   Statement_assignment(body, _) { return body.ast(); },
   Statement_typedec(body, _) { return body.ast(); },
-  Statement_return(body, _) { return body.ast(); },
+  Statement_return(returnStmt, _) { return returnStmt.ast(); },
   Statement_break(_1, _2) { return new BreakStatement(); },
   Statement_expression(body, _) { return body.ast(); },
   Declaration(ids, _, exps) { return new VarDec(ids.ast(), exps.ast()); },
@@ -74,7 +74,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   TypeDec(_1, id, _2, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
-    // console.log(signature);
     return new FunctionDeclaration(annotation.ast(), signature.ast(), suite.ast());
   },
   Signature(id, _2, params, _3) { return new FuncSignature(id.ast(), params.ast()); },

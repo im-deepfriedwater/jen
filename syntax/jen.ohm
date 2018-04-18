@@ -55,7 +55,6 @@ Jen {
   Signature          = (varId | constId) "(" Params "):"
   Params             =  ListOf<varId, ",">
   Return             = "return" ListOf<Expression, ",">
-  Break              = "break"
   FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
