@@ -42,7 +42,7 @@ Jen {
                      | List
                      | "(" Expression ")"                                  -- parens
   VariableExpression = id
-  SubscriptExp       = id "[" Expression "]"
+  SubscriptExp       = VariableExpression "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
@@ -70,11 +70,11 @@ Jen {
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
-  Type               = basicType | ListType | SumType | RecordType | VariableExpression
+  Type               = ListType | basicType | RecordType | VariableExpression
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"
-  ListType           = "list"+ ( id | basicType | SumType ) ~"list"
-  SumType            = (id | basicType) "|" (id | basicType) ("|" (id | basicType))*
+  ListType           = "list"+ ( basicType | RecordType | VariableExpression )
+  SumType            = Type "|" Type ("|" Type)*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
   Field              = id ":" Type
   FieldValue         = id ":" Expression
