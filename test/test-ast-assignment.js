@@ -10,7 +10,7 @@ describe('Assignment', () => {
         {
           ids: ['always'],
           initializers: [{
-            callee: 'study',
+            callee: { id: 'study' },
             args: [],
           }],
         },

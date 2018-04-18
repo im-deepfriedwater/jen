@@ -32,8 +32,8 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'boolean',
       moreBasicTypesOrIds: [],
     };
-    let result = parse('type x string | boolean');
-    assert.deepEqual(expected, result);
+    let result = parse('type x: string | boolean');
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'y';
     expected.body.statements[0].sumtype = {
@@ -41,8 +41,8 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'boolean',
       moreBasicTypesOrIds: ['number', 'error'],
     };
-    result = parse('type y string | boolean | number | error');
-    assert.deepEqual(expected, result);
+    result = parse('type y: string | boolean | number | error');
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'z';
     expected.body.statements[0].sumtype = {
@@ -50,8 +50,8 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'y',
       moreBasicTypesOrIds: [],
     };
-    result = parse('type z string | y');
-    assert.deepEqual(expected, result);
+    result = parse('type z: string | y');
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].id = 'a';
     expected.body.statements[0].sumtype = {
@@ -59,7 +59,7 @@ describe('TypeDec', () => {
       basicTypeOrId2: 'c',
       moreBasicTypesOrIds: ['d', 'e', 'f', 'g'],
     };
-    result = parse('type a b | c | d | e | f | g');
-    assert.deepEqual(expected, result);
+    result = parse('type a: b | c | d | e | f | g');
+    assert.deepEqual(result, expected);
   });
 });

@@ -6,46 +6,37 @@ const assert = require('assert');
 describe('Function Declarations', () => {
   // Initialize test object for reuse.
   const expected = {
-    body: {
-      statements: [{
-        id: 'createMoney',
-        inputTypes: ['void'],
-        outputTypes: ['number'],
-        params: [''],
-        function: {
-          id: 'createMoney',
-          inputTypes: ['void'],
-          outputTypes: ['number'],
-          params: [''],
-          suite: {
-            statements: [{
-              returnValue: { value: 9001 },
-            }],
-          },
-        },
-      },
-      ],
-    },
+    body: {},
   };
 
   beforeEach(() => {
-    // Clear out the test object before each run.
+    // Setup and clear the test object before each run.
     expected.body = {
       statements: [{
-        id: '',
-        inputTypes: [''],
-        outputTypes: [''],
-        params: [''],
+        annotation: {
+          id: '',
+          paramTypes: [],
+          resultTypes: [],
+        },
+
+        signature: {
+          id: '',
+          params: [],
+        },
+
         function: {
           id: '',
-          inputTypes: [''],
-          outputTypes: [''],
-          params: [''],
-          suite: {
-            statements: [{
-              returnValue: { value: 0 },
-            }],
-          },
+          paramTypes: [],
+          resultTypes: [],
+          params: [],
+        },
+
+        suite: {
+          statements: [
+            {
+              returnValue: {},
+            },
+          ],
         },
       },
       ],
@@ -56,21 +47,48 @@ describe('Function Declarations', () => {
     const testProgram =
     'createMoney: void -> number\ncreateMoney (): \n    return 9001\n';
     const result = parse(testProgram);
-    expected.body.statements[0].id = 'createMoney';
-    expected.body.statements[0].inputTypes = ['void'];
-    expected.body.statements[0].outputTypes = ['number'];
-    expected.body.statements[0].params = [''];
-    expected.body.statements[0].function.id = 'createMoney';
-    expected.body.statements[0].function.inputTypes = ['void'];
-    expected.body.statements[0].function.outputTypes = ['number'];
-    expected.body.statements[0].function.params = [''];
-    expected.body.statements[0].function.suite = {
+
+    expected.body.statements[0].annotation = {
+      id: 'createMoney',
+      paramTypes: ['void'],
+      resultTypes: ['number'],
+    };
+
+    expected.body.statements[0].signature = {
+      id: 'createMoney',
+      params: [],
+    };
+
+    expected.body.statements[0].function = {
+      id: 'createMoney',
+      paramTypes: ['void'],
+      resultTypes: ['number'],
+      params: [],
+      suite: {
+        statements: [
+          {
+            returnValue: [
+              {
+                value: 9001,
+              },
+            ],
+          },
+        ],
+      },
+    };
+
+    expected.body.statements[0].suite = {
       statements: [
         {
-          returnValue: [{ value: 9001 }],
+          returnValue: [
+            {
+              value: 9001,
+            },
+          ],
         },
       ],
     };
+
     assert.deepEqual(result, expected);
   });
 
@@ -78,15 +96,42 @@ describe('Function Declarations', () => {
     const testProgram =
     'spendMoney: number, string -> number, string\nspendMoney (yourMoney, id): \n    return 0, "Your Money"\n';
     const result = parse(testProgram);
-    expected.body.statements[0].id = 'spendMoney';
-    expected.body.statements[0].inputTypes = ['number', 'string'];
-    expected.body.statements[0].outputTypes = ['number', 'string'];
-    expected.body.statements[0].params = ['yourMoney', 'id'];
-    expected.body.statements[0].function.id = 'spendMoney';
-    expected.body.statements[0].function.inputTypes = ['number', 'string'];
-    expected.body.statements[0].function.outputTypes = ['number', 'string'];
-    expected.body.statements[0].function.params = ['yourMoney', 'id'];
-    expected.body.statements[0].function.suite = {
+
+
+    expected.body.statements[0].annotation = {
+      id: 'spendMoney',
+      paramTypes: ['number', 'string'],
+      resultTypes: ['number', 'string'],
+    };
+
+    expected.body.statements[0].signature = {
+      id: 'spendMoney',
+      params: ['yourMoney', 'id'],
+    };
+
+    expected.body.statements[0].function = {
+      id: 'spendMoney',
+      paramTypes: ['number', 'string'],
+      resultTypes: ['number', 'string'],
+      params: ['yourMoney', 'id'],
+      suite: {
+        statements: [
+          {
+            returnValue: [
+              {
+                value: 0,
+              },
+
+              {
+                value: '"Your Money"',
+              },
+            ],
+          },
+        ],
+      },
+    };
+
+    expected.body.statements[0].suite = {
       statements: [
         {
           returnValue: [

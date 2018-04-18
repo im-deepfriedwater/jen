@@ -1,6 +1,7 @@
 module.exports = class Parameter {
-  constructor(id, defaultExpression) {
-    Object.assign(this, { id, defaultExpression });
+  constructor(id) {
+    // console.log(id);
+    Object.assign(this, { id });
   }
 
   get isRequired() {
@@ -8,14 +9,10 @@ module.exports = class Parameter {
   }
 
   analyze(context) {
-    if (this.defaultExpression) {
-      this.defaultExpression.analyze();
-    }
     context.add(this);
   }
 
   optimize() {
-    this.defaultExpression = this.defaultExpression.optimize();
     return this;
   }
 };

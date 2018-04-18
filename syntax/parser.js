@@ -19,7 +19,10 @@ const VarAsgn = require('../ast/assignment-statement');
 const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
+const RecordLiteral = require('../ast/record-literal');
+const FieldValue = require('../ast/field-value');
 const WhileStatement = require('../ast/while-statement');
+const BreakStatement = require('../ast/break');
 const BinaryExpression = require('../ast/binary-expression');
 const UnaryExpression = require('../ast/unary-expression');
 const SubscriptedExpression = require('../ast/subscripted-expression');
@@ -36,6 +39,10 @@ const ListExpression = require('../ast/list');
 const ListTypeExpression = require('../ast/list-type');
 const TypeDeclaration = require('../ast/type-declaration');
 const SumTypeClass = require('../ast/sum-type');
+const FuncSignature = require('../ast/signature');
+const FuncAnnotation = require('../ast/annotation');
+const IdentifierExpression = require('../ast/identifier-expression');
+
 
 // Credit to Ray Toal:
 // Ohm turns `x?` into either [x] or [], which we should clean up for our AST.
@@ -63,10 +70,16 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Assignment(ids, _, exps) { return new VarAsgn(ids.ast(), exps.ast()); },
   For(_1, exps, _2, e, _3, suite) { return new ForStatement(exps.ast(), e.ast(), suite.ast()); },
   While(_1, exps, _2, suite) { return new WhileStatement(exps.ast(), suite.ast()); },
-  TypeDec(_1, id, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
+  Break(_1) { return new BreakStatement(); },
+  TypeDec(_1, id, _2, sumType) { return new TypeDeclaration(id.ast(), sumType.ast()); },
   Return(_, e) { return new Return(e.ast()); },
   FuncDec(annotation, _1, signature, _2, suite) {
-    return new FunctionDeclaration(annotation.sourceString, signature.sourceString, suite.ast());
+    // console.log(signature);
+    return new FunctionDeclaration(annotation.ast(), signature.ast(), suite.ast());
+  },
+  Signature(id, _2, params, _3) { return new FuncSignature(id.ast(), params.ast()); },
+  Annotation(id, _1, paramTypes, _2, resultTypes) {
+    return new FuncAnnotation(id.ast(), paramTypes.ast(), resultTypes.ast());
   },
   Expression_ternary(conditional, _1, trueValue, _2, falseValue) {
     return new TernaryExpression(conditional.ast(), trueValue.ast(), falseValue.ast());
@@ -81,7 +94,9 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
   Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
-
+  VariableExpression(id) {
+    return new IdentifierExpression(id.ast());
+  },
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
@@ -91,11 +106,15 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   SubscriptExp(id, _1, expression, _2) {
     return new SubscriptedExpression(id.ast(), expression.ast());
   },
-  NonemptyListOf(first, _, rest) { return [first.ast(), ...rest.ast()]; },
+  NonemptyListOf(first, _, rest) {
+    return [first.ast(), ...rest.ast()];
+  },
   EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
   packageId(_1, _2) { return this.sourceString; },
+  FieldValue(id, _1, expression) { return new FieldValue(id.ast(), expression.ast()); },
+  RecordLiteral(_1, fields, _2) { return new RecordLiteral(fields.ast()); },
   booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
   numLiteral(_1, _2, _3) { return new NumericLiteral(+this.sourceString); },
   errLiteral(_) { return new ErrorLiteral(this.sourceString); },

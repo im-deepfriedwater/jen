@@ -10,6 +10,7 @@ Jen {
                      | FuncDec
                      | TypeDec newLine+                                     -- typedec
                      | Return newLine+                                      -- return
+                     | "break" newLine+                                     -- break
                      | Expression newLine+                                  -- expression
 
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
@@ -35,11 +36,12 @@ Jen {
                      | stringLiteral
                      | RecordLiteral
                      | SubscriptExp
-                     | id
+                     | VariableExpression
                      | booleanLiteral
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
+  VariableExpression = id
   SubscriptExp       = id "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
@@ -50,26 +52,27 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params? "):"
-  Params             =  NonemptyListOf<varId, ",">
+  Signature          = (varId | constId) "(" Params "):"
+  Params             =  ListOf<varId, ",">
   Return             = "return" ListOf<Expression, ",">
-  FuncCall           = ( Exp6_accessor | SubscriptExp | varId | funcId) "(" ListOf<Expression, ","> ")"
-  TypeDec            = "type" varId SumType
+  Break              = "break"
+  FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
+  TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
-  keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type" | "ok" | "err") ~idrest
+  keyword            = ("if" | "while" | "else" | "for" | "else if" | "true"
+                     | "false" | "return" | "break" | "type" | "ok" | "err"
+                     | "list") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
-  funcId             = "typeof" | "print"
-  Type               = basicType | ListType | SumType | RecordType | id
-  basicType          = "string" | "boolean" | "number"
-                     | "record" | "any" | "void" | "error"
+  Type               = basicType | ListType | SumType | RecordType | VariableExpression
+  basicType          = "string" | "boolean" | "number" | "record"
+                     | "any" | "void" | "error"
   ListType           = "list"+ ( id | basicType | SumType ) ~"list"
   SumType            = (id | basicType) "|" (id | basicType) ("|" (id | basicType))*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
@@ -78,7 +81,7 @@ Jen {
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
-  numLiteral         = digit+ ("." digit+)? ~letter
+  numLiteral         = digit+ ("." digit+)?
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
   char               = escape

@@ -1,9 +1,19 @@
 i := 0
+j := 2
+k := true
 someList := [1, 2, 3]
 
 for x in someList:
   print(x)
+  if k:
+    break
 
 while i < 3:
   print(someList[i])
   i = i + 1
+
+while j < 10:
+  print(j)
+  j = j + 1
+  if k:
+    break

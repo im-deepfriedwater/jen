@@ -1,4 +1,6 @@
 /*
+ * Credit to @rtoal
+ * https://github.com/rtoal/plainscript
  * Semantic Analysis Context
  *
  * A context object holds state for the semantic analysis phase, such as the
@@ -9,6 +11,10 @@
  */
 
 const FunctionObject = require('../ast/function-object');
+const FunctionDeclaration = require('../ast/function-declaration');
+const Annotation = require('../ast/annotation');
+const Signature = require('../ast/signature');
+
 
 class Context {
   constructor({ parent = null, currentFunction = null, inLoop = false } = {}) {
@@ -73,10 +79,16 @@ class Context {
       throw new Error(`${entity.id} is not a function`);
     }
   }
+
+  assertInLoop(message) {
+    if (!this.inLoop) {
+      throw new Error(message);
+    }
+  }
 }
 
 Context.INITIAL = new Context();
-// new FunctionDeclaration('print', [new Parameter('_', null)], null).analyze(Context.INITIAL);
-// new FunctionDeclaration('sqrt', [new Parameter('_', null)], null).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
 
 module.exports = Context;
