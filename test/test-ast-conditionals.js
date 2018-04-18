@@ -48,9 +48,15 @@ describe('Conditionals', () => {
       ],
     };
     expected.body.statements[0].alternate = null;
-    let result = parse('if (x < 2):⇨print("test1")⇦');
-    assert.deepEqual(result, expected);
 
+    const testProgram =
+`if (x < 2):
+  print("test1")
+`;
+    const result = parse(testProgram);
+    assert.deepEqual(result, expected);
+  });
+  it('should correctly parse if else expressions', () => {
     expected.body.statements[0].cases[0].test = {
       op: '<',
       left: {
@@ -83,9 +89,16 @@ describe('Conditionals', () => {
       ],
     };
     expected.body.statements[0].alternate = null;
-    result = parse('if (x < 2):⇨print("test1")⇦else if x > 0:⇨print("test2")⇦');
-    assert.deepEqual(result, expected);
+    const testProgram =
+`if (x < 2):
+  print("test1")
+else if x > 0:
+  print("test2")`;
 
+    const result = parse(testProgram);
+    assert.deepEqual(result, expected);
+  });
+  it('should properly parse if else if else statements', () => {
     expected.body.statements[0].cases[0].test = {
       op: '<',
       left: {
@@ -124,7 +137,15 @@ describe('Conditionals', () => {
         args: [{ value: '"test3"' }],
       },
     ];
-    result = parse('if (x < 2):⇨print("test1")⇦else if x > 0:⇨print("test2")⇦else:⇨print("test3")⇦');
+    const testProgram = `
+if (x < 2):
+  print("test1")
+else if x > 0:
+  print("test2")
+else:
+  print("test3")
+`;
+    const result = parse(testProgram);
     assert.deepEqual(result, expected);
   });
 });
