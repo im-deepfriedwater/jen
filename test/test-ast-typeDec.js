@@ -7,10 +7,10 @@ describe('TypeDec', () => {
     body: {
       statements: [
         {
-          id: 'x',
+          id: '',
           sumtype: {
-            basicTypeOrId1: 'string',
-            basicTypeOrId2: 'boolean',
+            basicTypeOrId1: '',
+            basicTypeOrId2: '',
             moreBasicTypesOrIds: [],
           },
         },
@@ -21,7 +21,7 @@ describe('TypeDec', () => {
   beforeEach(() => {
     // Clear out the test object before each run.
     expected.body.statements[0] = {
-      id: 'temp',
+      id: '',
       sumtype: {},
     };
   });
@@ -47,7 +47,7 @@ describe('TypeDec', () => {
     expected.body.statements[0].id = 'z';
     expected.body.statements[0].sumtype = {
       basicTypeOrId1: 'string',
-      basicTypeOrId2: 'y',
+      basicTypeOrId2: { id: 'y' },
       moreBasicTypesOrIds: [],
     };
     result = parse('type z: string | y');
@@ -55,9 +55,9 @@ describe('TypeDec', () => {
 
     expected.body.statements[0].id = 'a';
     expected.body.statements[0].sumtype = {
-      basicTypeOrId1: 'b',
-      basicTypeOrId2: 'c',
-      moreBasicTypesOrIds: ['d', 'e', 'f', 'g'],
+      basicTypeOrId1: { id: 'b' },
+      basicTypeOrId2: { id: 'c' },
+      moreBasicTypesOrIds: [{ id: 'd' }, { id: 'e' }, { id: 'f' }, { id: 'g' }],
     };
     result = parse('type a: b | c | d | e | f | g');
     assert.deepEqual(result, expected);

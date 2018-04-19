@@ -1,6 +1,6 @@
 module.exports = class ListTypeExpression {
-  constructor(type) {
-    Object.assign(this, { type });
+  constructor(listType) {
+    Object.assign(this, { listType });
   }
 
   analyze(context) {

@@ -5,10 +5,10 @@ describe('List Type', () => {
   const expected = {
     body: {
       statements: [{
-        id: { id: 'a' },
+        id: 'a',
         sumtype: {
-          basicTypeOrId1: 'a',
-          basicTypeOrId2: 'list number',
+          basicTypeOrId1: { id: 'b' },
+          basicTypeOrId2: { listType: 'number' },
           moreBasicTypesOrIds: [],
         },
       },
@@ -17,7 +17,7 @@ describe('List Type', () => {
   };
 
   it('should correctly parse a list type', () => {
-    const result = parse('type a: a | list number');
+    const result = parse('type a: b | list number');
     assert.deepEqual(result, expected);
   });
 });

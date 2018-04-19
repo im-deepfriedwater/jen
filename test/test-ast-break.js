@@ -28,7 +28,13 @@ describe('Break', () => {
   };
 
   it('should correctly parse a break in a while loop', () => {
-    const result = parse('while true : \n if (1 < 2):⇨break⇦');
+    const testProgram =
+    `while true:
+      if (1 < 2):
+        break
+    `;
+
+    const result = parse(testProgram);
     assert.deepEqual(result, expected);
   });
   it('should correctly parse a break in a for loop', () => {
@@ -51,7 +57,13 @@ describe('Break', () => {
         }],
       },
     };
-    const result = parse('for a in b : \n if (1 < 2):⇨break⇦');
+    const testProgram =
+    `for a in b:
+       if (1 < 2):
+           break
+     `;
+
+    const result = parse(testProgram);
     assert.deepEqual(result, expected);
   });
 });
