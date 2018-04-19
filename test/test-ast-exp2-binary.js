@@ -6,11 +6,7 @@ describe('Exp2 Binary', () => {
   const expected = {
     body: {
       statements: [
-        {
-          op: '*',
-          left: 'x',
-          right: 'y',
-        },
+        {},
       ],
     },
   };
@@ -25,34 +21,26 @@ describe('Exp2 Binary', () => {
   });
   it('should correctly parse Exp2 Binary Expressions', () => {
     expected.body.statements[0].op = '*';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
+    expected.body.statements[0].left = { id: 'x' };
+    expected.body.statements[0].right = { id: 'y' };
     let result = parse('x * y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '%';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
     result = parse('x % y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '//';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
     result = parse('x // y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/%';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
     result = parse('x /% y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/';
-    expected.body.statements[0].left = 'x';
-    expected.body.statements[0].right = 'y';
     result = parse('x / y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
 
     expected.body.statements[0].op = '/';
     expected.body.statements[0].left = {
@@ -63,8 +51,8 @@ describe('Exp2 Binary', () => {
           op: '%',
           left: {
             op: '*',
-            left: 'x',
-            right: 'z',
+            left: { id: 'x' },
+            right: { id: 'z' },
           },
           right: { value: 123 },
         },
@@ -72,8 +60,8 @@ describe('Exp2 Binary', () => {
       },
       right: { value: 21323 },
     };
-    expected.body.statements[0].right = 'y';
+    expected.body.statements[0].right = { id: 'y' };
     result = parse('x * z % 123 // 321 /% 21323 / y');
-    assert.deepEqual(expected, result);
+    assert.deepEqual(result, expected);
   });
 });

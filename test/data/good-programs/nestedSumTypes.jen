@@ -1,5 +1,5 @@
-type numberString string | number
-type booleanNumberString boolean | numberStrings
+type numberString: string | number
+type booleanNumberString: boolean | numberStrings
 
 listOfTypes = ["hello", true, "bob", 123123, "!!"]
 

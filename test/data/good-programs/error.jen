@@ -1,4 +1,10 @@
+someFunction: number -> string, error
+someFunction(valueToCheck):
+    if valueToCheck > 5:
+        return "Good job! So proud!", ok
+    else:
+        return "Wow. disappointment.", err
 
-result, trueHello := someFunction()
-if trueHello == ok:
-    print('File could not open')
+result, errorValue := someFunction()
+if errorValue == ok:
+    print(result)

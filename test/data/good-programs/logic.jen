@@ -7,6 +7,6 @@ eitherIsTrue(x, y):
   return x || y
 
 isOdd: number -> boolean
-idOff(x):
+isOdd(x):
   if !evenNumber(x):
     return y=='The number is odd'

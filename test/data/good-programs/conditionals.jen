@@ -1,4 +1,4 @@
-x := True
+x := true
 
 if x:
   print('Wow it is true!')
