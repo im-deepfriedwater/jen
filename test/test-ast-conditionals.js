@@ -9,15 +9,10 @@ describe('Conditionals', () => {
           cases: [
             {
               test: {
-                op: '<',
-                left: 'x',
-                right: { value: 2 },
               },
               body: {
                 statements: [
                   {
-                    callee: 'print',
-                    args: [{ value: '"test1"' }],
                   },
                 ],
               },
@@ -39,30 +34,40 @@ describe('Conditionals', () => {
   it('should correctly parse Conditional Expressions', () => {
     expected.body.statements[0].cases[0].test = {
       op: '<',
-      left: 'x',
+      left: {
+        id: 'x',
+      },
       right: { value: 2 },
     };
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
     };
     expected.body.statements[0].alternate = null;
-    let result = parse('if (x < 2):⇨print("test1")⇦');
-    assert.deepEqual(expected, result);
 
+    const testProgram =
+`if (x < 2):
+  print("test1")
+`;
+    const result = parse(testProgram);
+    assert.deepEqual(result, expected);
+  });
+  it('should correctly parse if else expressions', () => {
     expected.body.statements[0].cases[0].test = {
       op: '<',
-      left: 'x',
+      left: {
+        id: 'x',
+      },
       right: { value: 2 },
     };
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
@@ -70,30 +75,41 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[1] = {};
     expected.body.statements[0].cases[1].test = {
       op: '>',
-      left: 'x',
+      left: {
+        id: 'x',
+      },
       right: { value: 0 },
     };
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test2"' }],
         },
       ],
     };
     expected.body.statements[0].alternate = null;
-    result = parse('if (x < 2):⇨print("test1")⇦else if x > 0:⇨print("test2")⇦');
-    assert.deepEqual(expected, result);
+    const testProgram =
+`if (x < 2):
+  print("test1")
+else if x > 0:
+  print("test2")`;
 
+    const result = parse(testProgram);
+    assert.deepEqual(result, expected);
+  });
+  it('should properly parse if else if else statements', () => {
     expected.body.statements[0].cases[0].test = {
       op: '<',
-      left: 'x',
+      left: {
+        id: 'x',
+      },
       right: { value: 2 },
     };
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test1"' }],
         },
       ],
@@ -101,13 +117,15 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[1] = {};
     expected.body.statements[0].cases[1].test = {
       op: '>',
-      left: 'x',
+      left: {
+        id: 'x',
+      },
       right: { value: 0 },
     };
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: 'print',
+          callee: { id: 'print' },
           args: [{ value: '"test2"' }],
         },
       ],
@@ -115,11 +133,19 @@ describe('Conditionals', () => {
     expected.body.statements[0].alternate = {};
     expected.body.statements[0].alternate.statements = [
       {
-        callee: 'print',
+        callee: { id: 'print' },
         args: [{ value: '"test3"' }],
       },
     ];
-    result = parse('if (x < 2):⇨print("test1")⇦else if x > 0:⇨print("test2")⇦else:⇨print("test3")⇦');
-    assert.deepEqual(expected, result);
+    const testProgram = `
+if (x < 2):
+  print("test1")
+else if x > 0:
+  print("test2")
+else:
+  print("test3")
+`;
+    const result = parse(testProgram);
+    assert.deepEqual(result, expected);
   });
 });

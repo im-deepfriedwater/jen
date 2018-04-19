@@ -31,12 +31,6 @@ module.exports = class Call {
       }
       matchedParameterNames.add(parameterName);
     });
-
-    // Look for and report a required parameter that is not matched
-    const miss = [...callee.requiredParameterNames].find(name => !matchedParameterNames.has(name));
-    if (miss) {
-      throw new Error(`Required parameter ${miss} is not matched in call`);
-    }
   }
 
   optimize() {

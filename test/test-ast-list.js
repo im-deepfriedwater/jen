@@ -17,7 +17,11 @@ describe('List', () => {
   });
 
   it('should correctly parse a list', () => {
-    expected.body.statements[0].values = ['bread', 'cheese', 'wine'];
+    expected.body.statements[0].values = [
+      { id: 'bread' },
+      { id: 'cheese' },
+      { id: 'wine' },
+    ];
     const result = parse('[bread, cheese, wine]');
     assert.deepEqual(result, expected);
   });
@@ -51,7 +55,7 @@ describe('List', () => {
       },
       {
         args: [],
-        callee: 'swim',
+        callee: { id: 'swim' },
       },
       { value: 0 },
       { value: 34 },

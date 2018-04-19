@@ -11,6 +11,10 @@
  */
 
 const FunctionObject = require('../ast/function-object');
+const FunctionDeclaration = require('../ast/function-declaration');
+const Annotation = require('../ast/annotation');
+const Signature = require('../ast/signature');
+
 
 class Context {
   constructor({ parent = null, currentFunction = null, inLoop = false } = {}) {
@@ -93,7 +97,7 @@ class Context {
   }
 }
 Context.INITIAL = new Context();
-// new FunctionDeclaration('print', [new Parameter('_', null)], null).analyze(Context.INITIAL);
-// new FunctionDeclaration('sqrt', [new Parameter('_', null)], null).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
 
 module.exports = Context;

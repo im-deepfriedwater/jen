@@ -7,18 +7,17 @@ describe('List Type', () => {
       statements: [{
         id: 'a',
         sumtype: {
-          basicTypeOrId1: 'a',
-          basicTypeOrId2: 'list',
+          basicTypeOrId1: { id: 'b' },
+          basicTypeOrId2: { listType: 'number' },
           moreBasicTypesOrIds: [],
         },
       },
-      'number',
       ],
     },
   };
 
   it('should correctly parse a list type', () => {
-    const result = parse('type a a | list number');
+    const result = parse('type a: b | list number');
     assert.deepEqual(result, expected);
   });
 });
