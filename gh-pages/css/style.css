@@ -60,10 +60,6 @@ li:hover {
 
 
 
-
-
-
-
 .center-wrapped-text {
     margin: auto;
     text-align: center;
@@ -134,18 +130,6 @@ li:hover {
     width: 30vw;
     font-size: 2vh;}
 
-@media only screen
-and (min-device-width : 320px)
-and (max-device-width : 720px) {
-    .introduction-wrapper {
-        grid-column: 1/3;
-        width: 80;
-        grid-row: 1;}
-
-    .logo-wrapper {
-        display: none}
-}
-
 .code-examples-wrapper{
     grid-column: 1/3;
     grid-row: 4;}
@@ -171,3 +155,43 @@ and (max-device-width : 720px) {
 .literal-string{color:var(--jen-code-literal-string);}
 .keyword{color: var(--jen-code-keyword);}
 .indent{padding-left: 3vw;}
+
+
+
+
+@media only screen
+and (min-device-width : 0px)
+and (max-device-width : 720px) {
+    .content-wrapper{
+        grid-column: 1/3;
+        grid-row: 3;
+        font-family: Roboto;
+        display: grid;
+        padding: 3vh;
+        grid-template-rows: repeat(8, auto);
+        grid-gap: 0px;
+        margin: auto;
+        margin-left: 1vw;
+        margin-right: 1vw;}
+
+    .introduction-wrapper {
+        grid-column: 1/3;
+        font-size: 2vh;
+        width: auto;
+        grid-row: 1;}
+
+    .logo-wrapper {
+        display: none}
+
+    .subheader-wrapper{
+        grid-column: 1/3;
+        width: auto;
+    }
+    .code-examples-wrapper{
+        margin: 2vw;
+        width: auto;
+    }
+    .jen-code{
+        width: 74vw;
+    }
+}
