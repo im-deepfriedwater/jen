@@ -345,7 +345,7 @@ def areaOfCircle(radius):
 ```
 
 ```
-type id string | number
+type id: string | number
 
 LIST_OF_EMPLOYEES := [1, 2, "thomas", "elizabeth", 5]
 
