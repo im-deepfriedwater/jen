@@ -14,10 +14,19 @@ jen is a scripting language meant to be your new best friend! Drawing inspiratio
 ```
 Jen {
   Program            = newLine* Body newLine*
-  Body               = (Statement newLine* | Expression newLine*)*
+  Body               = Statement*
   Suite              = newLine* indent Body dedent
-  Statement          = Conditional | Loop | Declaration | Assignment | FuncDec
-                     | TypeDec | Return
+
+  Statement          = Conditional
+                     | Loop
+                     | Declaration newLine+                                 -- declaration
+                     | Assignment newLine+                                  -- assignment
+                     | FuncDec
+                     | TypeDec newLine+                                     -- typedec
+                     | Return newLine+                                      -- return
+                     | "break" newLine+                                     -- break
+                     | Expression newLine+                                  -- expression
+
   Expression         = (Exp0 "?" Expression ":" Expression)                -- ternary
                      | Exp0
   Exp0               = Exp0 "&&" Exp1                                      -- and
@@ -34,19 +43,20 @@ Jen {
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = id "." Exp6                                         -- accessor
+  Exp6               = FuncCall
+                     | Exp6 "." id                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
                      | stringLiteral
                      | RecordLiteral
                      | SubscriptExp
-                     | FuncCall
-                     | id ~Expression                                      -- id
+                     | VariableExpression
                      | booleanLiteral
                      | errLiteral
                      | List
                      | "(" Expression ")"                                  -- parens
-  SubscriptExp       = id "[" Expression "]"
+  VariableExpression = id
+  SubscriptExp       = VariableExpression "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
                      = NonemptyListOf<Expression, ",">
@@ -56,35 +66,35 @@ Jen {
   FuncDec            = Annotation newLine Signature newLine Suite
   Annotation         = (varId | constId) ":" ParamTypes "->" ParamTypes
   ParamTypes         = NonemptyListOf<Type, ",">
-  Signature          = (varId | constId) "(" Params? "):"
-  Params             =  NonemptyListOf<varId, ",">
+  Signature          = (varId | constId) "(" Params "):"
+  Params             =  ListOf<varId, ",">
   Return             = "return" ListOf<Expression, ",">
-  FuncCall           = (varId | funcId | SubscriptExp) "(" ListOf<Expression, ","> ")"
-  TypeDec            = "type" varId SumType
+  FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
+  TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         = Ids "=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
-  keyword            = ("if" | "while" | "else" | "for" | "else if" | "print" | "true"
-                     | "false" | "typeof" | "return" | "type" | "ok" | "err") ~idrest
+  keyword            = (basicType | "while" | "else" | "for" | "else if"
+                     | "true" | "false" | "return" | "break" | "type" | "ok"
+                     | "err"  | "list") ~idrest
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
   packageId          = upper idrest*
-  funcId             = "typeof" | "print"
-  Type               = basicType | ListType | SumType | RecordType | id
+  Type               = ListType | RecordType | VariableExpression | basicType
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"
-  ListType           = "list"+ ( id | basicType | SumType ) ~"list"
-  SumType            = (basicType | id) "|" (basicType | id) ("|" (basicType | id))*
+  ListType           = "list"+ ( basicType | RecordType | VariableExpression )
+  SumType            = Type "|" Type ("|" Type)*
   RecordType         = "{" NonemptyListOf<Field, ","> "}"
   Field              = id ":" Type
   FieldValue         = id ":" Expression
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
   errLiteral         = "ok" | "err"
-  numLiteral         = digit+ ("." digit+)? ~letter
+  numLiteral         = digit+ ("." digit+)?
   stringLiteral      = "\"" (~"\"" char | "'")* "\""
                      | "'" (~"'"char | "\"")* "'"
   char               = escape
@@ -93,7 +103,7 @@ Jen {
   mulop              = "*" | "%" | "//" | "/%" | "/"
   relop              = "<=" | ">=" | ">" | "<" | "==" | "!="
   escape             = "\\n" | "\\"
-  space              := " " | comment
+  space             := " " | "\t" | comment
   newLine            = "\r"? "\n"
   comment            = ";" ~";" (~newLine ~";" any)*                       -- comment
                      | multiLineComment
@@ -101,8 +111,6 @@ Jen {
   indent             =  "⇨"
   dedent             =  "⇦"
 }
-
-
 ```
 
 
@@ -127,7 +135,7 @@ Jen {
 - boolean
 - number
 - list (homogenous)
-- object
+- record
 - any
 - void
 - error
@@ -164,8 +172,8 @@ Kbbq := {'Budnamu': 14.99, 'Road-to-seoul': 22.99}
 jen allows the user to create custom union types.
 
 ```
-; This type sum type can be either a string or number
-type stringOrNumber string | number
+; The type "stringOrNumber" can be either a string or number
+type stringOrNumber: string | number
 
 ```
 
@@ -238,7 +246,7 @@ a, b = "smol", "puppers"
 ```
 ; Declares the function isOdd with type annotation and function signature
 isOdd: number -> boolean
-isOff(x):
+isOdd(x):
   return x % 2 != 0
 ```
 
