@@ -42,6 +42,8 @@ Jen {
                      | List
                      | "(" Expression ")"                                  -- parens
   VariableExpression = id
+  VariableExpressions
+                     = NonemptyListOf<VariableExpression, ",">
   SubscriptExp       = VariableExpression "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList

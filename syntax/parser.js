@@ -122,7 +122,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
 });
 
 module.exports = (text) => {
-  console.log('test');
   const match = grammar.match(withIndentsAndDedents(text));
   if (!match.succeeded()) {
     throw match.message;

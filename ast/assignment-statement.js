@@ -4,17 +4,15 @@ module.exports = class AssignmentStatement {
   }
 
   analyze(context) {
-    // if (this.ids.length !== this.initializers.length) {
-    //   throw new Error('Number of variables does not equal number of expressions');
-    // }
-    //
-    // this.initializers.forEach(s => s.analyze(context));
-    // console.log(this.ids);
-    // this.ids.forEach(id => id.analyze(context));
-    // // we have to look up the variable from context
-    // this.ids.forEach((id, i) => {
-    //   id.type.mustBeCompatibleWith(this.targets[i], 'Type Mismatch at Assignment');
-    // });
+    if (this.ids.length !== this.initializers.length) {
+      throw new Error('Number of variables does not equal number of expressions');
+    }
+    this.initializers.forEach(s => s.analyze(context));
+    // look up the variable from context
+    this.ids.forEach(id => id.analyze(context));
+    this.ids.forEach((id, i) => {
+      id.referent.type.mustBeCompatibleWith(this.initializer[i].type, 'Type Mismatch at Assignment');
+    });
   }
 
   optimize() {
