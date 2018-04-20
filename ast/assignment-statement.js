@@ -9,6 +9,9 @@ module.exports = class AssignmentStatement {
     }
     this.initializers.forEach(s => s.analyze(context));
     // look up the variable from context
+    console.log(this.ids);
+    console.log(context.lookup(this.ids[0]))
+    // look up variables not in the context, undeclared variable assignment error
     this.ids.forEach(id => id.analyze(context));
     this.ids.forEach((id, i) => {
       id.referent.type.mustBeCompatibleWith(this.initializer[i].type, 'Type Mismatch at Assignment');

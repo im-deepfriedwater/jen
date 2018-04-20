@@ -21,6 +21,8 @@ module.exports = class VariableDeclaration {
     this.initializers.forEach(e => e.analyze(context));
 
     // Now we can create actual variable objects and add to the current context.
+
+    // isnt new var (new id, ititailizer?)
     this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i]));
     this.variables.forEach(variable => context.add(variable));
   }
