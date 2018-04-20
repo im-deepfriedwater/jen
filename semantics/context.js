@@ -86,8 +86,14 @@ class Context {
     }
   }
 
-  assertRecordNoDuplicates(message) {
-    
+  assertRecordNoDuplicateFields(record, message) { // eslint-disable-line class-methods-use-this
+    const uniqueFields = new Set();
+    record.fields.forEach((f) => {
+      if (uniqueFields.has(f.id)) {
+        throw new Error(message);
+      }
+      uniqueFields.add(f.id);
+    });
   }
 
   assertIsField(nameOfRecord, field) { // eslint-disable-line class-methods-use-this
