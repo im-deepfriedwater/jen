@@ -22,7 +22,7 @@ class Type {
     return this.mustBeCompatibleWith(Type.ANY, message);
   }
   mustBeCompatibleWith(otherType, message) {
-    if (!this.isCompatibleWith(otherType)) {
+    if (otherType !== Type.ANY && !this.isCompatibleWith(otherType)) {
       throw message;
     }
   }
