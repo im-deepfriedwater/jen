@@ -1,7 +1,8 @@
 module.exports = class Variable {
-  constructor(id, type) {
+  constructor(id, literal) {
     this.id = id;
-    this.type = type;
+    // literal has type and value
+    this.literal = literal;
   }
   analyze(context) {
     context.variableMustNotBeAlreadyDeclared(this.id);

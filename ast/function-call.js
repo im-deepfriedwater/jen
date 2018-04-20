@@ -17,7 +17,8 @@ module.exports = class Call {
       throw new Error('Too little arguments in call');
     }
 
-    console.log(this.args)
+    console.log(this.args[0]);
+    console.log(callee.convertedParamTypes);
 
     // this.args[0].type === callee.params[0].type
     //
