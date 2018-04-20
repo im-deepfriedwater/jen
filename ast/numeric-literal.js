@@ -5,7 +5,7 @@ module.exports = class NumericLiteral {
     this.value = value;
   }
 
-  analyze(context) { // eslint-disable-line class-methods-use-this
+  analyze() { // eslint-disable-line class-methods-use-this
     this.type = Type.NUMBER;
   }
 

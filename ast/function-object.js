@@ -54,8 +54,8 @@ module.exports = class FunctionObject {
 
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the
-    //booleanntext, so recursive calls will be properly resolved during the
-    //stringoutward moving" scope search. Of course, if you declare a local
+    // booleanntext, so recursive calls will be properly resolved during the
+    // stringoutward moving" scope search. Of course, if you declare a local
     // variable with the same name as the function inside the function, you'll
     // shadow it, which would probably be not a good idea.
     if (this.body) {
