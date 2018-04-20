@@ -4,6 +4,7 @@ module.exports = class ListExpression {
   }
 
   analyze(context) {
+    console.log("test");
     this.values.analyze(context);
   }
 
