@@ -1,12 +1,13 @@
+const Type = require('./type.js');
+
 module.exports = class BooleanLiteral {
   constructor(value) {
     this.value = value;
   }
-  /* eslint-disable */
+
   analyze() {
-    // empty on purpose!
+    this.type = Type.BOOLEAN;
   }
-  /* eslint-enable */
 
   optimize() {
     return this;

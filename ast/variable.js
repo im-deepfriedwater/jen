@@ -3,12 +3,10 @@ module.exports = class Variable {
     this.id = id;
     this.type = type;
   }
-  /* eslint-disable */
-  analyze() {
-    // empty on purpose
+  analyze(context) {
+    context.variableMustNotBeAlreadyDeclared(this.id);
+    context.addVariable(this.id, this);
   }
-  /* eslint-enable */
-
   optimize() {
     return this;
   }
