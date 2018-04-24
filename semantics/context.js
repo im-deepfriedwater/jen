@@ -64,9 +64,7 @@ class Context {
       // The idea here is it only will be false if its a variable that hasnt been used yet
       if (this.declarations[id].used === false) {
         this.declarations[id].used = true;
-        throw new Error('Accessed a variable, as intended use');
       }
-
       return this.declarations[id];
     } else if (this.parent === null) {
       throw new Error(`Identifier ${id} has not been declared`);
@@ -98,12 +96,6 @@ class Context {
     }
   }
 
-  // Similar idea to the above function but only runs on one variable
-  checkIfThisIsUnused(variable) { // eslint-disable-line class-methods-use-this
-    if (!variable.used) {
-      throw new Error('Unused variable');
-    }
-  }
   assertInLoop(message) {
     if (!this.inLoop) {
       throw new Error(message);
