@@ -15,7 +15,7 @@ processList (listToProcess):
     listResult := []
     for index, name in enumerate(listToProcess):
         name[0] = toUpper(name[0])
-        listToProcessResult.push(name)
+        listResult.push(name)
 
         if index == listToProcess.length - 1:
           listResult.push(toUpper(name))
