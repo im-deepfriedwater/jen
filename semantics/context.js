@@ -85,8 +85,23 @@ class Context {
       throw new Error(message);
     }
   }
-}
 
+  assertRecordNoDuplicateFields(record, message) { // eslint-disable-line class-methods-use-this
+    const uniqueFields = new Set();
+    record.fields.forEach((f) => {
+      if (uniqueFields.has(f.id)) {
+        throw new Error(message);
+      }
+      uniqueFields.add(f.id);
+    });
+  }
+
+  assertIsField(nameOfRecord, field) { // eslint-disable-line class-methods-use-this
+    const currentRecord = this.lookup(nameOfRecord);
+    const fieldTest = currentField => currentField === field;
+    return currentRecord.fields.some(fieldTest);
+  }
+}
 Context.INITIAL = new Context();
 new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
