@@ -1,3 +1,3 @@
 x := 15
 y := x > 0 ? 'positive' : 'negative'
-z := [x + 1]
+z := [x + 1, x * 2, x / 3, x - 4, x /% 5, x // 6]
