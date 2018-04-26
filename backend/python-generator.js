@@ -1,14 +1,16 @@
 /*
- * Translation to JavaScript
+ * Heavily inspired by Ray Toal's javascript generator for plainscript: https://github.com/rtoal/plainscript/tree/master/backend
+ *
+ * Translation to Python
  *
  * Requiring this module adds a gen() method to each of the AST classes.
  * Nothing is actually exported from this module.
  *
  * Generally, calling e.gen() where e is an expression node will return the
- * JavaScript translation as a string, while calling s.gen() where s is a
+ * Python translation as a string, while calling s.gen() where s is a
  * statement-level node will write its translation to standard output.
  *
- *   require('./backend/javascript-generator');
+ *   require('./backend/python-generator');
  *   program.gen();
  */
 
@@ -16,8 +18,8 @@ const Context = require('../semantics/context');
 const Program = require('../ast/program');
 const VariableDeclaration = require('../ast/variable-declaration');
 const AssignmentStatement = require('../ast/assignment-statement');
-const BreakStatement = require('../ast/break-statement');
-const ReturnStatement = require('../ast/return-statement');
+const BreakStatement = require('../ast/break');
+const ReturnStatement = require('../ast/return');
 const IfStatement = require('../ast/if-statement');
 const WhileStatement = require('../ast/while-statement');
 const CallStatement = require('../ast/call-statement');
@@ -52,12 +54,12 @@ function makeOp(op) {
   return { not: '!', and: '&&', or: '||', '==': '===', '!=': '!==' }[op] || op;
 }
 
-// jsName(e) takes any PlainScript object with an id property, such as a
-// Variable, Parameter, or FunctionDeclaration, and produces a JavaScript
+// pythonName(e) takes any PlainScript object with an id property, such as a
+// Variable, Parameter, or FunctionDeclaration, and produces a Python
 // name by appending a unique indentifying suffix, such as '_1' or '_503'.
 // It uses a cache so it can return the same exact string each time it is
 // called with a particular entity.
-const jsName = (() => {
+const pythonName = (() => {
   let lastId = 0;
   const map = new Map();
   return (v) => {
@@ -82,7 +84,7 @@ function bracketIfNecessary(a) {
 function generateLibraryFunctions() {
   function generateLibraryStub(name, params, body) {
     const entity = Context.INITIAL.declarations[name];
-    emit(`function ${jsName(entity)}(${params}) {${body}}`);
+    emit(`function ${pythonName(entity)}(${params}) ${body}`);
   }
   // This is sloppy. There should be a better way to do this.
   generateLibraryStub('print', '_', 'console.log(_);');
@@ -124,7 +126,7 @@ Object.assign(Call.prototype, {
     const args = Array(this.args.length).fill(undefined);
     fun.params.forEach((p, i) => { params[p.id] = i; });
     this.args.forEach((a, i) => { args[a.isPositionalArgument ? i : params[a.id]] = a; });
-    return `${jsName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`;
+    return `${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`;
   },
 });
 
@@ -134,9 +136,8 @@ Object.assign(FunctionDeclaration.prototype, {
 
 Object.assign(FunctionObject.prototype, {
   gen() {
-    emit(`function ${jsName(this)}(${this.params.map(p => p.gen()).join(', ')}) {`);
+    emit(`def ${pythonName(this)}(${this.params.map(p => p.gen()).join(', ')})`);
     genStatementList(this.body);
-    emit('}');
   },
 });
 
@@ -147,15 +148,14 @@ Object.assign(IdentifierExpression.prototype, {
 Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, index) => {
-      const prefix = index === 0 ? 'if' : '} else if';
-      emit(`${prefix} (${c.test.gen()}) {`);
+      const prefix = index === 0 ? 'if' : 'else if';
+      emit(`${prefix} (${c.test.gen()})`);
       genStatementList(c.body);
     });
     if (this.alternate) {
-      emit('} else {');
+      emit(' else ');
       genStatementList(this.alternate);
     }
-    emit('}');
   },
 });
 
@@ -165,7 +165,7 @@ Object.assign(NumericLiteral.prototype, {
 
 Object.assign(Parameter.prototype, {
   gen() {
-    let translation = jsName(this);
+    let translation = pythonName(this);
     if (this.defaultExpression) {
       translation += ` = ${this.defaultExpression.gen()}`;
     }
@@ -215,13 +215,12 @@ Object.assign(VariableDeclaration.prototype, {
 });
 
 Object.assign(Variable.prototype, {
-  gen() { return jsName(this); },
+  gen() { return pythonName(this); },
 });
 
 Object.assign(WhileStatement.prototype, {
   gen() {
-    emit(`while (${this.test.gen()}) {`);
+    emit(`while (${this.test.gen()})`);
     genStatementList(this.body);
-    emit('}');
   },
 });
