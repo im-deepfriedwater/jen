@@ -17,12 +17,10 @@ module.exports = class VariableDeclaration {
     // Checking if the right side is a function call
     // If so, count the number of return types and add it to initializerReturnCount
     const types = [];
-    console.log(this.initializers);
     this.initializers.forEach((i) => {
       if (i.callee) {
-        i.callee.referent.resultTypes.forEach(t => types.push(t));
+        types.push(...(i.callee.referent.type));
       } else {
-        console.log(i);
         types.push(i.type);
       }
     });
@@ -36,7 +34,7 @@ module.exports = class VariableDeclaration {
     // first.
 
     // Now we can create actual variable objects and add to the current context.
-    this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i].type));
+    this.variables = this.ids.map((id, i) => new Variable(id, types[i]));
     this.variables.forEach(variable => context.add(variable));
   }
 

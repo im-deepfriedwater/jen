@@ -34,10 +34,13 @@ module.exports = class FunctionObject {
       this.convertedParamTypes.push(typeDictionary[t]);
     });
 
-    this.covertedResultTypes = [];
+    this.convertedResultTypes = [];
     this.resultTypes.forEach((t) => {
-      this.covertedResultTypes.push(typeDictionary[t]);
+      this.convertedResultTypes.push(typeDictionary[t]);
     });
+
+    // Set the type of the function to array of output types
+    this.type = this.convertedResultTypes;
 
     // create a new variable and give it a type
     this.params.forEach((p, i) => {
