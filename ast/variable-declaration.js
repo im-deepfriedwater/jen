@@ -16,15 +16,18 @@ module.exports = class VariableDeclaration {
 
     // Checking if the right side is a function call
     // If so, count the number of return types and add it to initializerReturnCount
-    this.initializerLength = this.initializers.length;
+    const types = [];
+    console.log(this.initializers);
     this.initializers.forEach((i) => {
       if (i.callee) {
-        this.initializerLength -= 1;
-        this.initializerLength += i.callee.referent.resultTypes.length;
+        i.callee.referent.resultTypes.forEach(t => types.push(t));
+      } else {
+        console.log(i);
+        types.push(i.type);
       }
     });
 
-    if (this.ids.length !== this.initializerLength) {
+    if (this.ids.length !== types.length) {
       throw new Error('Number of variables does not equal number of initializers');
     }
 
@@ -33,9 +36,7 @@ module.exports = class VariableDeclaration {
     // first.
 
     // Now we can create actual variable objects and add to the current context.
-
-    // isnt new var (new id, ititailizer?)
-    this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i]));
+    this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i].type));
     this.variables.forEach(variable => context.add(variable));
   }
 

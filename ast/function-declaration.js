@@ -1,5 +1,4 @@
 const FunctionObject = require('./function-object');
-const util = require('util');
 
 // A function declaration binds a function object to a name.
 module.exports = class FunctionDeclaration {
@@ -18,7 +17,6 @@ module.exports = class FunctionDeclaration {
   analyze(context) {
     // First put the function in the current context, then analyze it in
     // a new child context.
-
     if (this.signature.id !== this.annotation.id) {
       throw new Error('Function ID mismatch in signature and annotation.');
     }

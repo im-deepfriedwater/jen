@@ -33,7 +33,7 @@ class Type {
   }
   isCompatibleWith(otherType) {
     // In more sophisticated languages, comapatibility would be more complex
-    return this === otherType;
+    return this === otherType || this === Type.ANY;
   }
 }
 

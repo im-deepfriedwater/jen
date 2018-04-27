@@ -1,11 +1,10 @@
 const Type = require('./type');
 
 module.exports = class Variable {
-  constructor(id, initializer) {
+  constructor(id, type = Type.ANY) {
     this.id = id;
     // initializer has type and value
-    this.type = initializer ? initializer.type : Type.ANY;
-    this.initializer = initializer;
+    this.type = type;
   }
   analyze(context) {
     context.variableMustNotBeAlreadyDeclared(this.id);

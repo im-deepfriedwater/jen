@@ -8,7 +8,6 @@ module.exports = class BinaryExpression {
   analyze(context) {
     this.left.analyze(context);
     this.right.analyze(context);
-    console.log(this.left)
     if (['<=', '>=', '>', '<'].includes(this.op)) {
       this.mustHaveIntegerOperands();
       this.type = Type.BOOLEAN;
