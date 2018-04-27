@@ -1,0 +1,4 @@
+areaOfCircle: number -> number
+areaOfCircle(radius):
+   PI = Math.pi()
+   return PI * radius ^ 2

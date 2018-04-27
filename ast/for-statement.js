@@ -1,23 +1,20 @@
-const BooleanLiteral = require('./boolean-literal');
+const Variable = require('./variable');
 
 module.exports = class ForStatement {
+  // have to change test->ids testobj->exp but dont want to deal with ast test rn
   constructor(test, testObject, body) {
     Object.assign(this, { test, testObject, body });
   }
 
   analyze(context) {
-    this.test.analyze(context);
+    this.test.forEach(id => new Variable(id, undefined));
+    this.test.forEach(variable => context.add(variable));
+    this.test.forEach(variable => context.lookup(variable).analyze());
     const bodyContext = context.createChildContextForLoop();
-    this.body.forEach(s => s.analyze(bodyContext));
+    this.body.statements.forEach(s => s.analyze(bodyContext));
   }
 
   optimize() {
-    this.test = this.test.optimize();
-    if (this.test instanceof BooleanLiteral && this.condition.value === false) {
-      return null;
-    }
-    this.body.map(s => s.optimize()).filter(s => s !== null);
-    // Suggested: Look for returns/breaks in the middle of the body
     return this;
   }
 };

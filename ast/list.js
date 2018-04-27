@@ -4,7 +4,7 @@ module.exports = class ListExpression {
   }
 
   analyze(context) {
-    this.values.analyze(context);
+    this.values.forEach(v => v.analyze(context));
   }
 
   optimize() {

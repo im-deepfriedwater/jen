@@ -1,14 +1,22 @@
+const Type = require('./type');
+
 module.exports = class Variable {
-  constructor(id, type) {
+  constructor(id, literal) {
     this.id = id;
-    this.type = type;
+    // literal has type and value
+    this.type = literal ? literal.type : Type.ANY;
+    this.literal = literal;
   }
+<<<<<<< HEAD
   /* eslint-disable */
   analyze() {
     // nothing here
+=======
+  analyze(context) {
+    context.variableMustNotBeAlreadyDeclared(this.id);
+    context.addVariable(this.id, this);
+>>>>>>> master
   }
-  /* eslint-enable */
-
   optimize() {
     // context.checkIfThisIsUnused(this);
     return this;
