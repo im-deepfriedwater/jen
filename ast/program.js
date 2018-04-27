@@ -8,7 +8,7 @@ module.exports = class Program {
   analyze() {
     const context = new Context({ parent: Context.INITIAL });
     this.body.analyze(context);
-    context.checkForUnusedDeclared();
+    context.checkForUnusedDeclared(context, 'unused');
   }
 
   optimize() {
