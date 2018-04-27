@@ -85,14 +85,30 @@ class Context {
     }
   }
 
-  // Dont really know what to do with this. Its a function that is supposed to loop
-  // through all the variables but I dont know where to call it or if its even right
-  checkForUnusedDeclared() {
-    for (let id = 0; id < this.declarations.length; id += 1) {
-      if (!this.declarations[id].used) {
-        // console.log('warning');
-        throw new Error('Unused');
-      }
+  markVariableUsed(id) { // eslint-disable-line class-methods-use-this
+    // console.log('ID');
+    // console.log(this.lookup(id));
+    // console.log('ID');
+    this.referent = this.lookup(id);
+    console.log(this.referent);
+    this.referent.used = false;
+    console.log(this.referent);
+    // this.referent.used = false;
+    // console.log(this.lookup(id).used);
+    // for (prop in this.lookup(id)) {
+    //   if (prop === "used") {
+    //
+    //   }
+    // }
+  }
+
+  checkForUnusedDeclared(context, message) { // eslint-disable-line class-methods-use-this
+    if (context.declarations.length > 0) {
+      context.declarations.forEach((variable) => {
+        if (!variable.used) {
+          console.log(message);
+        }
+      });
     }
   }
 
