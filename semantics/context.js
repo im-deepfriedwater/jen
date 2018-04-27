@@ -89,10 +89,10 @@ class Context {
     // console.log('ID');
     // console.log(this.lookup(id));
     // console.log('ID');
-    this.referent = this.lookup(id);
-    console.log(this.referent);
-    this.referent.used = false;
-    console.log(this.referent);
+    const referent = this.lookup(id);
+    console.log(referent);
+    referent.used = false;
+    console.log(referent);
     // this.referent.used = false;
     // console.log(this.lookup(id).used);
     // for (prop in this.lookup(id)) {
