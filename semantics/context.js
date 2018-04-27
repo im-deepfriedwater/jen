@@ -86,20 +86,8 @@ class Context {
   }
 
   markVariableUsed(id) { // eslint-disable-line class-methods-use-this
-    // console.log('ID');
-    // console.log(this.lookup(id));
-    // console.log('ID');
     const referent = this.lookup(id);
-    console.log(referent);
-    referent.used = false;
-    console.log(referent);
-    // this.referent.used = false;
-    // console.log(this.lookup(id).used);
-    // for (prop in this.lookup(id)) {
-    //   if (prop === "used") {
-    //
-    //   }
-    // }
+    referent.used = true;
   }
 
   checkForUnusedDeclared(context, message) { // eslint-disable-line class-methods-use-this
