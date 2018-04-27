@@ -35,7 +35,7 @@ module.exports = class VariableDeclaration {
 
     // Now we can create actual variable objects and add to the current context.
     this.variables = this.ids.map((id, i) => new Variable(id, types[i]));
-    this.variables.forEach(variable => context.add(variable));
+    this.variables.forEach(v => v.analyze(context));
   }
 
   optimize() {
