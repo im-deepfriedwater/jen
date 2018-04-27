@@ -7,15 +7,9 @@ module.exports = class Variable {
     this.type = literal ? literal.type : Type.ANY;
     this.literal = literal;
   }
-<<<<<<< HEAD
-  /* eslint-disable */
-  analyze() {
-    // nothing here
-=======
   analyze(context) {
     context.variableMustNotBeAlreadyDeclared(this.id);
     context.addVariable(this.id, this);
->>>>>>> master
   }
   optimize() {
     // context.checkIfThisIsUnused(this);
