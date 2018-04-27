@@ -6,6 +6,7 @@ module.exports = class Variable {
     // literal has type and value
     this.type = literal ? literal.type : Type.ANY;
     this.literal = literal;
+    this.used = false;
   }
   analyze(context) {
     context.variableMustNotBeAlreadyDeclared(this.id);
