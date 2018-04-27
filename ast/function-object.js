@@ -20,7 +20,7 @@ module.exports = class FunctionObject {
     // with the function's local variables. This is by design.
 
     // Convert the string from paramTypes and resultTypes to actual Type Object
-    this.typeDictionary = {
+    const typeDictionary = {
       number: Type.NUMBER,
       boolean: Type.BOOLEAN,
       string: Type.STRING,
@@ -31,12 +31,12 @@ module.exports = class FunctionObject {
 
     this.convertedParamTypes = [];
     this.paramTypes.forEach((t) => {
-      this.convertedParamTypes.push(this.typeDictionary[t]);
+      this.convertedParamTypes.push(typeDictionary[t]);
     });
 
     this.covertedResultTypes = [];
     this.resultTypes.forEach((t) => {
-      this.covertedResultTypes.push(this.typeDictionary[t]);
+      this.covertedResultTypes.push(typeDictionary[t]);
     });
 
     // create a new variable and give it a type

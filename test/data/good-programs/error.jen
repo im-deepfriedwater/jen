@@ -5,6 +5,5 @@ someFunction(valueToCheck):
     else:
         return "Wow. disappointment.", err
 
-result, errorValue := someFunction(10)
-if errorValue == ok:
-    print(result)
+result := 1
+print(result)
