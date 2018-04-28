@@ -5,11 +5,6 @@
 ascendedFounders := ['jen', 'anthony', 'elizabeth', 'thomas', 'justin', 'moreJen']
 TEST_FOUNDERS := ['Jen', 'Anthony', 'Elizabeth', 'Thomas', 'Justin', 'MOREJEN']
 
-ELEVATED_FOUNDERS := processList(ascendedFounders)
-
-for i in range(TEST_FOUNDERS.length):
-  print(TEST_FOUNDERS[i] == ascendedFounders[i])
-
 processList: list string -> list string
 processList (listToProcess):
     listResult := []
@@ -21,3 +16,9 @@ processList (listToProcess):
           listResult.push(toUpper(name))
 
     return listResult
+
+
+ELEVATED_FOUNDERS := processList(ascendedFounders)
+
+for i in range(TEST_FOUNDERS.length):
+    print(TEST_FOUNDERS[i] == ascendedFounders[i])
