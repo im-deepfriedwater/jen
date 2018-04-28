@@ -2,16 +2,18 @@ const Variable = require('./variable');
 
 module.exports = class ForStatement {
   // have to change test->ids testobj->exp but dont want to deal with ast test rn
-  constructor(test, testObject, body) {
-    Object.assign(this, { test, testObject, body });
+  constructor(ids, expression, body) {
+    Object.assign(this, { ids, expression, body });
   }
 
   analyze(context) {
-    this.test.forEach(id => new Variable(id, undefined));
-    this.test.forEach(variable => context.add(variable));
-    this.test.forEach(variable => context.lookup(variable).analyze());
+    // We analyze the expression first so we can infer its type for our
+    // loop variables.
+    // Note that expressions in for loops only look outside for scope.
+    this.expression.analyze(context);
+    this.loopVariables = this.ids.map(id => new Variable(id, this.expression.type));
     const bodyContext = context.createChildContextForLoop();
-    this.body.statements.forEach(s => s.analyze(bodyContext));
+    this.loopVariables.forEach(v => v.analyze(bodyContext));
   }
 
   optimize() {

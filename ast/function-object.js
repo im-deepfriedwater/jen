@@ -44,16 +44,24 @@ module.exports = class FunctionObject {
 
     // create a new variable and give it a type
     this.params.forEach((p, i) => {
+      // There's a slight design issue with creating new variables like this.
+      // They are detached from the AST, because they are created and used to
+      // get added to context but it seems a little off since
+      // everything is a component of the AST typically.
+
+      // Although this way still works so I'm open for discussion if you
+      // believe it should stay this way.
       context.add(new Variable(p, this.convertedParamTypes[i]));
     });
 
-    // Make sure all required parameters come before optional ones, and
-    // gather the names up into sets for quick lookup.
-    // this.requiredParameterNames = new Set();
-    this.allParameterNames = new Set();
-    this.params.forEach((p) => {
-      this.allParameterNames.add(p.id);
-    });
+    // A way of attaching it to the AST would be to fix parser.js
+    // to handle parameter entities and then call each ones parameter.
+    // We already have parameter.js from toal's pls so calling each parameters
+    // analyze would add it to context. We would have to modify parameters
+    // to have types and perhaps some sort of setType method to set the type,
+    // and then just call each one's analyze method.
+
+
 
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the
