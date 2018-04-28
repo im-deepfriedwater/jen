@@ -60,7 +60,7 @@ Jen {
   FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
-  Assignment         = VariableExpressions "=" NonemptyExpressionList
+  Assignment         =  (SubscriptExp | VariableExpressions)"=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
