@@ -1,1 +1,2 @@
 groceries := {apples: 1, oranges: 3, chicken: '1lb', chocolateMilk: true}
+print(groceries)
