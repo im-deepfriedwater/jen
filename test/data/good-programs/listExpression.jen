@@ -1,4 +1,2 @@
 basics := [1, 2, 3]
 advanced := [11, 22, 33]
-print(basics)
-print(advanced)

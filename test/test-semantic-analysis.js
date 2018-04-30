@@ -42,7 +42,7 @@ describe('The semantic analyzer', () => {
       const spy = sinon.spy(console, 'warn');
       const program = parse(fs.readFileSync(`${OKAY_PROGRAMS_DIR}/${name}`, 'utf-8'));
       program.analyze();
-      
+
       // Hardcoded for now
       assert(spy.calledWith('Unused declared variables'));
 

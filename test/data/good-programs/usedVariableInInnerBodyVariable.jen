@@ -1,4 +1,3 @@
 y := 2
 if y < 5:
   z := 4
-  print(z)

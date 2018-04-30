@@ -92,10 +92,7 @@ class Context {
 
   checkForUnusedDeclared(context, message) { // eslint-disable-line class-methods-use-this
     Object.keys(context.declarations).forEach((variable) => {
-      // console.log(context.declarations[variable]);
       if (!context.declarations[variable].used) {
-        // throw new Error(message);
-        // console.log(message);
         console.warn(message);
       }
     });
