@@ -11,10 +11,12 @@
 
 const fs = require('fs');
 const assert = require('assert');
+const sinon = require('sinon');
 const parse = require('../syntax/parser');
 
 const GOOD_PROGRAMS_DIR = 'test/data/good-programs';
 const BAD_PROGRAMS_DIR = 'test/data/semantic-errors';
+const OKAY_PROGRAMS_DIR = 'test/data/semantic-warnings';
 
 describe('The semantic analyzer', () => {
   fs.readdirSync(BAD_PROGRAMS_DIR).forEach((name) => {
@@ -32,6 +34,19 @@ describe('The semantic analyzer', () => {
       // We eventually need to check that the ASTs are properly decorated.
       const program = parse(fs.readFileSync(`${GOOD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       program.analyze();
+    });
+  });
+
+  fs.readdirSync(OKAY_PROGRAMS_DIR).forEach((name) => {
+    it(`should analyze ${name} with a warning`, () => {
+      const spy = sinon.spy(console, 'warn');
+      const program = parse(fs.readFileSync(`${OKAY_PROGRAMS_DIR}/${name}`, 'utf-8'));
+      program.analyze();
+      
+      // Hardcoded for now
+      assert(spy.calledWith('Unused declared variables'));
+
+      spy.restore();
     });
   });
 });
