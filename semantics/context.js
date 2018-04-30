@@ -61,10 +61,6 @@ class Context {
   // context and searching "outward" through enclosing contexts if necessary.
   lookup(id) {
     if (id in this.declarations) {
-      // The idea here is it only will be false if its a variable that hasnt been used yet
-      if (this.declarations[id].used === false) {
-        this.declarations[id].used = true;
-      }
       return this.declarations[id];
     } else if (this.parent === null) {
       throw new Error(`Identifier ${id} has not been declared`);
