@@ -1,0 +1,3 @@
+notAnInteger := 'six'
+anInteger := 7
+aBinaryExpression := notAnInteger >= anInteger
