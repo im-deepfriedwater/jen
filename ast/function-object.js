@@ -12,7 +12,7 @@ module.exports = class FunctionObject {
   // "external" functions because they are not declared in the current
   // module and we therefore don't generate code for them.
   get isExternal() {
-    return !this.function.body;
+    return !this.function.suite;
   }
 
   analyze(context) {
@@ -48,9 +48,6 @@ module.exports = class FunctionObject {
       // They are detached from the AST, because they are created and used to
       // get added to context but it seems a little off since
       // everything is a component of the AST typically.
-
-      // Although this way still works so I'm open for discussion if you
-      // believe it should stay this way.
       context.add(new Variable(p, this.convertedParamTypes[i]));
     });
 
@@ -62,22 +59,21 @@ module.exports = class FunctionObject {
     // and then just call each one's analyze method.
 
 
-
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the
     // booleanntext, so recursive calls will be properly resolved during the
     // stringoutward moving" scope search. Of course, if you declare a local
     // variable with the same name as the function inside the function, you'll
     // shadow it, which would probably be not a good idea.
-    if (this.body) {
-      this.body.forEach(s => s.analyze(context));
+    if (this.suite.length !== 0) {
+      this.suite.analyze(context);
     }
   }
 
   optimize() {
-    this.parameters.forEach(p => p.optimize());
-    this.body.forEach(s => s.optimize());
-    this.body = this.body.filter(s => s !== null);
+    // this.parameters.forEach(p => p.optimize());
+    // this.suite.forEach(s => s.optimize());
+    // this.suite = this.suite.filter(s => s !== null);
     // Suggested: Look for returns in the middle of the body
     return this;
   }

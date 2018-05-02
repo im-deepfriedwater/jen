@@ -14,6 +14,7 @@ module.exports = class ForStatement {
     this.loopVariables = this.ids.map(id => new Variable(id, this.expression.type));
     const bodyContext = context.createChildContextForLoop();
     this.loopVariables.forEach(v => v.analyze(bodyContext));
+    this.body.analyze(bodyContext);
   }
 
   optimize() {

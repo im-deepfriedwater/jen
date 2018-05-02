@@ -19,7 +19,11 @@ const Signature = require('../ast/signature');
 class Context {
   constructor({ parent = null, currentFunction = null, inLoop = false } = {}) {
     Object.assign(this, {
-      parent, currentFunction, inLoop, declarations: Object.create(null),
+      parent,
+      currentFunction,
+      inLoop,
+      declarations: Object.create(null),
+      sumTypeDeclarations: Object.create(null),
     });
   }
 
@@ -68,6 +72,22 @@ class Context {
     }
   }
 
+  // These two methods lookup and lookupSumType are very similar. These two
+  // could possibly be cleaned up later.
+
+  // Similar to looking up entities bound to an identifier but specifically for
+  // type declarations. Note, sum types also search outward through enclosing
+  // contexts if necessary.
+  lookupSumType(id) {
+    if (id in this.sumTypeDeclarations) {
+      return this.sumTypeDeclarations[id];
+    } else if (this.parent === null) {
+      throw new Error(`Type identifier ${id} has not been declared`);
+    } else {
+      return this.parent.lookupSumType(id);
+    }
+  }
+
   assertInFunction(message) {
     if (!this.currentFunction) {
       throw new Error(message);
@@ -101,9 +121,14 @@ class Context {
     const fieldTest = currentField => currentField === field;
     return currentRecord.fields.some(fieldTest);
   }
+
+  addSumType(id, sumType) {
+    this.sumTypeDeclarations[id] = sumType;
+  }
 }
 Context.INITIAL = new Context();
 new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('pi', ['void'], ['number']), new Signature('pi', []), []).analyze(Context.INITIAL);
 
 module.exports = Context;

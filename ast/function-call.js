@@ -8,16 +8,20 @@ module.exports = class Call {
     this.args.forEach(arg => arg.analyze(context));
     context.assertIsFunction(this.callee.referent);
     this.checkArgumentMatching(this.callee.referent);
+    this.type = this.callee.convertedParamTypes;
   }
 
   checkArgumentMatching(callee) {
-    if (this.args.length > callee.params.length) {
+    if (callee.params[0] === 'void' && this.args.length === 0) {
+      return;
+    } else if (this.args.length > callee.params.length) {
       throw new Error('Too many arguments in call');
     } else if (this.args.length < callee.params.length) {
       throw new Error('Too little arguments in call');
     }
 
     this.args.forEach((arg, index) => {
+      // first we check if
       arg.type.mustBeCompatibleWith(callee.convertedParamTypes[index], 'Type Mismatch at Function Call');
     });
   }

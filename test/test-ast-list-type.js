@@ -6,10 +6,8 @@ describe('List Type', () => {
     body: {
       statements: [{
         id: 'a',
-        sumtype: {
-          basicTypeOrId1: { id: 'b' },
-          basicTypeOrId2: { listType: 'number' },
-          moreBasicTypesOrIds: [],
+        sumType: {
+          types: [{ id: 'b' }, { listType: 'number' }],
         },
       },
       ],

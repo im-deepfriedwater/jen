@@ -1,17 +1,16 @@
 module.exports = class TypeDeclaration {
-  constructor(id, sumtype) {
-    this.id = id;
-    this.sumtype = sumtype;
+  constructor(id, sumType) {
+    Object.assign(this, { id, sumType });
   }
 
   analyze(context) {
-    this.id.analyze(context);
-    this.sumtype.analyze(context);
+    this.typeDictionary = {};
+    this.sumType.analyze(context);
+    context.addSumType(this.id, this.sumType);
   }
 
+  /* eslint-disable class-methods-use-this */
   optimize() {
-    this.id = this.id.optimize();
-    this.sumtype = this.sumtype.optimize();
-    return this;
+    // Purposefully empty for now!
   }
 };
