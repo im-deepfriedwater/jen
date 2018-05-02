@@ -8,10 +8,10 @@ const parse = require('../syntax/parser');
 
 const GOOD_PROGRAMS_DIR = 'test/data/good-programs';
 const BAD_PROGRAMS_DIR = 'test/data/semantic-errors';
-const name = 'addFunction.jen';
+const name = 'nestedSumTypes.jen';
 
 describe('The semantic analyzer', () => {
-  it('parses addFunction properly', () => {
+  it(`parses ${name} properly`, () => {
     const program = parse(fs.readFileSync(`${GOOD_PROGRAMS_DIR}/${name}`, 'utf-8'));
     program.analyze();
   });

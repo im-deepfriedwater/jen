@@ -4,7 +4,6 @@ module.exports = class TypeDeclaration {
   }
 
   analyze(context) {
-    this.typeDictionary = {};
     this.sumType.analyze(context);
     context.addSumType(this.id, this.sumType);
   }

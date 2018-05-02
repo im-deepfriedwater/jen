@@ -1,5 +1,7 @@
 const Variable = require('./variable');
-const Type = require('./type.js');
+const Type = require('./type');
+const ListType = require('./list-type');
+const IdentifierExpression = require('./identifier-expression');
 
 module.exports = class FunctionObject {
   constructor(id, paramTypes, resultTypes, params, suite) {
@@ -31,7 +33,15 @@ module.exports = class FunctionObject {
 
     this.convertedParamTypes = [];
     this.paramTypes.forEach((t) => {
-      this.convertedParamTypes.push(typeDictionary[t]);
+      if (t in typeDictionary) {
+        this.convertedParamTypes.push(typeDictionary[t]);
+      } else if (t instanceof IdentifierExpression) {
+        // If it's not a basic type we'll first check if it's a sum type
+        this.convertedParamTypes.push(context.lookupSumType(t.id));
+      } else if (t.startsWith('list') && t.includes(' ')) {
+        // If it's not a sum type it might be a list type.
+        this.convertedParamTypes.push(new ListType(t));
+      }
     });
 
     this.convertedResultTypes = [];

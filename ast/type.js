@@ -32,7 +32,10 @@ class Type {
     }
   }
   isCompatibleWith(otherType) {
-    // In more sophisticated languages, comapatibility would be more complex
+    // If types is a field it is a sum type
+    if (otherType.types) {
+      return otherType.isCompatibleWith(this);
+    }
     return this === otherType || this === Type.ANY;
   }
 }
@@ -47,6 +50,5 @@ Type.VOID = new Type('void');
 Type.ANY = new Type('any');
 
 Type.forName = name => Type.cache[name];
-
 
 module.exports = Type;

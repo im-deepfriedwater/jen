@@ -33,7 +33,6 @@ module.exports = class Call {
     }
 
     this.args.forEach((arg, index) => {
-      // first we check if
       arg.type.mustBeCompatibleWith(callee.convertedParamTypes[index], 'Type Mismatch at Function Call');
     });
   }

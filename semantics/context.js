@@ -78,13 +78,13 @@ class Context {
   // Similar to looking up entities bound to an identifier but specifically for
   // type declarations. Note, sum types also search outward through enclosing
   // contexts if necessary.
-  lookupSumType(id) {
-    if (id in this.sumTypeDeclarations) {
-      return this.sumTypeDeclarations[id];
+  lookupSumType(sumTypeId) {
+    if (sumTypeId in this.sumTypeDeclarations) {
+      return this.sumTypeDeclarations[sumTypeId];
     } else if (this.parent === null) {
-      throw new Error(`Type identifier ${id} has not been declared`);
+      throw new Error(`Type identifier ${sumTypeId} has not been declared`);
     } else {
-      return this.parent.lookupSumType(id);
+      return this.parent.lookupSumType(sumTypeId);
     }
   }
 
