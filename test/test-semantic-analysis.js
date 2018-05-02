@@ -24,7 +24,13 @@ describe('The semantic analyzer', () => {
     // regexes, so we put a backslash.
     const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '').replace(/([+^<])/g, '\\$1')
       .replace(/lessthan/, '<')
-      .replace(/greaterthan/, '>');
+      .replace(/greaterthan/, '>')
+      .replace(/minus/, '-')
+      .replace(/times/, '*')
+      .replace(/intdiv/, '//')
+      .replace(/divmod/, '/%')
+      .replace(/div/, '/')
+      .replace(/or/, '||');
     it(`detects a ${errorName} error`, () => {
       const program = parse(fs.readFileSync(`${BAD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       const errorPattern = RegExp(errorName, 'i');
