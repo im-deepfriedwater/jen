@@ -11,7 +11,7 @@ module.exports = class FunctionObject {
   // "external" functions because they are not declared in the current
   // module and we therefore don't generate code for them.
   get isExternal() {
-    return !this.function.body;
+    return !this.function.suite;
   }
 
   analyze(context) {
@@ -20,7 +20,9 @@ module.exports = class FunctionObject {
 
     // create a new variable and give it a
     this.params.forEach((p, i) => {
-      context.add(new Variable(p, this.paramTypes[i]));
+      const v = new Variable(p, this.paramTypes[i]);
+      this.params[i] = v;
+      context.add(v);
     });
 
     // Make sure all required parameters come before optional ones, and
@@ -37,15 +39,15 @@ module.exports = class FunctionObject {
     // usual "outward moving" scope search. Of course, if you declare a local
     // variable with the same name as the function inside the function, you'll
     // shadow it, which would probably be not a good idea.
-    if (this.body) {
-      this.body.forEach(s => s.analyze(context));
+    if (this.suite.length > 0) {
+      this.suite.analyze(context);
     }
   }
 
   optimize() {
-    this.parameters.forEach(p => p.optimize());
-    this.body.forEach(s => s.optimize());
-    this.body = this.body.filter(s => s !== null);
+    this.params.forEach(p => p.optimize());
+    this.suite.optimize();
+    this.suite = this.suite.filter(s => s !== null);
     // Suggested: Look for returns in the middle of the body
     return this;
   }
