@@ -206,7 +206,7 @@ if errorCheck == err:
 - Divide **/**
 - Integer Divide **//**
 - Modulus **%**
-- DivMod **/&**
+- DivMod **/%**
 - Multiply **&ast;**
 - Postfix increment **x++**
 - Postfix decrement **x--**
