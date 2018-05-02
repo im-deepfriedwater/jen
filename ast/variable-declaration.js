@@ -11,20 +11,31 @@ module.exports = class VariableDeclaration {
   }
 
   analyze(context) {
-    if (this.ids.length !== this.initializers.length) {
+    // analyze first so functionCalls get analyzed
+    this.initializers.forEach(e => e.analyze(context));
+
+    // Checking if the right side is a function call
+    // If so, count the number of return types and add it to initializerReturnCount
+    const types = [];
+    this.initializers.forEach((i) => {
+      if (i.callee) {
+        types.push(...(i.callee.referent.type));
+      } else {
+        types.push(i.type);
+      }
+    });
+
+    if (this.ids.length !== types.length) {
       throw new Error('Number of variables does not equal number of initializers');
     }
+
     // We don't want the declared variables to come into scope until after the
     // declaration line, so we will analyze all the initializing expressions
     // first.
 
-    this.initializers.forEach(e => e.analyze(context));
-
     // Now we can create actual variable objects and add to the current context.
-
-    // isnt new var (new id, ititailizer?)
-    this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i]));
-    this.variables.forEach(variable => context.add(variable));
+    this.variables = this.ids.map((id, i) => new Variable(id, types[i]));
+    this.variables.forEach(v => v.analyze(context));
   }
 
   optimize() {

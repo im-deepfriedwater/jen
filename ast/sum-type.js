@@ -1,18 +1,32 @@
+const Type = require('./type.js');
+const IdentifierExpression = require('./identifier-expression');
+
 module.exports = class SumType {
   constructor(basicTypeOrId1, basicTypeOrId2, moreBasicTypesOrIds) {
-    this.basicTypeOrId1 = basicTypeOrId1;
-    this.basicTypeOrId2 = basicTypeOrId2;
-    this.moreBasicTypesOrIds = moreBasicTypesOrIds;
+    Object.assign(this, {
+      types: [basicTypeOrId1, basicTypeOrId2, ...moreBasicTypesOrIds],
+    });
   }
 
   analyze(context) {
-    this.basicTypeOrId.analyze(context);
-    this.moreBasicTypeOrId1.analyze(context);
+    // Creates a mapping of each string representation of a type to the actual
+    // type it is referencing. This allows for recursively checking through
+    // sum types in the case of nested sum types.
+    this.computedTypes = {};
+    this.types.forEach((type) => {
+      const typeId = type instanceof IdentifierExpression ? type.id : type;
+      this.computedTypes[typeId] = Type.cache[typeId] || context.lookupSumType(typeId);
+    });
   }
 
+  isCompatibleWith(otherType) {
+    return Object.keys(this.computedTypes)
+      .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
+  }
+
+  /* eslint-disable class-methods-use-this */
   optimize() {
-    this.basicTypeOrId = this.basicTypeOrId.optimize();
-    this.moreBasicTypeOrId1 = this.moreBasicTypeOrId1.optimize();
-    return this;
+    // Later we can implement an optimization step that further reduces sum types
+    // to basic types.
   }
 };

@@ -5,9 +5,8 @@ module.exports = class ErrorLiteral {
     this.value = value;
   }
 
-  analyze() { // eslint-disable-line class-methods-use-this
-    // Intentionally empty
-    this.type = Type.Error;
+  analyze() {
+    this.type = Type.ERROR;
   }
 
   optimize() {

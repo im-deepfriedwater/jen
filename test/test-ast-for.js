@@ -5,8 +5,8 @@ describe('For', () => {
   const expected = {
     body: {
       statements: [{
-        test: ['a'],
-        testObject: { id: 'b' },
+        ids: ['a'],
+        expression: { id: 'b' },
         body: {
           statements: [{
             op: '+',
@@ -27,14 +27,15 @@ describe('For', () => {
     assert.deepEqual(result, expected);
   });
   it('should correctly parse a for loop with multiple function calls', () => {
-    const result = parse('for n in 1000 : \n dothisfirst() \n dothissecond()');
+    const result = parse('for n in range(1000) : \n dothisfirst() \n dothissecond()');
 
     expected.body.statements[0] = {
-      test: [
+      ids: [
         'n',
       ],
-      testObject: {
-        value: 1000,
+      expression: {
+        args: [{ value: 1000 }],
+        callee: { id: 'range' },
       },
       body: {
         statements: [

@@ -19,13 +19,13 @@ Jen {
                      | Exp0 "||" Exp1                                      -- or
                      | Exp0 "&!&" Exp1                                     -- xor
                      | Exp1
-  Exp1               = (Exp1 addop Exp2)                                   -- binary
+  Exp1               = (Exp1 relop Exp2)                                   -- binary
                      | Exp2
-  Exp2               = (Exp2 mulop Exp3)                                   -- binary
+  Exp2               = (Exp2 addop Exp3)                                   -- binary
                      | Exp3
-  Exp3               = (Exp3 "^" Exp4)                                     -- binary
+  Exp3               = (Exp3 mulop Exp4)                                   -- binary
                      | Exp4
-  Exp4               = (Exp4 relop Exp5)                                   -- binary
+  Exp4               = (Exp4 "^" Exp5)                                     -- binary
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
@@ -60,7 +60,7 @@ Jen {
   FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
-  Assignment         = VariableExpressions "=" NonemptyExpressionList
+  Assignment         =  (SubscriptExp | VariableExpressions)"=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
   id                 = varId | constId | packageId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">

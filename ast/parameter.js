@@ -1,6 +1,5 @@
 module.exports = class Parameter {
   constructor(id) {
-    // console.log(id);
     Object.assign(this, { id });
   }
 
