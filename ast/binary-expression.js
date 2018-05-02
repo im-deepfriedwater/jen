@@ -1,4 +1,5 @@
 const Type = require('./type');
+const MultiType = require('../semantics/multi-type');
 
 module.exports = class BinaryExpression {
   constructor(op, left, right) {
@@ -8,7 +9,10 @@ module.exports = class BinaryExpression {
   analyze(context) {
     this.left.analyze(context);
     this.right.analyze(context);
-    if (['<=', '>=', '>', '<'].includes(this.op)) {
+
+    if (this.left.type instanceof MultiType || this.right.type instanceof MultiType) {
+      throw new Error('Function with multiple return types in binary expression');
+    } else if (['<=', '>=', '>', '<'].includes(this.op)) {
       this.mustHaveIntegerOperands();
       this.type = Type.BOOLEAN;
     } else if (['==', '!='].includes(this.op)) {

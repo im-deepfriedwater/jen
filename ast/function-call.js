@@ -1,3 +1,5 @@
+const MultiType = require('../semantics/multi-type');
+
 module.exports = class Call {
   constructor(callee, args) {
     Object.assign(this, { callee, args });
@@ -8,7 +10,17 @@ module.exports = class Call {
     this.args.forEach(arg => arg.analyze(context));
     context.assertIsFunction(this.callee.referent);
     this.checkArgumentMatching(this.callee.referent);
-    this.type = this.callee.convertedParamTypes;
+    // We put references to the type and id to the call object
+    // for convenience at the type checking level.
+
+    // First we check if the function has a simple single return type.
+    // If so, we simplify the type to just that single type object.
+    // Else, things get a little more complicated and we use our
+    // multitype class.
+    this.type = this.callee.referent.convertedResultTypes.length === 1 ?
+      this.callee.referent.convertedResultTypes[0] :
+      new MultiType(this.callee.referent.convertedResultTypes);
+    this.id = this.callee.id;
   }
 
   checkArgumentMatching(callee) {
