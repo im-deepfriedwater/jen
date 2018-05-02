@@ -1,7 +1,6 @@
 const Variable = require('./variable');
 
 module.exports = class ForStatement {
-  // have to change test->ids testobj->exp but dont want to deal with ast test rn
   constructor(ids, expression, body) {
     Object.assign(this, { ids, expression, body });
   }
