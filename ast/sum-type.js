@@ -16,9 +16,6 @@ module.exports = class SumType {
     this.types.forEach((type) => {
       const typeId = type instanceof IdentifierExpression ? type.id : type;
       this.computedTypes[typeId] = Type.cache[typeId] || context.lookupSumType(typeId);
-      if (this.computedTypes[typeId] === undefined) {
-        throw new Error(`Invalid or undeclared type ${type} at type declaration.`);
-      }
     });
   }
 

@@ -87,7 +87,6 @@ class Context {
       return this.parent.lookupSumType(sumTypeId);
     }
   }
-
   assertInFunction(message) {
     if (!this.currentFunction) {
       throw new Error(message);
