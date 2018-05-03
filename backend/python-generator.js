@@ -95,7 +95,7 @@ Object.assign(BooleanLiteral.prototype, {
 });
 
 Object.assign(BreakStatement.prototype, {
-  gen() { return 'break;'; },
+  gen() { emit('break'); },
 });
 
 Object.assign(FunctionCall.prototype, {
@@ -189,7 +189,6 @@ Object.assign(VariableDeclaration.prototype, {
 Object.assign(Variable.prototype, {
   gen() { return pythonName(this); },
 });
-
 
 Object.assign(WhileStatement.prototype, {
   gen() {
