@@ -7,6 +7,7 @@ Jen {
                      | Loop
                      | Declaration newLine+                                 -- declaration
                      | Assignment newLine+                                  -- assignment
+                     | FuncCall newLine+                                    -- call
                      | FuncDec
                      | TypeDec newLine+                                     -- typedec
                      | Return newLine+                                      -- return
@@ -29,7 +30,7 @@ Jen {
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
-  Exp6               = FuncCall                                            -- call
+  Exp6               = FuncCall
                      | Exp6 "." id                                         -- accessor
                      | Exp7
   Exp7               = numLiteral
