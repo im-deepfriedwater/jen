@@ -113,7 +113,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
-  packageId(_1, _2) { return this.sourceString; },
   FieldValue(id, _1, expression) { return new FieldValue(id.ast(), expression.ast()); },
   RecordLiteral(_1, fields, _2) { return new RecordLiteral(fields.ast()); },
   booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },
@@ -124,6 +123,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
 });
 
 module.exports = (text) => {
+  console.log(text);
   const match = grammar.match(withIndentsAndDedents(text));
   if (!match.succeeded()) {
     throw match.message;

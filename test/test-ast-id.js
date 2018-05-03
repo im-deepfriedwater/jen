@@ -42,18 +42,4 @@ describe('id', () => {
     result = parse('PIE_DAY := true');
     assert.deepEqual(result, expected);
   });
-
-  it('should correctly parse package ids - packageId', () => {
-    expected.body.statements[0].ids[0] = 'P_ackage';
-    let result = parse('P_ackage := true');
-    assert.deepEqual(result, expected);
-
-    expected.body.statements[0].ids[0] = 'SWELL2018';
-    result = parse('SWELL2018 := true');
-    assert.deepEqual(result, expected);
-
-    expected.body.statements[0].ids[0] = 'D__________';
-    result = parse('D__________ := true');
-    assert.deepEqual(result, expected);
-  });
 });
