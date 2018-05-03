@@ -1,7 +1,8 @@
 test := {x: 1, y: 'hello'}
+wowANumber := 2
 
 someString: {x: number, y: string}, number -> string
 someString(a, b):
   return a.y
 
-someString(test)
+someString(test, wowANumber)

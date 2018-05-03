@@ -10,12 +10,13 @@ module.exports = class FieldValue {
   }
   /* eslint-disable */
   analyze(context) {
+    // console.log(context);
     // console.log(this);
-    // this.value = this.expression.value
-    // console.log(this);
-    // this.field =
-    // console.log("Am I happening");
-    // console.log(this.expression instanceof StringLiteral);
+    // context.add(this);
+    // this.test = context.lookupRecordField(this.id);
+    // console.log('did it work');
+    // console.log(this.test);
+    // console.log('probably not');
     this.type = context.lookupFieldType(this.expression);
     // this.type =
 

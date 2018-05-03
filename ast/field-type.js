@@ -10,7 +10,7 @@ module.exports = class FieldType {
     // TODO
     // console.log('hello');
     this.recordTypes = {};
-    const typeId = type instanceof RecordType ? id : this;
+    const typeId = this.type instanceof RecordType ? this.id : this;
     this.recordTypes[typeId] = Type.cache[typeId] || context.lookupFieldType(typeId)
 
     // type => basic type, sum type, record type

@@ -14,6 +14,7 @@ const FunctionObject = require('../ast/function-object');
 const FunctionDeclaration = require('../ast/function-declaration');
 const Annotation = require('../ast/annotation');
 const Signature = require('../ast/signature');
+const FieldType = require('../ast/field-type');
 const RecordType = require('../ast/record-type');
 
 
@@ -76,19 +77,17 @@ class Context {
   }
 
   lookupRecordField(id, field) {
-    console.log('start of lookupRecordField');
+    let fieldObject;
     if (id in this.declarations) {
       if (this.declarations[id].type instanceof RecordType) {
         Object.keys(this.declarations[id].type.fields).forEach((fieldId) => {
-          console.log(this.declarations[id].type.fields[fieldId].id);
-          console.log(field);
           if (this.declarations[id].type.fields[fieldId].id === field) {
-            console.log("it's true");
-            console.log(this.declarations[id].type.fields);
-            return this.declarations[id].type.fields[fieldId];
+            fieldObject = this.declarations[id].type.fields[fieldId];
           }
         });
-        console.log('how many times are you getting triggered');
+        if (fieldObject instanceof FieldType) {
+          return fieldObject;
+        }
         throw new Error(`Identifier ${id} is not a Field Type`);
       }
       throw new Error(`Field ${field} in identifier ${id} has not been declared`);

@@ -5,10 +5,8 @@ module.exports = class Accessor {
 
   analyze(context) {
     this.object.analyze(context);
-    // console.log(this.object.id);
-    // console.log(this);
     this.field = context.lookupRecordField(this.object.id, this.property);
-    // console.log(this.field);
+    this.type = this.field.type;
     this.field.analyze(context);
   }
 
