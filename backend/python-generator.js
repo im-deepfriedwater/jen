@@ -35,6 +35,7 @@ const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
 const ErrorLiteral = require('../ast/error-literal');
 const Caller = require('../ast/caller');
+const TypeDeclaration = require('../ast/type-declaration');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -203,4 +204,10 @@ Object.assign(WhileStatement.prototype, {
 
 Object.assign(ErrorLiteral.prototype, {
   gen() { return `${this.value}`; },
+});
+
+Object.assign(TypeDeclaration.prototype, {
+  gen() {
+    emit('');
+  },
 });
