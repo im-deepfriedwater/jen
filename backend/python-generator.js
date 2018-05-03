@@ -34,6 +34,7 @@ const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
 const ErrorLiteral = require('../ast/error-literal');
+const Caller = require('../ast/caller');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -72,18 +73,18 @@ const pythonName = (() => {
 // The AST represents both of these with lists of sources and lists of targets,
 // but when writing out JavaScript it seems silly to write `[x] = [y]` when
 // `x = y` suffices.
-function bracketIfNecessary(a) {
+function parenthesisIfNecessary(a) {
   if (a.length === 1) {
     return `${a}`;
   }
-  return `[${a.join(', ')}]`;
+  return `(${a.join(', ')})`;
 }
 
 Object.assign(AssignmentStatement.prototype, {
   gen() {
     const ids = this.ids.map(id => id.gen());
     const initializers = this.initializers.map(i => i.gen());
-    emit(`${bracketIfNecessary(ids)} = ${bracketIfNecessary(initializers)}`);
+    emit(`${(ids)} = ${(initializers)}`);
   },
 });
 
@@ -99,12 +100,16 @@ Object.assign(BreakStatement.prototype, {
   gen() { emit('break'); },
 });
 
+Object.assign(Caller.prototype, {
+  gen() { emit(`${this.call.gen()}`); },
+});
+
 Object.assign(FunctionCall.prototype, {
   gen() {
     const fun = this.callee.referent;
     const { params } = this.callee.referent;
     const { args } = this;
-    emit(`${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`);
+    return (`${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`);
   },
 });
 
@@ -131,7 +136,7 @@ Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, index) => {
       const prefix = index === 0 ? 'if' : 'else if';
-      emit(`${prefix} (${c.test.gen()}):`);
+      emit(`${prefix} ${c.test.gen()}:`);
       genStatementList(c.body.statements);
     });
     if (this.alternate) {
@@ -154,7 +159,7 @@ Object.assign(Program.prototype, {
 Object.assign(ReturnStatement.prototype, {
   gen() {
     if (this.returnValue) {
-      emit(`return ${this.returnValue.map(r => r.gen())}`);
+      emit(`return ${parenthesisIfNecessary(this.returnValue.map(r => r.gen()))}`);
     } else {
       emit('return');
     }
@@ -181,7 +186,7 @@ Object.assign(VariableDeclaration.prototype, {
   gen() {
     const variables = this.variables.map(v => v.gen());
     const initializers = this.initializers.map(i => i.gen());
-    emit(`${bracketIfNecessary(variables)} = ${bracketIfNecessary(initializers)}`);
+    emit(`${(variables)} = ${(initializers)}`);
   },
 });
 

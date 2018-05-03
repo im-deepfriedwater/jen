@@ -1,4 +1,5 @@
 const Variable = require('./variable');
+const Caller = require('./caller');
 
 // A VariableDeclaration declares one or more variables. The variable objects
 // will be created during semantic analysis.
@@ -14,11 +15,13 @@ module.exports = class VariableDeclaration {
     // analyze first so functionCalls get analyzed
     this.initializers.forEach(e => e.analyze(context));
 
-    // Checking if the right side is a function call
-    // If so, count the number of return types and add it to initializerReturnCount
+    // Checking if the right side is a call or a function call
+    // If so, add the type of the return values
     const types = [];
     this.initializers.forEach((i) => {
-      if (i.callee) {
+      if (i instanceof Caller) {
+        types.push(...(i.call.callee.referent.type));
+      } else if (i.callee) {
         types.push(...(i.callee.referent.type));
       } else {
         types.push(i.type);

@@ -42,6 +42,7 @@ const SumTypeClass = require('../ast/sum-type');
 const FuncSignature = require('../ast/signature');
 const FuncAnnotation = require('../ast/annotation');
 const IdentifierExpression = require('../ast/identifier-expression');
+const Caller = require('../ast/caller');
 
 
 // Credit to Ray Toal:
@@ -93,6 +94,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   Exp3_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp4_binary(left, op, right) { return new BinaryExpression(op.ast(), left.ast(), right.ast()); },
   Exp5_not(op, operand) { return new UnaryExpression(op.ast(), operand.ast()); },
+  Exp6_call(c) { return new Caller(c.ast()); },
   Exp6_accessor(object, _1, property) { return new Accessor(object.ast(), property.ast()); },
   Exp7_parens(_1, expression, _2) { return expression.ast(); },
   VariableExpression(id) {
