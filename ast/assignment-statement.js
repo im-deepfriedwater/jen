@@ -8,9 +8,16 @@ module.exports = class AssignmentStatement {
       throw new Error('Number of variables does not equal number of expressions');
     }
     this.initializers.forEach(s => s.analyze(context));
+
     // look up the variable from context
     // look up variables not in the context, undeclared variable assignment error
     this.ids.forEach(id => id.analyze(context));
+    // Check if trying to assign to a constant
+    this.ids.forEach((id) => {
+      if (id.referent.const) {
+        throw new Error('assignment to constant variable');
+      }
+    });
     this.ids.forEach((id, i) => {
       id.referent.type.mustBeCompatibleWith(this.initializers[i].type, 'Type Mismatch at Assignment');
     });

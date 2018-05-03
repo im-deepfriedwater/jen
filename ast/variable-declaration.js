@@ -17,13 +17,18 @@ module.exports = class VariableDeclaration {
     // We don't want the declared variables to come into scope until after the
     // declaration line, so we will analyze all the initializing expressions
     // first.
-
     this.initializers.forEach(e => e.analyze(context));
 
     // Now we can create actual variable objects and add to the current context.
 
+
     // isnt new var (new id, ititailizer?)
     this.variables = this.ids.map((id, i) => new Variable(id, this.initializers[i]));
+    for (let id = 0; id < this.variables.length; id += 1) {
+      if (this.variables[id].id === this.variables[id].id.toUpperCase()) {
+        this.variables[id].const = true;
+      }
+    }
     this.variables.forEach(variable => context.add(variable));
   }
 
