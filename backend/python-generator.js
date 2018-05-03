@@ -77,17 +77,6 @@ function bracketIfNecessary(a) {
   return `[${a.join(', ')}]`;
 }
 
-// function generateLibraryFunctions() {
-//   function generateLibraryStub(name, params, body) {
-//     const entity = Context.INITIAL.declarations[name];
-//     emit(`def ${pythonName(entity)}${params}: ${body}`);
-//   }
-//   return [
-//     generateLibraryStub('print', '_', 'print(_)'),
-//   ].join('');
-// }
-
-
 Object.assign(AssignmentStatement.prototype, {
   gen() {
     const targets = this.targets.map(t => t.gen());
@@ -109,17 +98,11 @@ Object.assign(BreakStatement.prototype, {
 });
 
 Object.assign(FunctionCall.prototype, {
-  gen() { emit(`${this.call.gen()};`); },
-});
-
-Object.assign(FunctionCall.prototype, {
   gen() {
     const fun = this.callee.referent;
-    const params = {};
-    const args = Array(this.args.length).fill(undefined);
-    fun.params.forEach((p, i) => { params[p.id] = i; });
-    this.args.forEach((a, i) => { args[a.isPositionalArgument ? i : params[a.id]] = a; });
-    return `${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`;
+    const { params } = this.callee.referent;
+    const { args } = this;
+    emit(`${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`);
   },
 });
 
@@ -158,14 +141,12 @@ Object.assign(NumericLiteral.prototype, {
 
 Object.assign(Program.prototype, {
   gen() {
-    // generateLibraryFunctions();
     this.body.statements.forEach(statement => statement.gen());
   },
 });
 
 Object.assign(ReturnStatement.prototype, {
   gen() {
-    console.log(this.returnValue);
     if (this.returnValue) {
       emit(`return ${this.returnValue.gen()};`);
     } else {
