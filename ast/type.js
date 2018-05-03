@@ -21,9 +21,6 @@ class Type {
   mustBeAny(message) {
     return this.mustBeCompatibleWith(Type.ANY, message);
   }
-  mustBeRecord(message) {
-    return this.mustBeCompatibleWith(Type.RECORD, message);
-  }
   mustBeCompatibleWith(otherType, message) {
     if (otherType !== Type.ANY && !this.isCompatibleWith(otherType)) {
       throw message;
@@ -51,7 +48,6 @@ Type.ERROR = new Type('error');
 Type.STRING = new Type('string');
 Type.VOID = new Type('void');
 Type.ANY = new Type('any');
-Type.RECORD = new Type('record');
 
 Type.forName = name => Type.cache[name];
 

@@ -6,10 +6,15 @@ module.exports = class RecordLiteral {
   }
   /* eslint-disable */
   analyze(context) {
-    this.type = Type.RECORD;
+    // this.type = Type.RECORD;
+    
+    // console.log(this);
     // context.analyzeFields(this, fields);
     context.assertRecordNoDuplicateFields(this, 'Duplicate field names');
     // add record to the context object
+    this.fields.forEach((field) => {
+      field.analyze(context);
+    });
   }
   /* eslint-enable */
 

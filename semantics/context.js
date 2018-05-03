@@ -14,6 +14,7 @@ const FunctionObject = require('../ast/function-object');
 const FunctionDeclaration = require('../ast/function-declaration');
 const Annotation = require('../ast/annotation');
 const Signature = require('../ast/signature');
+const RecordType = require('../ast/record-type');
 
 
 class Context {
@@ -75,10 +76,20 @@ class Context {
   }
 
   lookupRecordField(id, field) {
+    console.log('start of lookupRecordField');
     if (id in this.declarations) {
-      // console.log(this.declarations[id]);
-      if (field in this.declarations[id]) {
-        return this.declarations[id][field];
+      if (this.declarations[id].type instanceof RecordType) {
+        Object.keys(this.declarations[id].type.fields).forEach((fieldId) => {
+          console.log(this.declarations[id].type.fields[fieldId].id);
+          console.log(field);
+          if (this.declarations[id].type.fields[fieldId].id === field) {
+            console.log("it's true");
+            console.log(this.declarations[id].type.fields);
+            return this.declarations[id].type.fields[fieldId];
+          }
+        });
+        console.log('how many times are you getting triggered');
+        throw new Error(`Identifier ${id} is not a Field Type`);
       }
       throw new Error(`Field ${field} in identifier ${id} has not been declared`);
     } else if (this.parent === null) {
@@ -103,6 +114,11 @@ class Context {
       return this.parent.lookupSumType(sumTypeId);
     }
   }
+
+  lookupFieldType(expression) {
+    // console.log(this);
+  }
+
   assertInFunction(message) {
     if (!this.currentFunction) {
       throw new Error(message);

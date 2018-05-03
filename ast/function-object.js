@@ -42,6 +42,7 @@ module.exports = class FunctionObject {
         this.convertedParamTypes.push(context.lookupSumType(t.id));
       } else if (t instanceof RecordType) {
         this.convertedParamTypes.push(t);
+        // console.log(this.convertedParamTypes);
       } else if (t.startsWith('list') && t.includes(' ')) {
         // If it's not a sum type it might be a list type.
         this.convertedParamTypes.push(new ListType(t));

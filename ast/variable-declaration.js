@@ -12,6 +12,7 @@ module.exports = class VariableDeclaration {
 
   analyze(context) {
     // analyze first so functionCalls get analyzed
+    // console.log(this.initializers[0]);
     this.initializers.forEach(e => e.analyze(context));
 
     // Checking if the right side is a function call
