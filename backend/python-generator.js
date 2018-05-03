@@ -173,7 +173,7 @@ Object.assign(SubscriptedExpression.prototype, {
 });
 
 Object.assign(UnaryExpression.prototype, {
-  gen() { return `(${makeOp(this.op)} ${this.operand.gen()})`; },
+  gen() { return `(${makeOp(this.op)}${this.operand.gen()})`; },
 });
 
 Object.assign(VariableDeclaration.prototype, {
