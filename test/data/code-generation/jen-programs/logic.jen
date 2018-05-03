@@ -1,0 +1,12 @@
+justOnePerson: string, string -> boolean
+justOnePerson(x, y):
+  return x=='jen' &!& y=='justin'
+
+eitherIsTrue: boolean, boolean -> boolean
+eitherIsTrue(x, y):
+  return x || y
+
+isOdd: number -> boolean
+isOdd(x):
+  if !evenNumber(x):
+    return y=='The number is odd'

@@ -1,0 +1,7 @@
+type numberString: string | number
+type booleanNumberString: boolean | numberStrings
+
+listOfTypes = ["hello", true, "bob", 123123, "!!"]
+
+for i in listOfTypes:
+  print(i)
