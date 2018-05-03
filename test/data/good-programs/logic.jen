@@ -8,5 +8,4 @@ eitherIsTrue(x, y):
 
 isOdd: number -> boolean
 isOdd(x):
-  if !evenNumber(x):
-    return y=='The number is odd'
+  return x % 2 != 0

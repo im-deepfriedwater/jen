@@ -1,0 +1,2 @@
+x := 'I am not an integer. Please have mercy'
+y := x + 5
