@@ -1,0 +1,9 @@
+onlyGreaterThan3Allowed: number -> num, error
+onlyGreaterThan3Allowed(num):
+  if num <= 3:
+    return 'Greater than 3 not allowed', err
+  else:
+    return 4, ok
+
+
+result := onlyGreaterThan3Allowed(3) + 3

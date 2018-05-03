@@ -5,5 +5,6 @@ module.exports = class IdentifierExpression {
 
   analyze(context) {
     this.referent = context.lookup(this.id);
+    this.type = this.referent.type;
   }
 };

@@ -1,14 +1,13 @@
+const Type = require('./type');
+
 module.exports = class Variable {
-  constructor(id, type) {
+  constructor(id, type = Type.ANY) {
     this.id = id;
     this.type = type;
   }
-  /* eslint-disable */
-  analyze() {
-    // empty on purpose
+  analyze(context) {
+    context.add(this);
   }
-  /* eslint-enable */
-
   optimize() {
     return this;
   }

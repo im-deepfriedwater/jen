@@ -3,8 +3,8 @@ module.exports = class RecordLiteral {
     this.fields = fields;
   }
   /* eslint-disable */
-  analyze() {
-    // empty on purpose!
+  analyze(context) {
+    context.assertRecordNoDuplicateFields(this, 'Duplicate field names');
   }
   /* eslint-enable */
 

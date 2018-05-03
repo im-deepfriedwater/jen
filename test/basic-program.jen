@@ -1,4 +1,4 @@
 areaOfCircle: number -> number
 areaOfCircle(radius):
-   PI := pi()
-   return (PI * radius) ^ 2
+   PI = Math.pi()
+   return PI * radius ^ 2

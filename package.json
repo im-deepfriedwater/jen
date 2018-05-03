@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "jen-lang",
   "dependencies": {
-    "ohm-js": "^0.14.0"
+    "ohm-js": "^0.14.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "eslint": "^4.17.0",

@@ -1,0 +1,21 @@
+y := [1, 2, 3, 4, 5]
+
+z, a = "hello", 10
+type stringOrNumber string | number
+
+while (x < 5):
+  if x == 3:
+    print(x)
+  x = x + 1
+
+for value in y:
+  print(value)
+
+if x == 12:
+  print("first")
+else if x == 6:
+  print("second")
+else:
+  print("third")
+
+lululemon := 1 > 2 ? "one is greater" : "two is greater"

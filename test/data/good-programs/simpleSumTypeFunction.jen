@@ -1,0 +1,8 @@
+type numstring : number | string
+
+takeSomething: numstring -> string
+takeSomething(something):
+  somethingBack := 'here'
+  return somethingBack
+
+resultString := takeSomething('something')

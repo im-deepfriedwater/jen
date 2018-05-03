@@ -1,0 +1,78 @@
+{
+  body: {
+    statements: [{
+      ids: [ 'y' ],
+      initializers: [{
+           values:
+            [  { value: 1 },
+               { value: 2 },
+               { value: 3 },
+               { value: 4 },
+               { value: 5 }
+            ]
+      }]
+    },
+    {
+      ids: [ 'z', 'a' ],
+      initializers: [{ value: '"hello"' },
+      { value: 10 } ] } ] } },
+         {
+         id: 'stringOrNumber',
+         sumType:
+        {
+          basicTypeOrId1: 'string',
+          basicTypeOrId2: 'number',
+          moreBasicTypesOrIds: [] } },
+        {
+         test: { op: '<', left: 'x', right: { value: 5 } },
+         body:
+          {
+            statements:
+             [{
+                 cases:
+                  [{
+                    test: { op: '==', left: 'x', right: { value: 3 } },
+                    body: { statements: [ { callee: 'print', args: [ 'x' ] } ] } } ],
+                 alternate: null },
+                {
+                 ids: [ 'x' ],
+                 initializers: [ { op: '+', left: 'x', right: { value: 1 } } ] } ] } } ] } }
+                {
+                 test: [ 'value' ],
+                 testObject: 'y',
+                 body: { statements: [ { callee: 'print', args: [ 'value' ] } ] } },
+                {
+                 cases:
+                  [  {
+                      test: { op: '==', left: 'x', right: { value: 12 } },
+                      body:
+                        {
+                         statements:
+                          [ {
+                              callee: 'print',
+                              args: [ { value: '"first"' } ] } ] } },
+                     {
+                      test: { op: '==', left: 'x', right: { value: 6 } },
+                      body:
+                      {
+                         statements:
+                          [ {
+                              callee: 'print',
+                              args: [ { value: '"second"' } ] } ] } } ],
+                 alternate:
+                   {
+                    statements:
+                     [ {
+                         callee: 'print',
+                         args: [  { value: '"third"' } ] } ] } } ] } }
+               {
+                 ids: [ 'lululemon' ],
+                 initializers:
+                  [ {
+                      conditional:
+                        {
+                         op: '>',
+                         left:  { value: 1 },
+                         right:  { value: 2 } },
+                      trueValue:  { value: '"one is greater"' },
+                      falseValue:  { value: '"two is greater"' } } ] } ] } }
