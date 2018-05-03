@@ -20,6 +20,7 @@ const VariableDeclaration = require('../ast/variable-declaration');
 const AssignmentStatement = require('../ast/assignment-statement');
 const BreakStatement = require('../ast/break');
 const ReturnStatement = require('../ast/return');
+const WhileStatement = require('../ast/while-statement');
 const IfStatement = require('../ast/if-statement');
 const FunctionCall = require('../ast/function-call');
 const FunctionDeclaration = require('../ast/function-declaration');
@@ -187,4 +188,12 @@ Object.assign(VariableDeclaration.prototype, {
 
 Object.assign(Variable.prototype, {
   gen() { return pythonName(this); },
+});
+
+
+Object.assign(WhileStatement.prototype, {
+  gen() {
+    emit(`while ${this.test.gen()}: `);
+    genStatementList(this.body.statements);
+  },
 });
