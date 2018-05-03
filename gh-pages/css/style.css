@@ -26,22 +26,14 @@ body{
     padding: 0px;
     margin: 0px;}
 
-ul {
-    display: inline;
-    list-style-type: none;}
-
-li {
-    display: inline;
-    padding: 5px;
-    margin: 10px;
-    border-style: solid;
-    border-radius: 4px;
-    border-width: 2px;
-    border-color: var(--main-header-trimming);}
 
 a {
     color: var(--main-title-font);
     text-decoration: none;}
+
+.purple-link{
+  color: var(--main-title-background);
+}
 
 p{
     display:inline;
@@ -54,11 +46,22 @@ hr{
     width: 70%;
     grid-column: 1/3;}
 
-li:hover {
+.developers-list{
+    display: inline;
+    list-style-type: none;}
+
+.developer-li{
+    display: inline;
+    padding: 5px;
+    margin: 10px;
+    border-style: solid;
+    border-radius: 4px;
+    border-width: 2px;
+    border-color: var(--main-header-trimming);}
+
+.developer-li:hover {
     background-color: var(--main-header-trimming);
     cursor: pointer;}
-
-
 
 .center-wrapped-text {
     margin: auto;
@@ -114,7 +117,7 @@ li:hover {
 
 .content-wrapper {
     grid-column: 1/3;
-    grid-row: 3;
+    grid-row: 4;
     font-family: Roboto;
     display: grid;
     padding: 3vh;
@@ -130,9 +133,31 @@ li:hover {
     width: 30vw;
     font-size: 2vh;}
 
+.types{
+  vertical-align: top;
+  margin-top: 0px;
+}
+
+.types-list {
+  padding-left: 0px;
+  list-style-type: none;
+  display: inline;}
+
+.types-list-item{
+  text-align: left;
+  margin: 10px;}
+
+.operators-list {
+  padding-left: 0px;
+  list-style-type: none;
+  display:inline;}
+
+.operators-list-item{
+  text-align: left;
+  padding-left: 5vw;}
+
 .code-examples-wrapper{
-    grid-column: 1/3;
-    grid-row: 4;}
+    grid-column: 1/3;}
 
 .jen-code {
     grid-column: 1/3;
