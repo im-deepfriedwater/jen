@@ -22,7 +22,16 @@ describe('The semantic analyzer', () => {
     // group. $1 refers to the first capturing group. This is necessary as
     // the names of certain error files include reserved characters for
     // regexes, so we put a backslash.
-    const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '').replace(/([+^])/g, '\\$1');
+    const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '')
+      .replace(/times/, '*')
+      .replace(/lessthan/, '<')
+      .replace(/greaterthan/, '>')
+      .replace(/minus/, '-')
+      .replace(/intdiv/, '//')
+      .replace(/divmod/, '/%')
+      .replace(/div/, '/')
+      .replace(/or/, '||')
+      .replace(/([+^<*])/g, '\\$1');
     it(`detects a ${errorName} error`, () => {
       const program = parse(fs.readFileSync(`${BAD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       const errorPattern = RegExp(errorName, 'i');
