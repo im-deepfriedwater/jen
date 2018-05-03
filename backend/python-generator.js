@@ -77,15 +77,15 @@ function bracketIfNecessary(a) {
   return `[${a.join(', ')}]`;
 }
 
-function generateLibraryFunctions() {
-  function generateLibraryStub(name, params, body) {
-    const entity = Context.INITIAL.declarations[name];
-    emit(`function ${pythonName(entity)}(${params}) ${body}`);
-  }
-  return [
-    generateLibraryStub('print', '_', 'print(_);'),
-  ].join('');
-}
+// function generateLibraryFunctions() {
+//   function generateLibraryStub(name, params, body) {
+//     const entity = Context.INITIAL.declarations[name];
+//     emit(`def ${pythonName(entity)}${params}: ${body}`);
+//   }
+//   return [
+//     generateLibraryStub('print', '_', 'print(_)'),
+//   ].join('');
+// }
 
 
 Object.assign(AssignmentStatement.prototype, {
@@ -142,12 +142,12 @@ Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, index) => {
       const prefix = index === 0 ? 'if' : 'else if';
-      emit(`${prefix} (${c.test.gen()})`);
-      genStatementList(c.body);
+      emit(`${prefix} (${c.test.gen()}):`);
+      genStatementList(c.body.statements);
     });
     if (this.alternate) {
-      emit(' else ');
-      genStatementList(this.alternate);
+      emit('else: ');
+      genStatementList(this.alternate.statements);
     }
   },
 });
@@ -156,10 +156,9 @@ Object.assign(NumericLiteral.prototype, {
   gen() { return `${this.value}`; },
 });
 
-
 Object.assign(Program.prototype, {
   gen() {
-    generateLibraryFunctions();
+    // generateLibraryFunctions();
     this.body.statements.forEach(statement => statement.gen());
   },
 });
