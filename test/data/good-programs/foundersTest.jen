@@ -3,21 +3,18 @@
 ; capitalized
 
 ascendedFounders := ['jen', 'anthony', 'elizabeth', 'thomas', 'justin', 'moreJen']
-TEST_FOUNDERS := ['Jen', 'Anthony', 'Elizabeth', 'Thomas', 'Justin', 'MOREJEN']
-
-ELEVATED_FOUNDERS := processList(ascendedFounders)
-
-for i in range(TEST_FOUNDERS.length):
-  print(TEST_FOUNDERS[i] == ascendedFounders[i])
+TEST_FOUNDERS := ['JEN', 'ANTHONY', 'ELIZABETH', 'THOMAS', 'JUSTIN', 'MOREJEN']
 
 processList: list string -> list string
 processList (listToProcess):
     listResult := []
-    for index, name in enumerate(listToProcess):
-        name[0] = toUpper(name[0])
-        listToProcessResult.push(name)
-
-        if index == listToProcess.length - 1:
-          listResult.push(toUpper(name))
+    for index in range(listToProcess.length):
+      listResult[i] = toUpper(listToProcess[i])
 
     return listResult
+
+
+ELEVATED_FOUNDERS := processList(ascendedFounders)
+
+for i in range(TEST_FOUNDERS.length):
+    print(TEST_FOUNDERS[i] == ascendedFounders[i])

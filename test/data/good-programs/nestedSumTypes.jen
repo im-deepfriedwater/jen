@@ -1,7 +1,12 @@
 type numberString: string | number
-type booleanNumberString: boolean | numberStrings
+type booleanNumberString: boolean | numberString
 
-listOfTypes = ["hello", true, "bob", 123123, "!!"]
 
-for i in listOfTypes:
-  print(i)
+sumTypeStore: numberString, booleanNumberString -> void
+sumTypeStore(sumType1, sumType2):
+  x := sumType1
+  y := sumType2
+
+sumTypeStore('1', true)
+sumTypeStore(1, 1)
+sumTypeStore(1, '1')

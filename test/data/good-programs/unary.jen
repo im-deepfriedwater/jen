@@ -1,0 +1,4 @@
+tf := true
+f := !tf
+
+tf = false

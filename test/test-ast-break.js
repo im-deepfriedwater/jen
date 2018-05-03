@@ -39,8 +39,8 @@ describe('Break', () => {
   });
   it('should correctly parse a break in a for loop', () => {
     expected.body.statements[0] = {
-      test: ['a'],
-      testObject: { id: 'b' },
+      ids: ['a'],
+      expression: { id: 'b' },
       body: {
         statements: [{
           cases: [{

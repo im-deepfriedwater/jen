@@ -1,0 +1,9 @@
+costOfLiving: number, number -> number
+costOfLiving(costOfThaiFood, numberOfThaiFoods):
+  TOTAL := costOfThaiFood * numberOfThaiFoods
+  TIP := 0.15
+  TAX := 0.5
+
+  return TOTAL + (TOTAL * TIP) + (TOTAL * TAX)
+
+costOfLiving(2)

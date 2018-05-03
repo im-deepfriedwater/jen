@@ -1,0 +1,2 @@
+type validJen : number | boolean | string | error
+type invalidJen : validJen | jen

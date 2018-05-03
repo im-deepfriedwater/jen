@@ -1,0 +1,14 @@
+x := 10
+y := 0
+
+greater := x > 5
+less := y < 5
+greater = x >= y
+less = x <= y
+
+notEqual := x != y
+equal := x == 10
+
+and := greater && less
+or := greater || less
+; xor := greater &!& less

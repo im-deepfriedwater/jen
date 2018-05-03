@@ -20,6 +20,7 @@ const VariableDeclaration = require('../ast/variable-declaration');
 const AssignmentStatement = require('../ast/assignment-statement');
 const BreakStatement = require('../ast/break');
 const ReturnStatement = require('../ast/return');
+const WhileStatement = require('../ast/while-statement');
 const IfStatement = require('../ast/if-statement');
 const FunctionCall = require('../ast/function-call');
 const FunctionDeclaration = require('../ast/function-declaration');
@@ -32,6 +33,7 @@ const Variable = require('../ast/variable');
 const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
+const ErrorLiteral = require('../ast/error-literal');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -77,22 +79,11 @@ function bracketIfNecessary(a) {
   return `[${a.join(', ')}]`;
 }
 
-function generateLibraryFunctions() {
-  function generateLibraryStub(name, params, body) {
-    const entity = Context.INITIAL.declarations[name];
-    emit(`function ${pythonName(entity)}(${params}) ${body}`);
-  }
-  return [
-    generateLibraryStub('print', '_', 'print(_);'),
-  ].join('');
-}
-
-
 Object.assign(AssignmentStatement.prototype, {
   gen() {
-    const targets = this.targets.map(t => t.gen());
-    const sources = this.sources.map(s => s.gen());
-    emit(`${bracketIfNecessary(targets)} = ${bracketIfNecessary(sources)};`);
+    const ids = this.ids.map(id => id.gen());
+    const initializers = this.initializers.map(i => i.gen());
+    emit(`${bracketIfNecessary(ids)} = ${bracketIfNecessary(initializers)}`);
   },
 });
 
@@ -105,49 +96,47 @@ Object.assign(BooleanLiteral.prototype, {
 });
 
 Object.assign(BreakStatement.prototype, {
-  gen() { return 'break;'; },
-});
-
-Object.assign(FunctionCall.prototype, {
-  gen() { emit(`${this.call.gen()};`); },
+  gen() { emit('break'); },
 });
 
 Object.assign(FunctionCall.prototype, {
   gen() {
     const fun = this.callee.referent;
-    const params = {};
-    const args = Array(this.args.length).fill(undefined);
-    fun.params.forEach((p, i) => { params[p.id] = i; });
-    this.args.forEach((a, i) => { args[a.isPositionalArgument ? i : params[a.id]] = a; });
-    return `${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`;
+    const { params } = this.callee.referent;
+    const { args } = this;
+    emit(`${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`);
   },
 });
 
 Object.assign(FunctionDeclaration.prototype, {
-  gen() { return this.function.gen(); },
+  gen() {
+    return this.function.gen();
+  },
 });
 
 Object.assign(FunctionObject.prototype, {
   gen() {
-    emit(`def ${pythonName(this)}(${this.params.map(p => p.gen()).join(', ')})`);
+    emit(`def ${pythonName(this)}(${this.params.map(p => p.gen()).join(', ')}):`);
     genStatementList(this.suite.statements);
   },
 });
 
 Object.assign(IdentifierExpression.prototype, {
-  gen() { return this.referent.gen(); },
+  gen() {
+    return this.referent.gen();
+  },
 });
 
 Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, index) => {
       const prefix = index === 0 ? 'if' : 'else if';
-      emit(`${prefix} (${c.test.gen()})`);
-      genStatementList(c.body);
+      emit(`${prefix} (${c.test.gen()}):`);
+      genStatementList(c.body.statements);
     });
     if (this.alternate) {
-      emit(' else ');
-      genStatementList(this.alternate);
+      emit('else: ');
+      genStatementList(this.alternate.statements);
     }
   },
 });
@@ -156,21 +145,18 @@ Object.assign(NumericLiteral.prototype, {
   gen() { return `${this.value}`; },
 });
 
-
 Object.assign(Program.prototype, {
   gen() {
-    generateLibraryFunctions();
     this.body.statements.forEach(statement => statement.gen());
   },
 });
 
 Object.assign(ReturnStatement.prototype, {
   gen() {
-    console.log(this.returnValue);
     if (this.returnValue) {
-      emit(`return ${this.returnValue.gen()};`);
+      emit(`return ${this.returnValue.map(r => r.gen())}`);
     } else {
-      emit('return;');
+      emit('return');
     }
   },
 });
@@ -188,7 +174,7 @@ Object.assign(SubscriptedExpression.prototype, {
 });
 
 Object.assign(UnaryExpression.prototype, {
-  gen() { return `(${makeOp(this.op)} ${this.operand.gen()})`; },
+  gen() { return `(${makeOp(this.op)}${this.operand.gen()})`; },
 });
 
 Object.assign(VariableDeclaration.prototype, {
@@ -201,4 +187,15 @@ Object.assign(VariableDeclaration.prototype, {
 
 Object.assign(Variable.prototype, {
   gen() { return pythonName(this); },
+});
+
+Object.assign(WhileStatement.prototype, {
+  gen() {
+    emit(`while ${this.test.gen()}: `);
+    genStatementList(this.body.statements);
+  },
+});
+
+Object.assign(ErrorLiteral.prototype, {
+  gen() { return `${this.value}`; },
 });

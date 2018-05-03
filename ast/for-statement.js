@@ -1,23 +1,22 @@
-const BooleanLiteral = require('./boolean-literal');
+const Variable = require('./variable');
 
 module.exports = class ForStatement {
-  constructor(test, testObject, body) {
-    Object.assign(this, { test, testObject, body });
+  constructor(ids, expression, body) {
+    Object.assign(this, { ids, expression, body });
   }
 
   analyze(context) {
-    this.test.analyze(context);
+    // We analyze the expression first so we can infer its type for our
+    // loop variables.
+    // Note that expressions in for loops only look outside for scope.
+    this.expression.analyze(context);
+    this.loopVariables = this.ids.map(id => new Variable(id, this.expression.type));
     const bodyContext = context.createChildContextForLoop();
-    this.body.forEach(s => s.analyze(bodyContext));
+    this.loopVariables.forEach(v => v.analyze(bodyContext));
+    this.body.analyze(bodyContext);
   }
 
   optimize() {
-    this.test = this.test.optimize();
-    if (this.test instanceof BooleanLiteral && this.condition.value === false) {
-      return null;
-    }
-    this.body.map(s => s.optimize()).filter(s => s !== null);
-    // Suggested: Look for returns/breaks in the middle of the body
     return this;
   }
 };

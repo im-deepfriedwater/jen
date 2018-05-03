@@ -8,7 +8,11 @@ describe('Assignment', () => {
     body: {
       statements: [
         {
-          ids: ['always'],
+          ids: [
+            {
+              id: 'always',
+            },
+          ],
           initializers: [{
             callee: { id: 'study' },
             args: [],
@@ -25,7 +29,11 @@ describe('Assignment', () => {
   });
 
   it('should correctly parse assignment with multiple variables', () => {
-    expected.body.statements[0].ids = ['plang1', 'plang2', 'plang3'];
+    expected.body.statements[0].ids = [
+      { id: 'plang1' },
+      { id: 'plang2' },
+      { id: 'plang3' },
+    ];
     expected.body.statements[0].initializers = [
       { value: '"python"' },
       { value: '"elm"' },
