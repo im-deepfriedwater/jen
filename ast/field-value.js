@@ -5,7 +5,8 @@ module.exports = class FieldValue {
   }
   /* eslint-disable */
   analyze() {
-    // empty on purpose!
+    // need to be able to analyze whether or not a
+    // called field exists
   }
   /* eslint-enable */
 

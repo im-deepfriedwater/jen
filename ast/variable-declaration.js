@@ -17,6 +17,7 @@ module.exports = class VariableDeclaration {
     // Checking if the right side is a function call
     // If so, count the number of return types and add it to initializerReturnCount
     const types = [];
+    // console.log(this.initializers[0].fields);
     this.initializers.forEach((i) => {
       if (i.callee) {
         types.push(...(i.callee.referent.type));

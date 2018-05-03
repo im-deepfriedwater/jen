@@ -29,6 +29,7 @@ module.exports = class FunctionObject {
       error: Type.ERROR,
       void: Type.VOID,
       any: Type.ANY,
+      record: Type.RECORD,
     };
 
     this.convertedParamTypes = [];

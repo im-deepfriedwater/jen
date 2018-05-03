@@ -24,6 +24,7 @@ class Context {
       inLoop,
       declarations: Object.create(null),
       sumTypeDeclarations: Object.create(null),
+      recordTypeDeclarations: Object.create(null),
     });
   }
 
@@ -64,7 +65,22 @@ class Context {
   // context and searching "outward" through enclosing contexts if necessary.
   lookup(id) {
     if (id in this.declarations) {
+      // console.log(this.declarations[id]);
       return this.declarations[id];
+    } else if (this.parent === null) {
+      throw new Error(`Identifier ${id} has not been declared`);
+    } else {
+      return this.parent.lookup(id);
+    }
+  }
+
+  lookupRecordField(id, field) {
+    if (id in this.declarations) {
+      // console.log(this.declarations[id]);
+      if (field in this.declarations[id]) {
+        return this.declarations[id][field];
+      }
+      throw new Error(`Field ${field} in identifier ${id} has not been declared`);
     } else if (this.parent === null) {
       throw new Error(`Identifier ${id} has not been declared`);
     } else {
