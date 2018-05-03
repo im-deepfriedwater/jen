@@ -33,6 +33,7 @@ const Variable = require('../ast/variable');
 const BooleanLiteral = require('../ast/boolean-literal');
 const NumericLiteral = require('../ast/numeric-literal');
 const StringLiteral = require('../ast/string-literal');
+const ErrorLiteral = require('../ast/error-literal');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -193,4 +194,8 @@ Object.assign(WhileStatement.prototype, {
     emit(`while ${this.test.gen()}: `);
     genStatementList(this.body.statements);
   },
+});
+
+Object.assign(ErrorLiteral.prototype, {
+  gen() { return `${this.value}`; },
 });
