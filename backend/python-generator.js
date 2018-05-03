@@ -80,9 +80,9 @@ function bracketIfNecessary(a) {
 
 Object.assign(AssignmentStatement.prototype, {
   gen() {
-    const targets = this.targets.map(t => t.gen());
-    const sources = this.sources.map(s => s.gen());
-    emit(`${bracketIfNecessary(targets)} = ${bracketIfNecessary(sources)};`);
+    const ids = this.ids.map(id => id.gen());
+    const initializers = this.initializers.map(i => i.gen());
+    emit(`${bracketIfNecessary(ids)} = ${bracketIfNecessary(initializers)}`);
   },
 });
 
@@ -95,7 +95,7 @@ Object.assign(BooleanLiteral.prototype, {
 });
 
 Object.assign(BreakStatement.prototype, {
-  gen() { return 'break;'; },
+  gen() { return 'break'; },
 });
 
 Object.assign(FunctionCall.prototype, {
