@@ -107,18 +107,24 @@ Object.assign(FunctionCall.prototype, {
 });
 
 Object.assign(FunctionDeclaration.prototype, {
-  gen() { return this.function.gen(); },
+  gen() {
+    return this.function.gen();
+  },
 });
 
 Object.assign(FunctionObject.prototype, {
   gen() {
-    emit(`def ${pythonName(this)}(${this.params.map(p => p.gen()).join(', ')})`);
+    emit(`def ${pythonName(this)}(${this.params.map(p => p.gen()).join(', ')}) {`);
     genStatementList(this.suite.statements);
   },
 });
 
 Object.assign(IdentifierExpression.prototype, {
-  gen() { return this.referent.gen(); },
+  gen() {
+    console.log(this);
+    console.log(this.referent);
+    return this.referent.gen();
+  },
 });
 
 Object.assign(IfStatement.prototype, {
@@ -148,7 +154,7 @@ Object.assign(Program.prototype, {
 Object.assign(ReturnStatement.prototype, {
   gen() {
     if (this.returnValue) {
-      emit(`return ${this.returnValue.gen()};`);
+      emit(`return ${this.returnValue.map(r => r.gen())};`);
     } else {
       emit('return;');
     }

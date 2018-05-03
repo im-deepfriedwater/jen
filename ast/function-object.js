@@ -58,7 +58,9 @@ module.exports = class FunctionObject {
       // They are detached from the AST, because they are created and used to
       // get added to context but it seems a little off since
       // everything is a component of the AST typically.
-      context.add(new Variable(p, this.convertedParamTypes[i]));
+      const v = new Variable(p, this.convertedParamTypes[i]);
+      this.params[i] = v;
+      context.add(v);
     });
 
     // A way of attaching it to the AST would be to fix parser.js
