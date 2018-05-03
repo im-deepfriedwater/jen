@@ -1,6 +1,8 @@
 const Variable = require('./variable');
 const Type = require('./type');
 const ListType = require('./list-type');
+const RecordType = require('./record-type');
+
 const IdentifierExpression = require('./identifier-expression');
 
 module.exports = class FunctionObject {
@@ -29,7 +31,6 @@ module.exports = class FunctionObject {
       error: Type.ERROR,
       void: Type.VOID,
       any: Type.ANY,
-      record: Type.RECORD,
     };
 
     this.convertedParamTypes = [];
@@ -39,12 +40,13 @@ module.exports = class FunctionObject {
       } else if (t instanceof IdentifierExpression) {
         // If it's not a basic type we'll first check if it's a sum type
         this.convertedParamTypes.push(context.lookupSumType(t.id));
+      } else if (t instanceof RecordType) {
+        this.convertedParamTypes.push(t);
       } else if (t.startsWith('list') && t.includes(' ')) {
         // If it's not a sum type it might be a list type.
         this.convertedParamTypes.push(new ListType(t));
       }
     });
-
     this.convertedResultTypes = [];
     this.resultTypes.forEach((t) => {
       this.convertedResultTypes.push(typeDictionary[t]);

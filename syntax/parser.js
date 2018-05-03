@@ -42,6 +42,8 @@ const SumTypeClass = require('../ast/sum-type');
 const FuncSignature = require('../ast/signature');
 const FuncAnnotation = require('../ast/annotation');
 const IdentifierExpression = require('../ast/identifier-expression');
+const RecordType = require('../ast/record-type');
+const FieldType = require('../ast/field-type');
 
 
 // Credit to Ray Toal:
@@ -100,6 +102,8 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   },
   List(_1, values, _2) { return new ListExpression(values.ast()); },
   ListType(_1, type) { return new ListTypeExpression(type.ast()); },
+  RecordType(_1, fields, _2) { return new RecordType(fields.ast()); },
+  FieldType(id, _, type) { return new FieldType(id.ast(), type.ast()); },
   SumType(basicTypeOrId1, _1, basicTypeOrId2, _2, moreBasicTypeOrId) {
     return new SumTypeClass(basicTypeOrId1.ast(), basicTypeOrId2.ast(), moreBasicTypeOrId.ast());
   },

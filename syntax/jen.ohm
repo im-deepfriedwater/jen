@@ -76,8 +76,8 @@ Jen {
                      | "any" | "void" | "error"
   ListType           = "list"+ ( basicType | RecordType | VariableExpression )
   SumType            = Type "|" Type ("|" Type)*
-  RecordType         = "{" NonemptyListOf<Field, ","> "}"
-  Field              = id ":" Type
+  RecordType         = "{" NonemptyListOf<FieldType, ","> "}"
+  FieldType              = id ":" Type
   FieldValue         = id ":" Expression
   RecordLiteral      = "{" NonemptyListOf<FieldValue, ","> "}"
   booleanLiteral     = "true" | "false"
