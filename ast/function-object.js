@@ -77,7 +77,7 @@ module.exports = class FunctionObject {
     // stringoutward moving" scope search. Of course, if you declare a local
     // variable with the same name as the function inside the function, you'll
     // shadow it, which would probably be not a good idea.
-    if (this.suite.length > 0) {
+    if (this.suite.length !== 0) {
       this.suite.analyze(context);
     }
   }
