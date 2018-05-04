@@ -115,7 +115,7 @@ class Context {
     });
   }
 
-  assertIsField(nameOfRecord, field) { // eslint-disable-line class-methods-use-this
+  assertIsField(nameOfRecord, field) {
     const currentRecord = this.lookup(nameOfRecord);
     const fieldTest = currentField => currentField === field;
     return currentRecord.fields.some(fieldTest);
