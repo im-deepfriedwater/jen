@@ -1,0 +1,4 @@
+x := 3
+if true :
+  x = 3 + 6 * 2
+print('hOI')

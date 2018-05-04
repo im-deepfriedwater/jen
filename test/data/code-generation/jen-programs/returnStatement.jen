@@ -1,0 +1,3 @@
+plusOne: number -> number
+plusOne(someNumber):
+  return someNumber + 1
