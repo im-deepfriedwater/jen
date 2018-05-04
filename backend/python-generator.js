@@ -36,6 +36,7 @@ const StringLiteral = require('../ast/string-literal');
 const ErrorLiteral = require('../ast/error-literal');
 const Caller = require('../ast/caller');
 const TypeDeclaration = require('../ast/type-declaration');
+const Accessor = require('../ast/accessor');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -94,12 +95,21 @@ function generateLibraryFunctions() {
   // This is sloppy. There should be a better way to do this.
   emit('import math');
   emit('import random');
+  generateLibraryStub('print', 's', 'print(s)');
   generateLibraryStub('pi', '', 'return math.pi');
   generateLibraryStub('sqrt', 'x', 'return math.sqrt(x)');
   generateLibraryStub('toUpper', 's', 'return s.upper()');
   generateLibraryStub('toLower', 's', 'return s.lower()');
   generateLibraryStub('random', '', 'return random.random()');
 }
+
+Object.assign(Accessor.prototype, {
+  gen() {
+    const objects = this.object.map(o => o.gen());
+    const properties = this.property.map(p => p.gen());
+    emit(`${(objects)}.${(properties)}`);
+  },
+});
 
 Object.assign(AssignmentStatement.prototype, {
   gen() {
