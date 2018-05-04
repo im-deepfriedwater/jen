@@ -21,6 +21,9 @@ class Type {
   mustBeAny(message) {
     return this.mustBeCompatibleWith(Type.ANY, message);
   }
+  mustBeList() {
+    throw new Error('Non-iterable used in for loop expression');
+  }
   mustBeCompatibleWith(otherType, message) {
     if (otherType !== Type.ANY && !this.isCompatibleWith(otherType)) {
       throw message;
@@ -32,10 +35,13 @@ class Type {
     }
   }
   isCompatibleWith(otherType) {
-    // If types is a field it is a sum type
+    // If types is a field it is a sum type.
+    // We'll defer to sum type to check for compatibility.
     if (otherType.types) {
       return otherType.isCompatibleWith(this);
     }
+
+    if (otherType.val)
     return this === otherType || this === Type.ANY;
   }
 }
