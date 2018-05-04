@@ -187,7 +187,7 @@ Object.assign(IdentifierExpression.prototype, {
 Object.assign(IfStatement.prototype, {
   gen() {
     this.cases.forEach((c, index) => {
-      const prefix = index === 0 ? 'if' : 'else if';
+      const prefix = index === 0 ? 'if' : 'elif';
       emit(`${prefix} ${c.test.gen()}:`);
       genStatementList(c.body.statements);
     });
