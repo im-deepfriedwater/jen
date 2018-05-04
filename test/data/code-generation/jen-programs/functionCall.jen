@@ -1,4 +1,4 @@
-areaOfSquare: number, number -> num
+areaOfSquare: number, number -> number
 areaOfSquare(width, height):
   return width * height
 
