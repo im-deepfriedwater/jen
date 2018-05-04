@@ -5,6 +5,9 @@ module.exports = class Accessor {
 
   analyze(context) {
     this.object.analyze(context);
+    if (this.property === 'length') {
+      return;
+    }
     this.property.analyze(context);
   }
 

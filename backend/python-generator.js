@@ -105,9 +105,12 @@ function generateLibraryFunctions() {
 
 Object.assign(Accessor.prototype, {
   gen() {
-    const objects = this.object.map(o => o.gen());
-    const properties = this.property.map(p => p.gen());
-    emit(`${(objects)}.${(properties)}`);
+    const object = this.object.gen();
+    if (this.property === 'length') {
+      return (`len(${(object)})`);
+    }
+    const property = this.property.gen();
+    return (`${(object)}.${(property)}`);
   },
 });
 

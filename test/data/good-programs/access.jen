@@ -1,7 +1,5 @@
 str := "How Long"
 strlen := str.length
-print(strlen)
 
 num := 1201
 numlen := num.length
-print(numlen)
