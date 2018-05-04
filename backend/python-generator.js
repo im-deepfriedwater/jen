@@ -104,6 +104,11 @@ function generateLibraryFunctions() {
   generateLibraryStub('random', '', 'return random.random()');
 }
 
+function generateErrorLiteral() {
+  emit('ok = \'ok\'');
+  emit('err = \'err\'');
+}
+
 Object.assign(Accessor.prototype, {
   gen() {
     const object = this.object.gen();
@@ -137,7 +142,10 @@ Object.assign(BinaryExpression.prototype, {
 });
 
 Object.assign(BooleanLiteral.prototype, {
-  gen() { return `${this.value}`; },
+  gen() {
+    const value = this.value ? 'True' : 'False';
+    return `${value}`;
+  },
 });
 
 Object.assign(BreakStatement.prototype, {
@@ -197,6 +205,7 @@ Object.assign(NumericLiteral.prototype, {
 Object.assign(Program.prototype, {
   gen() {
     generateLibraryFunctions();
+    generateErrorLiteral();
     this.body.statements.forEach(statement => statement.gen());
   },
 });
