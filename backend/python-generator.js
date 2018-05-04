@@ -51,7 +51,12 @@ function genStatementList(statements) {
 }
 
 function makeOp(op) {
-  return op;
+  return {
+    '&&': 'and',
+    '||': 'or',
+    '!': 'not',
+    '^': '**',
+  }[op] || op;
 }
 
 // pythonName(e) takes any jen object with an id property, such as a
@@ -90,7 +95,16 @@ Object.assign(AssignmentStatement.prototype, {
 });
 
 Object.assign(BinaryExpression.prototype, {
-  gen() { return `(${this.left.gen()} ${makeOp(this.op)} ${this.right.gen()})`; },
+  gen() {
+    if (this.op === '&!&') {
+      return `((${this.left.gen()} and not ${this.right.gen()}) or \
+(not ${this.left.gen()} and ${this.right.gen()}))`;
+    }
+    if (this.op === '/%') {
+      return `(divmod(${this.left.gen()}, ${this.right.gen()}))`;
+    }
+    return `(${this.left.gen()} ${makeOp(this.op)} ${this.right.gen()})`;
+  },
 });
 
 Object.assign(BooleanLiteral.prototype, {
