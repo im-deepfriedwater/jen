@@ -2,4 +2,4 @@ areaOfCircle: number -> number
 areaOfCircle(radius):
    PI := pi()
    return (PI * radius) ^ 2
-areaOfCircle(3)
+print(areaOfCircle(3))
