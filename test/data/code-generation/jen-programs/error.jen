@@ -1,1 +1,9 @@
-x := 5 + 'three'
+double: number -> number
+double(x):
+  return x * 2
+
+result, errorValue := double('3')
+if(errorValue == err):
+  print('Could not double')
+else:
+  print(result)
