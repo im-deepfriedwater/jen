@@ -37,6 +37,7 @@ const ErrorLiteral = require('../ast/error-literal');
 const Caller = require('../ast/caller');
 const TypeDeclaration = require('../ast/type-declaration');
 const Accessor = require('../ast/accessor');
+const ForStatement = require('../ast/for-statement');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -241,6 +242,15 @@ Object.assign(Variable.prototype, {
 Object.assign(WhileStatement.prototype, {
   gen() {
     emit(`while ${this.test.gen()}: `);
+    genStatementList(this.body.statements);
+  },
+});
+
+Object.assign(ForStatement.prototype, {
+  gen() {
+    const ids = this.ids.map(i => i.gen());
+    const expression = this.expression.gen();
+    emit(`for ${(ids)} in ${(expression)}:`);
     genStatementList(this.body.statements);
   },
 });
