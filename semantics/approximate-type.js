@@ -1,3 +1,8 @@
+// Used exclusively at type inference level for figuring out the type
+// from a list expression.
+
+const Type = require('../ast/type');
+
 module.exports = class ApproximateType {
   constructor(values) {
     Object.assign(this, { values });
@@ -21,12 +26,20 @@ module.exports = class ApproximateType {
     }
   }
 
-  isCompatibleWith(otherType) {
-    // TODO
-  }
-
   getMemberType() {
     return this.computedType;
+  }
+
+
+  mustBeCompatibleWith(otherType, message) {
+    console.log('heere?');
+    if (!this.isCompatibleWith(otherType) && this.computedType !== Type.Any) {
+      throw message;
+    }
+  }
+
+  isCompatibleWith(otherType) {
+    return this.computedType === otherType.computedType;
   }
 
   optimize() {

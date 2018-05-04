@@ -12,6 +12,7 @@ module.exports = class ForStatement {
     // Note that expressions in for loops only look outside for scope.
     this.expression.analyze(context);
     // Now we type check the for iterable to make sure it is a list type.
+    console.log(this.expression);
     if (!(this.expression.type instanceof ApproximateType)) {
       throw new Error('Non-iterable used in for loop expression');
     }

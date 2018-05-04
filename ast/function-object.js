@@ -38,9 +38,10 @@ module.exports = class FunctionObject {
       } else if (t instanceof IdentifierExpression) {
         // If it's not a basic type we'll first check if it's a sum type
         this.convertedParamTypes.push(context.lookupSumType(t.id));
-      } else if (t.startsWith('list') && t.includes(' ')) {
+      } else if (t instanceof ListType) {
         // If it's not a sum type it might be a list type.
-        this.convertedParamTypes.push(new ListType(t));
+        t.analyze(context);
+        this.convertedParamTypes.push(t);
       }
     });
 
