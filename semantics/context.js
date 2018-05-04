@@ -126,7 +126,7 @@ class Context {
   }
 
   matchListType(seenTypes) {
-    Object.keys(this.sumTypeDeclarations).
+    // Object.keys(this.sumTypeDeclarations)
   }
 }
 Context.INITIAL = new Context();

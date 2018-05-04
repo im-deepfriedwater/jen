@@ -21,6 +21,14 @@ module.exports = class ApproximateType {
     }
   }
 
+  isCompatibleWith(otherType) {
+    // TODO
+  }
+
+  getMemberType() {
+    return this.computedType;
+  }
+
   optimize() {
     return this;
   }

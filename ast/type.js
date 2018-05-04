@@ -1,3 +1,5 @@
+const ApproximateType = require('../semantics/approximate-type.js');
+
 class Type {
   constructor(name) {
     this.name = name;
@@ -21,9 +23,6 @@ class Type {
   mustBeAny(message) {
     return this.mustBeCompatibleWith(Type.ANY, message);
   }
-  mustBeList() {
-    throw new Error('Non-iterable used in for loop expression');
-  }
   mustBeCompatibleWith(otherType, message) {
     if (otherType !== Type.ANY && !this.isCompatibleWith(otherType)) {
       throw message;
@@ -40,8 +39,11 @@ class Type {
     if (otherType.types) {
       return otherType.isCompatibleWith(this);
     }
+    // Likewise for list types.
+    if (otherType instanceof ApproximateType) {
+      return otherType.isCompatibleWith(this);
+    }
 
-    if (otherType.val)
     return this === otherType || this === Type.ANY;
   }
 }

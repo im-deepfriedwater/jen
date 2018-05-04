@@ -68,7 +68,6 @@ module.exports = class FunctionObject {
     // to have types and perhaps some sort of setType method to set the type,
     // and then just call each one's analyze method.
 
-
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the
     // booleanntext, so recursive calls will be properly resolved during the
