@@ -40,8 +40,8 @@
             <div class="title">
                 <p>jen</p>
             </div>
-            <div class="content-wrapper">
-                <div class="introduction-wrapper content-container">
+            <div class="content-grid-wrapper">
+                <div class="content-container introduction-wrapper">
                     <p>
                         Drawing inspiration from JavaScript, Python, Go, Typescript's sum type, and even Elm,
                         jen provides a pleasant and happy programming experience for all your high level needs.
@@ -50,7 +50,7 @@
                         jen works hard as a language so you don't have to!
                     </p>
                 </div>
-                <div class="logo-wrapper content-container">
+                <div class="logo-wrapper">
                     <img src="gh-pages/assets/jen.png" class="logo" alt="Jen is a friendly Ghost!">
                 </div>
 
@@ -59,7 +59,7 @@
                 <hr>
                 <div style="grid-column: 1/3">
                   <div class="content-container center-wrapped-text" style="width: 50vw;">
-                    <h3>For more information about the grammar behind jen, refer to our <a target="_blank" href="https://github.com/jtorre39/jen/blob/master/syntax/jen.ohm" class="purple-link">Ohm grammar</a> to see how it all fits together</h3>
+                    <h3>jen is a trongly and statically-typed scripting language. Featuring inferred typing, multiple return values, and static scoping. <br>For more information about the grammar behind jen,<br>refer to jen's <a target="_blank" href="https://github.com/jtorre39/jen/blob/master/syntax/jen.ohm" class="purple-link">Ohm grammar</a> to see how it all fits together</h3>
                   </div>
                 </div>
                 <hr>
@@ -67,7 +67,7 @@
                 <div class="content-container center-wrapped-text" style="grid-column: 1/3;">
                   <h2>Operators:</h2>
                 </div>
-                <div class="content-container">
+                <div class="content-wrapper">
                   <ul class="operators-list">
                     <li><h3>Comparison Operators:</h3></li>
                     <li class="operators-list-item"><p>Equal: ==</p></li>
@@ -84,7 +84,7 @@
                     <li class="operators-list-item"><p>Logical XOR &!&</p></li>
                   </ul>
                 </div>
-                <div class="content-container">
+                <div class="content-wrapper">
                   <ul class="operators-list">
                     <li><h3>Mutative Operators:</h3></li>
                     <li class="operators-list-item"><p>Postfix/Prefix Incremement: ++</p></li>
@@ -104,7 +104,7 @@
 
 
                 <hr>
-                <div class="content-container center-wrapped-text types" style="grid-column: 1/3;">
+                <div class="content-wrapper center-wrapped-text types" style="grid-column: 1/3;">
                   <h2>Data Types:</h2>
                   <ul class="types-list">
                     <li class="types-list-item"><p>Boolean</p></li>
@@ -117,11 +117,77 @@
                     <li class="types-list-item"><p>Error</p></li>
                   </ul>
                 </div>
+
+
                 <hr>
+                <div class="content-wrapper" style="grid-column: 1/3;">
+                  <h2>Expressions:</h2>
+                  <h3>jen features 6 different Expression types, as follows:</h3>
+                  <ul>
+                    <li>
+                      <h4>Literals</h4>
+                      <p>Expression Literals are made up of the same 8 data types mentioned above.</p>
+                    </li>
+                    <li>
+                      <h4>Function Calls</h4>
+                      <p>Jen Functions are called in the form:</p>
+                    </li>
+                    <li>
+                      <h4>Logical NOT</h4>
+                      <p>Not expression, represented as a bang !, negates any logical expression before it</p>
+                    </li>
+                    <li>
+                      <h4>Arithmetic</h4>
+                      <p>Expressions such as add, subtract, multiply, divide, etc</p>
+                    </li>
+                    <li>
+                      <h4>Boolean</h4>
+                      <p>The typical AND, and OR are included, as well as the XOR expression</p>
+                    </li>
+                    <li>
+                      <h4>Ternary</h4>
+                      <p>jen features a ternary expression, formatted in the same fashion as JavaScript (Conditional ? ifTrue : else)</p>
+                    </li>
+                  </ul>
+                </div>
 
 
+                <hr>
+                <div class="content-wrapper" style="grid-column: 1/3;">
+                  <h2>Statements:</h2>
+                  <h3>jen utilizes several different statement types, as follows:</h3>
+                  <ul>
+                    <li>
+                      <h4>Loops</h4>
+                      <p>jen features both for, and while loops, using similar syntax to Python</p>
+                    </li>
+                    <li>
+                      <h4>Function Declaration</h4>
+                      <p>jen functions are declared using both an annotation, and a signature</p>
+                    </li>
+                    <li>
+                      <h4>Declaration</h4>
+                      <p>variables in jen are declared and assigned using different syntax. Variables are declared with an =:</p>
+                    </li>
+                    <li>
+                      <h4>Assignment</h4>
+                      <p>variables are assigned using the = sign</p>
+                    </li>
+                    <li>
+                      <h4>Conditional</h4>
+                      <p>jen features both the aforementioned Ternary operator, along with the standard if statement. Following similar syntax to Python</p>
+                    </li>
+                    <li>
+                      <h4>Return</h4>
+                      <p>naturally, jen allows functions to return a value, using the return keyword</p>
+                    </li>
+                  </ul>
+                </div>
+
+                <hr>
                 <div class="subheader-wrapper content-container">
                     <h2>Example jen Code:</h2>
+                    <h3>Below are several examples of jen code, for your viewing pleasure</h3>
                 </div>
                 <div class="grid-wrapper code-examples-wrapper">
                     <div class="jen-code">

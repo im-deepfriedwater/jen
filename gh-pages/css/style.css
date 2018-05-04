@@ -63,6 +63,9 @@ hr{
     background-color: var(--main-header-trimming);
     cursor: pointer;}
 
+.logo-wrapper{
+  padding: 0px;}
+
 .center-wrapped-text {
     margin: auto;
     text-align: center;
@@ -115,15 +118,21 @@ hr{
     font-size: 10vh;}
 
 
-.content-wrapper {
+.content-grid-wrapper {
     grid-column: 1/3;
-    grid-row: 4;
     font-family: Roboto;
     display: grid;
     padding: 3vh;
     grid-template-rows: repeat(8, auto);
     grid-gap: 0px;
     margin: auto;}
+
+.content-wrapper {
+    font-family: Roboto;
+    padding: 8vw;
+    padding-top: 1vh;
+    padding-bottom: 0.5vh;
+    line-height: 1.5em}
 
 .content-container {
     padding: 8vw;
@@ -136,6 +145,7 @@ hr{
 .types{
   vertical-align: top;
   margin-top: 0px;
+  padding-bottom: 1vh;
 }
 
 .types-list {
@@ -149,8 +159,7 @@ hr{
   margin: 10px;}
 
 .operators-list {
-  list-style-type: none;
-  display:inline;}
+  list-style-type: none;}
 
 .operators-list-item {
   text-align: left;}
@@ -202,6 +211,7 @@ and (max-device-width : 720px) {
         grid-column: 1/3;
         font-size: 2vh;
         width: auto;
+        padding-right: 0px;
         grid-row: 1;}
 
     .logo-wrapper {
