@@ -27,7 +27,7 @@ module.exports = class FunctionDeclaration {
     } else if (this.signature.params.length !== this.annotation.paramTypes.length) {
       throw new Error('Function parameter number mismatch in signature and annotation.');
     }
-    
+
     context.add(this.function);
     this.function.analyze(context.createChildContextForFunctionBody(this));
   }

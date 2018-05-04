@@ -86,6 +86,21 @@ function parenthesisIfNecessary(a) {
   return `(${a.join(', ')})`;
 }
 
+function generateLibraryFunctions() {
+  function generateLibraryStub(name, params, body) {
+    const entity = Context.INITIAL.declarations[name];
+    emit(`def ${pythonName(entity)} (${params}):\n  ${body}`);
+  }
+  // This is sloppy. There should be a better way to do this.
+  emit('import math');
+  emit('import random');
+  generateLibraryStub('pi', '', 'return math.pi');
+  generateLibraryStub('sqrt', 'x', 'return math.sqrt(x)');
+  generateLibraryStub('toUpper', 's', 'return s.upper()');
+  generateLibraryStub('toLower', 's', 'return s.lower()');
+  generateLibraryStub('random', '', 'return random.random()');
+}
+
 Object.assign(AssignmentStatement.prototype, {
   gen() {
     const ids = this.ids.map(id => id.gen());
@@ -167,6 +182,7 @@ Object.assign(NumericLiteral.prototype, {
 
 Object.assign(Program.prototype, {
   gen() {
+    generateLibraryFunctions();
     this.body.statements.forEach(statement => statement.gen());
   },
 });

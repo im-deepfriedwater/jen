@@ -130,5 +130,7 @@ new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signatur
 new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('pi', ['void'], ['number']), new Signature('pi', []), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('toUpper', ['string'], ['string']), new Signature('toUpper', ['stringToUpper']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('toLower', ['string'], ['string']), new Signature('toLower', ['stringToLower']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('random', ['void'], ['number']), new Signature('random', []), []).analyze(Context.INITIAL);
 
 module.exports = Context;
