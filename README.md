@@ -11,6 +11,8 @@ jen is a scripting language meant to be your new best friend! Drawing inspiratio
 
 ## Grammar
 
+The ohm grammar source file can be found on https://github.com/jtorre39/jen/blob/master/syntax/jen.ohm.
+
 ```
 Jen {
   Program            = newLine* Body newLine*
@@ -121,7 +123,6 @@ Jen {
 - Inferred typing
 - Multiple return values
 - Static scoping
-
 
 
 
