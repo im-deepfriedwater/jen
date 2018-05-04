@@ -137,7 +137,10 @@ Object.assign(BinaryExpression.prototype, {
 });
 
 Object.assign(BooleanLiteral.prototype, {
-  gen() { return `${this.value}`; },
+  gen() {
+    const value = this.value ? 'True' : 'False';
+    return `${value}`;
+  },
 });
 
 Object.assign(BreakStatement.prototype, {
