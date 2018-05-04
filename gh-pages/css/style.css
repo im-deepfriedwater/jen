@@ -144,17 +144,16 @@ hr{
   display: inline;}
 
 .types-list-item{
+  display: inline;
   text-align: left;
   margin: 10px;}
 
 .operators-list {
-  padding-left: 0px;
   list-style-type: none;
   display:inline;}
 
-.operators-list-item{
-  text-align: left;
-  padding-left: 5vw;}
+.operators-list-item {
+  text-align: left;}
 
 .code-examples-wrapper{
     grid-column: 1/3;}
