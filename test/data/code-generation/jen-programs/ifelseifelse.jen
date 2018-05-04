@@ -1,7 +1,7 @@
 pizzasEatenToday := 11
-if pizzasEatenToday < 2 :
+if pizzasEatenToday < 2:
   print('Still hungry')
-else if pizzasEatenToday >= 8 :
+else if pizzasEatenToday >= 8:
   print('Too full')
-else :
+else:
   print('Just Right')

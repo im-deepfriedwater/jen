@@ -3,7 +3,7 @@ x = 3 + 5
 print(x)
 x = 3 * 5
 print(x)
-x = math.pow(3, 5)
+x = int(math.pow(3, 5))
 print(x)
 x = 5 - 3
 print(x)

@@ -1,9 +1,9 @@
-double: number -> number
+double: number -> number, error
 double(x):
-  return x * 2
+  return x * 2, ok
 
 result, errorValue := double('3')
-if(errorValue == err):
+if(errorValue == ok):
   print('Could not double')
 else:
   print(result)

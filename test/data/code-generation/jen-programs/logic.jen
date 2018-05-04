@@ -1,12 +1,18 @@
 justOnePerson: string, string -> boolean
 justOnePerson(x, y):
-  return x=='jen' &!& y=='justin'
+  return x == 'jen' &!& y == 'justin'
 
 eitherIsTrue: boolean, boolean -> boolean
 eitherIsTrue(x, y):
   return x || y
 
-isOdd: number -> boolean
+evenNumber: number -> boolean
+evenNumber(x):
+    return x % 2 == 0
+
+isOdd: number -> string
 isOdd(x):
   if !evenNumber(x):
-    return y=='The number is odd'
+    return 'The number is odd'
+
+print(justOnePerson('justin', 'jen'))
