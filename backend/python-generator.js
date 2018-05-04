@@ -104,6 +104,11 @@ function generateLibraryFunctions() {
   generateLibraryStub('random', '', 'return random.random()');
 }
 
+function generateErrorLiteral() {
+  emit('ok = \'ok\'');
+  emit('err = \'err\'');
+}
+
 Object.assign(Accessor.prototype, {
   gen() {
     const object = this.object.gen();
@@ -200,6 +205,7 @@ Object.assign(NumericLiteral.prototype, {
 Object.assign(Program.prototype, {
   gen() {
     generateLibraryFunctions();
+    generateErrorLiteral();
     this.body.statements.forEach(statement => statement.gen());
   },
 });
