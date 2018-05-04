@@ -5,12 +5,14 @@ describe('Function Call', () => {
   const expected = {
     body: {
       statements: [{
-        callee: { id: 'eat' },
-        args: [
-          { id: 'orange' },
-          { id: 'green' },
-          { id: 'blue' },
-        ],
+        call: {
+          callee: { id: 'eat' },
+          args: [
+            { id: 'orange' },
+            { id: 'green' },
+            { id: 'blue' },
+          ],
+        },
       }],
     },
   };
@@ -23,21 +25,23 @@ describe('Function Call', () => {
     const result = parse('draw(paint(), crayons(), charcoal())');
     expected.body.statements[0] =
       {
-        callee: { id: 'draw' },
-        args: [
-          {
-            callee: { id: 'paint' },
-            args: [],
-          },
-          {
-            callee: { id: 'crayons' },
-            args: [],
-          },
-          {
-            callee: { id: 'charcoal' },
-            args: [],
-          },
-        ],
+        call: {
+          callee: { id: 'draw' },
+          args: [
+            {
+              callee: { id: 'paint' },
+              args: [],
+            },
+            {
+              callee: { id: 'crayons' },
+              args: [],
+            },
+            {
+              callee: { id: 'charcoal' },
+              args: [],
+            },
+          ],
+        },
       };
     assert.deepEqual(result, expected);
   });

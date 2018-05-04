@@ -40,15 +40,21 @@ describe('For', () => {
       body: {
         statements: [
           {
-            args: [],
-            callee: { id: 'dothisfirst' },
+            call: {
+              callee: { id: 'dothisfirst' },
+              args: [],
+            },
           },
           {
-            args: [],
-            callee: { id: 'dothissecond' },
+            call: {
+              callee: { id: 'dothissecond' },
+              args: [],
+            },
           }],
       },
     };
+    console.log("result", result.body.statements[0].expression);
+    console.log("expected", expected.body.statements[0].expression);
     assert.deepEqual(result, expected);
   });
 });
