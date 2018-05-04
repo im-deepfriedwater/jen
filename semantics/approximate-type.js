@@ -32,7 +32,6 @@ module.exports = class ApproximateType {
 
 
   mustBeCompatibleWith(otherType, message) {
-    console.log('heere?');
     if (!this.isCompatibleWith(otherType) && this.computedType !== Type.Any) {
       throw message;
     }

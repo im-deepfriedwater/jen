@@ -26,7 +26,7 @@ describe('TypeDec', () => {
   it('should correctly parse TypeDec Expressions', () => {
     expected.body.statements[0].id = 'x';
     expected.body.statements[0].sumType = {
-      types: ['string', 'boolean']
+      types: ['string', 'boolean'],
     };
     let result = parse('type x: string | boolean');
     assert.deepEqual(result, expected);

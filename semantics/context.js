@@ -124,10 +124,6 @@ class Context {
   addSumType(id, sumType) {
     this.sumTypeDeclarations[id] = sumType;
   }
-
-  matchListType(seenTypes) {
-    // Object.keys(this.sumTypeDeclarations)
-  }
 }
 Context.INITIAL = new Context();
 new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
