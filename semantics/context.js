@@ -14,6 +14,7 @@ const FunctionObject = require('../ast/function-object');
 const FunctionDeclaration = require('../ast/function-declaration');
 const Annotation = require('../ast/annotation');
 const Signature = require('../ast/signature');
+const IdentifierExpression = require('../ast/identifier-expression');
 
 
 class Context {
@@ -79,12 +80,13 @@ class Context {
   // type declarations. Note, sum types also search outward through enclosing
   // contexts if necessary.
   lookupSumType(sumTypeId) {
-    if (sumTypeId in this.sumTypeDeclarations) {
-      return this.sumTypeDeclarations[sumTypeId];
+    const id = sumTypeId instanceof IdentifierExpression ? sumTypeId.id : sumTypeId;
+    if (id in this.sumTypeDeclarations) {
+      return this.sumTypeDeclarations[id];
     } else if (this.parent === null) {
-      throw new Error(`Type identifier ${sumTypeId} has not been declared`);
+      throw new Error(`Type identifier ${id} has not been declared`);
     } else {
-      return this.parent.lookupSumType(sumTypeId);
+      return this.parent.lookupSumType(id);
     }
   }
   assertInFunction(message) {
@@ -124,7 +126,34 @@ class Context {
   addSumType(id, sumType) {
     this.sumTypeDeclarations[id] = sumType;
   }
+
+  matchListType(seenTypes) {
+    const message = 'Invalid List Expression for a non-existing type';
+    // const match = Object.keys(this.sumTypeDeclarations)
+    //   .find(id => Array.from(seenTypes)
+    //     .every(seenType => {
+    //       console.log('owowow', this.sumTypeDeclarations[id].isCompatibleWith(seenType));
+    //       this.sumTypeDeclarations[id].isCompatibleWith(seenType)
+    //     }));
+
+    const match = Object.keys(this.sumTypeDeclarations).find((id) => {
+      const fromArray = Array.from(seenTypes);
+      console.log(fromArray)
+      return Array.from(seenTypes).every(seenType => {
+        console.log(seenType, this.sumTypeDeclarations[id].isCompatibleWith(seenType));
+        return this.sumTypeDeclarations[id].isCompatibleWith(seenType);
+        // this.sumTypeDeclarations[id].isCompatibleWith(seenType)
+      });
+    });
+
+
+
+    if (!match) {
+      throw message;
+    }
+  }
 }
+
 Context.INITIAL = new Context();
 new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signature('print', ['input']), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);

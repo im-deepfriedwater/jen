@@ -20,8 +20,19 @@ module.exports = class SumType {
   }
 
   isCompatibleWith(otherType) {
+    // return Object.keys(this.computedTypes)
+    //   .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
     return Object.keys(this.computedTypes)
-      .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
+      .some(typeKey => {
+        return this.computedTypes[typeKey].isCompatibleWith(otherType);
+      });
+      // console.log('string', this.computedTypes['string'].isCompatibleWith(otherType));
+  }
+
+  mustBeCompatibleWith(otherType, message) {
+    if (!this.isCompatibleWith(otherType)) {
+      throw message;
+    }
   }
 
   /* eslint-disable class-methods-use-this */
