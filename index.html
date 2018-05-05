@@ -328,57 +328,57 @@
                       <p>def print_1 (s):<br></p>
                         <p class="indent">print(s)<br></p>
                       <p>def pi_2 ():<br></p>
-                        <p class="indent">return math.pi<br></p>
+                        <p class="indent keyword">return </p><p>math.pi<br></p>
                       <p>def sqrt_3 (x):<br></p>
-                        <p class="indent">return math.sqrt(x)<br></p>
+                        <p class="indent keyword">return </p><p>math.sqrt(x)<br></p>
                       <p>def toUpper_4 (s):<br></p>
-                        <p class="indent">return s.upper()<br></p>
+                        <p class="indent keyword">return </p><p>s.upper()<br></p>
                       <p>def toLower_5 (s):<br></p>
-                        <p class="indent">return s.lower()<br></p>
+                        <p class="indent keyword">return </p><p>s.lower()<br></p>
                       <p>def random_6 ():<br></p>
-                        <p class="indent">return random.random()<br></p>
+                        <p class="indent keyword">return </p><p>random.random()<br></p>
                       <p>def range_7 (i):<br></p>
-                        <p class="indent">return range(i)<br></p>
+                        <p class="indent keyword">return </p><p>range(i)<br></p>
                       <p>ok = 'ok'<br></p>
                       <p>err = 'err'<br></p>
                       <p>def distanceBetween_8(x1_9, y1_10, x2_11, y2_12):<br></p>
-                        <p class="indent">return sqrt_3((((y2_12 - y1_10) * 2) + ((x2_11 - x1_9) * 2)))<br></p>
+                        <p class="indent keyword">return </p><p>sqrt_3((((y2_12 - y1_10) * 2) + ((x2_11 - x1_9) * 2)))<br></p>
                       <p>def circleEstimator_13(radius_14, throws_15):<br></p>
-                        <p class="indent">hits_16 = 0<br></p>
+                        <p class="indent">hits_16 = <p class="literal-num">0</p><br></p>
                         <p class="indent">remainingThrows_17 = throws_15<br></p>
-                        <p class="indent">randomX_18 = 0<br></p>
-                        <p class="indent">randomY_19 = 0<br></p>
-                        <p class="indent">while (remainingThrows_17 > 0):<br></p>
-                          <p class="doubleIndent">randomX_18 = ((random_6() * radius_14) * 2)<br></p>
-                          <p class="doubleIndent">randomY_19 = ((random_6() * radius_14) * 2)<br></p>
+                        <p class="indent">randomX_18 = <p class="literal-num">0</p><br></p>
+                        <p class="indent">randomY_19 = <p class="literal-num">0</p><br></p>
+                        <p class="indent">while (remainingThrows_17 > <p class="literal-num">0</p>):<br></p>
+                          <p class="doubleIndent">randomX_18 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
+                          <p class="doubleIndent">randomY_19 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
                           <p class="doubleIndent">if (distanceBetween_8(randomX_18, randomY_19, radius_14, radius_14) <br></p>
                             <p class="tripleIndent">< radius_14):<br><br></p>
-                            <p class="tripleIndent">hits_16 = (hits_16 + 1)<br></p>
+                            <p class="tripleIndent">hits_16 = (hits_16 + <p class="literal-num">1</p>)<br></p>
                           <p class="doubleIndent">remainingThrows_17 = (remainingThrows_17 - 1)<br></p>
-                        <p class="indent">return (((hits_16 / throws_15) * 4) * radius_14)<br></p>
+                        <p class="indent keyword">return </p><p>(((hits_16 / throws_15) * <p class="literal-num">4</p>) * radius_14)<br></p>
                       <p>def sqrt_20(num_21):<br></p>
-                        <p class="indent">root_22 = (num_21 / 2)<br></p>
-                        <p class="indent">iterations_23 = 0<br></p>
-                        <p class="indent">while (iterations_23 < 20):<br></p>
-                          <p class="doubleIndent">root_22 = ((root_22 + (num_21 / root_22)) / 2)<br></p>
-                          <p class="doubleIndent">iterations_23 = (iterations_23 + 1)<br></p>
-                        <p class="indent">return root_22<br></p>
+                        <p class="indent">root_22 = (num_21 / <p class="literal-num">2</p>)<br></p>
+                        <p class="indent">iterations_23 = <p class="literal-num">0</p><br></p>
+                        <p class="indent">while (iterations_23 < <p class="literal-num">20</p>):<br></p>
+                          <p class="doubleIndent">root_22 = ((root_22 + (num_21 / root_22)) / <p class="literal-num">2</p>)<br></p>
+                          <p class="doubleIndent">iterations_23 = (iterations_23 + <p class="literal-num">1</p>)<br></p>
+                        <p class="indent keyword">return </p><p>root_22<br></p>
                       <p>def circleExact_24(radius_25):<br></p>
-                        <p class="indent">return ((radius_25 ** 2) * pi_2())<br></p>
+                        <p class="indent keyword">return </p><p>((radius_25 ** <p class="literal-num">2</p>) * pi_2())<br></p>
                       <p>def checkDartsUntilPrecise_26(decimals_27, radius_28):<br></p>
-                        <p class="indent">throws_29 = 50<br></p>
+                        <p class="indent">throws_29 = <p class="literal-num">50</p><br></p>
                         <p class="indent">circleEst_30 = circleEstimator_13(radius_28, throws_29)<br></p>
                         <p class="indent">circleEx_31 = circleExact_24(radius_28)<br></p>
-                        <p class="indent">while ((((circleEst_30 - circleEx_31) * decimals_27) > 1)<br></p>
-                          <p class="doubleIndent">and (((circleEst_30 - circleEx_31) * decimals_27) < 1)):<br><br></p>
-                          <p class="doubleIndent">throws_29 = (throws_29 * 2)<br></p>
+                        <p class="indent">while ((((circleEst_30 - circleEx_31) * decimals_27) > <p class="literal-num">1</p>)<br></p>
+                          <p class="doubleIndent">and (((circleEst_30 - circleEx_31) * decimals_27) < <p class="literal-num">1</p>)):<br><br></p>
+                          <p class="doubleIndent">throws_29 = (throws_29 * <p class="literal-num">2</p>)<br></p>
                           <p class="doubleIndent">circleEst_30 = circleEstimator_13(radius_28, throws_29)<br></p>
-                        <p class="indent">return throws_29<br></p>
-                      <p>print_1(sqrt_20(2))<br></p>
-                      <p>print_1(sqrt_20(100))<br></p>
-                      <p>print_1(distanceBetween_8(0, 1, 0, 3))<br></p>
-                      <p>print_1(circleEstimator_13(10, 100000))<br></p>
-                      <p>print_1(checkDartsUntilPrecise_26(300, 1))<br></p>
+                        <p class="indent keyword">return </p><p>throws_29<br></p>
+                      <p>print_1(sqrt_20(<p class="literal-num">2</p>))<br></p>
+                      <p>print_1(sqrt_20(<p class="literal-num">100</p>))<br></p>
+                      <p>print_1(distanceBetween_8(<p class="literal-num">0, 1, 0, 3</p>))<br></p>
+                      <p>print_1(circleEstimator_13(<p class="literal-num">10, 100000</p>))<br></p>
+                      <p>print_1(checkDartsUntilPrecise_26(<p class="literal-num">300, 1</p>))<br></p>
                     </div>
                   </div>
 
