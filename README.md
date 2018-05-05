@@ -376,6 +376,7 @@ def checkIfBothPositive(x, y):
 
 ## To Do
  - Record Types
+ - Downcasting for sums
 
 ## Developers
 
