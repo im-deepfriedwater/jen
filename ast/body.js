@@ -7,6 +7,7 @@ module.exports = class Body {
 
   analyze(context) {
     this.statements.forEach(s => s.analyze(context));
+    context.checkForUnusedDeclared(context, 'Unused declared variables');
   }
 
   optimize() {

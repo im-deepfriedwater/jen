@@ -58,6 +58,7 @@ class Context {
       throw new Error(`Identitier ${entity.id} already declared in this scope`);
     }
     this.declarations[entity.id] = entity;
+    // // What if instead when declared, here if its a variable set property
   }
 
   // Returns the entity bound to the given identifier, starting from this
@@ -97,6 +98,19 @@ class Context {
     if (entity.constructor !== FunctionObject) {
       throw new Error(`${entity.id} is not a function`);
     }
+  }
+
+  markVariableUsed(id) { // eslint-disable-line class-methods-use-this
+    const referent = this.lookup(id);
+    referent.used = true;
+  }
+
+  checkForUnusedDeclared(context, message) { // eslint-disable-line class-methods-use-this
+    Object.keys(context.declarations).forEach((variable) => {
+      if (!context.declarations[variable].used) {
+        console.warn(message);
+      }
+    });
   }
 
   assertInLoop(message) {

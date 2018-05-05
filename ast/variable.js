@@ -9,6 +9,7 @@ module.exports = class Variable {
     context.add(this);
   }
   optimize() {
+    // context.checkIfThisIsUnused(this);
     return this;
   }
 };
