@@ -1,4 +1,4 @@
-const ApproximateType = require('../semantics/approximate-type');
+const ListType = require('./list-type');
 
 module.exports = class ListExpression {
   constructor(values) {
@@ -7,7 +7,7 @@ module.exports = class ListExpression {
 
   analyze(context) {
     this.values.forEach(v => v.analyze(context));
-    this.type = new ApproximateType(this.values);
+    this.type = new ListType(this.values);
     this.type.analyze(context);
   }
 

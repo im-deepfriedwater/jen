@@ -1,0 +1,2 @@
+type iExist : number | error
+iAlsoExist := [ok, ok, 1]

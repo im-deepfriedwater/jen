@@ -102,6 +102,7 @@ function generateLibraryFunctions() {
   generateLibraryStub('toUpper', 's', 'return s.upper()');
   generateLibraryStub('toLower', 's', 'return s.lower()');
   generateLibraryStub('random', '', 'return random.random()');
+  generateLibraryStub('range', 'i', 'return range(i)');
 }
 
 function generateErrorLiteral() {

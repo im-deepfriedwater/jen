@@ -1,5 +1,3 @@
-const ApproximateType = require('../semantics/approximate-type.js');
-
 class Type {
   constructor(name) {
     this.name = name;
@@ -40,11 +38,11 @@ class Type {
       return otherType.isCompatibleWith(this);
     }
     // Likewise for list types.
-    if (otherType instanceof ApproximateType) {
+    if (otherType.listType) {
       return otherType.isCompatibleWith(this);
     }
 
-    return this === otherType || this === Type.ANY;
+    return this === otherType || this === Type.ANY || otherType === Type.ANY;
   }
 }
 
