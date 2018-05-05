@@ -53,8 +53,6 @@ describe('For', () => {
           }],
       },
     };
-    console.log("result", result.body.statements[0].expression);
-    console.log("expected", expected.body.statements[0].expression);
     assert.deepEqual(result, expected);
   });
 });
