@@ -32,10 +32,7 @@ module.exports = class Call {
       throw new Error('Too little arguments in call');
     }
 
-    console.log('print f')
     this.args.forEach((arg, index) => {
-      console.log(arg.type);
-      console.log(callee.convertedParamTypes[index]);
       arg.type.mustBeCompatibleWith(callee.convertedParamTypes[index], 'Type Mismatch at Function Call');
     });
   }

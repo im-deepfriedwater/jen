@@ -26,7 +26,6 @@ module.exports = class SumType {
       .some(typeKey => {
         return this.computedTypes[typeKey].isCompatibleWith(otherType);
       });
-      // console.log('string', this.computedTypes['string'].isCompatibleWith(otherType));
   }
 
   mustBeCompatibleWith(otherType, message) {

@@ -47,11 +47,21 @@ module.exports = class FunctionObject {
 
     this.convertedResultTypes = [];
     this.resultTypes.forEach((t) => {
-      this.convertedResultTypes.push(typeDictionary[t]);
+      if (t in typeDictionary) {
+        this.convertedResultTypes.push(typeDictionary[t]);
+      } else if (t instanceof IdentifierExpression) {
+        // If it's not a basic type we'll first check if it's a sum type
+        this.convertedResultTypes.push(context.lookupSumType(t.id));
+      } else if (t instanceof ListType) {
+        // If it's not a sum type it might be a list type.
+        t.analyze(context);
+        this.convertedResultTypes.push(t);
+      }
     });
 
-    // Set the type of the function to array of output types
     this.type = this.convertedResultTypes;
+    // Set the type of the function to array of output types
+
 
     // create a new variable and give it a type
     this.params.forEach((p, i) => {

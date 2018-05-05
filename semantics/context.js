@@ -15,6 +15,7 @@ const FunctionDeclaration = require('../ast/function-declaration');
 const Annotation = require('../ast/annotation');
 const Signature = require('../ast/signature');
 const IdentifierExpression = require('../ast/identifier-expression');
+const ListType = require('../ast/list-type');
 
 
 class Context {
@@ -132,21 +133,14 @@ class Context {
     // const match = Object.keys(this.sumTypeDeclarations)
     //   .find(id => Array.from(seenTypes)
     //     .every(seenType => {
-    //       console.log('owowow', this.sumTypeDeclarations[id].isCompatibleWith(seenType));
     //       this.sumTypeDeclarations[id].isCompatibleWith(seenType)
     //     }));
 
     const match = Object.keys(this.sumTypeDeclarations).find((id) => {
-      const fromArray = Array.from(seenTypes);
-      console.log(fromArray)
       return Array.from(seenTypes).every(seenType => {
-        console.log(seenType, this.sumTypeDeclarations[id].isCompatibleWith(seenType));
         return this.sumTypeDeclarations[id].isCompatibleWith(seenType);
-        // this.sumTypeDeclarations[id].isCompatibleWith(seenType)
       });
     });
-
-
 
     if (!match) {
       throw message;
@@ -159,5 +153,6 @@ new FunctionDeclaration(new Annotation('print', ['any'], ['void']), new Signatur
 new FunctionDeclaration(new Annotation('sqrt', ['number'], ['number']), new Signature('sqrt', ['x']), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('pi', ['void'], ['number']), new Signature('pi', []), []).analyze(Context.INITIAL);
 new FunctionDeclaration(new Annotation('toUpper', ['string'], ['string']), new Signature('toUpper', ['stringToUpper']), []).analyze(Context.INITIAL);
+new FunctionDeclaration(new Annotation('range', ['number'], [new ListType('number')]), new Signature('range', ['i']), []).analyze(Context.INITIAL);
 
 module.exports = Context;

@@ -6,13 +6,18 @@ module.exports = class ListType {
   }
 
   analyze(context) {
-    // First check if we need to do type inference (for list expressions),
+    // Temporary solution for the empty array, simply make it an array of type any.
+    if (this.listType.length === 0) {
+      this.computedType = Type.ANY;
+      return;
+    }
+
+    // Check if we need to do type inference (for list expressions),
     // or if the type is already given to us (manifest typing at function dec).
     if (Array.isArray(this.listType)) {
       this.typeInference(context);
       return;
     }
-
     // If type is already given to we'll see if it's a basic or sum type.
     if (this.listType in Type.cache) {
       this.computedType = Type.cache[this.listType];
