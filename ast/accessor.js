@@ -1,3 +1,6 @@
+const Type = require('./type');
+const ListType = require('./list-type');
+
 module.exports = class Accessor {
   constructor(object, property) {
     Object.assign(this, { object, property });
@@ -5,7 +8,13 @@ module.exports = class Accessor {
 
   analyze(context) {
     this.object.analyze(context);
-    this.property.analyze(context);
+    // TODO move this into a less hard coded solution.
+    if (this.property === 'length') {
+      if (!(this.object.type instanceof ListType)) {
+        throw new Error('Length property used on non-list type');
+      }
+      this.type = Type.NUMBER;
+    }
   }
 
   optimize() {

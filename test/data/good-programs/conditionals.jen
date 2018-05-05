@@ -3,6 +3,7 @@ x := true
 if x:
   print('Wow it is true!')
 else:
+  a := 1
   print('Wow it is false!')
 
 y := 12

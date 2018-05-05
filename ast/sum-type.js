@@ -24,6 +24,12 @@ module.exports = class SumType {
       .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
   }
 
+  mustBeCompatibleWith(otherType, message) {
+    if (!this.isCompatibleWith(otherType)) {
+      throw message;
+    }
+  }
+
   /* eslint-disable class-methods-use-this */
   optimize() {
     // Later we can implement an optimization step that further reduces sum types

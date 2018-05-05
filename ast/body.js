@@ -1,5 +1,3 @@
-const Context = require('../semantics/context');
-
 module.exports = class Body {
   constructor(statements) {
     this.statements = statements;

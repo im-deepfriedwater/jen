@@ -9,7 +9,7 @@ processList: list string -> list string
 processList (listToProcess):
     listResult := []
     for index in range(listToProcess.length):
-      listResult[i] = toUpper(listToProcess[i])
+      listResult[index] = toUpper(listToProcess[index])
 
     return listResult
 

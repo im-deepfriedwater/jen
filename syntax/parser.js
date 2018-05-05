@@ -42,6 +42,7 @@ const SumTypeClass = require('../ast/sum-type');
 const FuncSignature = require('../ast/signature');
 const FuncAnnotation = require('../ast/annotation');
 const IdentifierExpression = require('../ast/identifier-expression');
+const Caller = require('../ast/caller');
 
 
 // Credit to Ray Toal:
@@ -63,6 +64,7 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   },
   Statement_declaration(body, _) { return body.ast(); },
   Statement_assignment(body, _) { return body.ast(); },
+  Statement_call(c, _) { return new Caller(c.ast()); },
   Statement_typedec(body, _) { return body.ast(); },
   Statement_return(returnStmt, _) { return returnStmt.ast(); },
   Statement_break(_1, _2) { return new BreakStatement(); },
@@ -113,7 +115,6 @@ const astGenerator = grammar.createSemantics().addOperation('ast', {
   EmptyListOf() { return []; },
   varId(_1, _2) { return this.sourceString; },
   constId(_1, _2) { return this.sourceString; },
-  packageId(_1, _2) { return this.sourceString; },
   FieldValue(id, _1, expression) { return new FieldValue(id.ast(), expression.ast()); },
   RecordLiteral(_1, fields, _2) { return new RecordLiteral(fields.ast()); },
   booleanLiteral(_) { return new BooleanLiteral(this.sourceString === 'true'); },

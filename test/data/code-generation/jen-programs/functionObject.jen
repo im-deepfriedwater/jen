@@ -1,0 +1,3 @@
+isAcceptableGrade: number -> boolean
+isAcceptableGrade(grade):
+  return grade > 80

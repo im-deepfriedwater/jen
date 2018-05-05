@@ -7,6 +7,7 @@ Jen {
                      | Loop
                      | Declaration newLine+                                 -- declaration
                      | Assignment newLine+                                  -- assignment
+                     | FuncCall newLine+                                    -- call
                      | FuncDec
                      | TypeDec newLine+                                     -- typedec
                      | Return newLine+                                      -- return
@@ -62,7 +63,7 @@ Jen {
   Declaration        = Ids ":=" NonemptyExpressionList
   Assignment         =  (SubscriptExp | VariableExpressions)"=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
-  id                 = varId | constId | packageId
+  id                 = varId | constId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = (basicType | "while" | "else" | "for" | "else if"
                      | "true" | "false" | "return" | "break" | "type" | "ok"
@@ -70,7 +71,6 @@ Jen {
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
-  packageId          = upper idrest*
   Type               = ListType | RecordType | VariableExpression | basicType
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"

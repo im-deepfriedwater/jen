@@ -40,12 +40,16 @@ describe('For', () => {
       body: {
         statements: [
           {
-            args: [],
-            callee: { id: 'dothisfirst' },
+            call: {
+              callee: { id: 'dothisfirst' },
+              args: [],
+            },
           },
           {
-            args: [],
-            callee: { id: 'dothissecond' },
+            call: {
+              callee: { id: 'dothissecond' },
+              args: [],
+            },
           }],
       },
     };

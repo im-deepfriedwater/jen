@@ -1,14 +1,25 @@
+#!/usr/bin/env node
+
 /*
+ *  Heavily inspired by Ray Toal's compiler for plainscript: https://github.com/rtoal/plainscript
+ *
  * A jen Compiler
  *
- * This is a command line application that compiles a PlainScript program from
- * a file. There are three options:
+ * This is a command line application that compiles a jen program from
+ * a file. Synopsis:
  *
  * ./jen.js -a <filename>
  *     writes out the AST and stops
  *
  * ./jen.js -i <filename>
  *     writes the decorated AST then stops
+ *
+ * ./jen.js <filename>
+ *     compiles the jen program to Python, writing the generated
+ *     Python code to standard output.
+ *
+ * ./jen.js -o <filename>
+ *     optimizes the intermediate code before generating target Python.
  *
  * Output of the AST and decorated AST uses the object inspection functionality
  * built into Node.js.
@@ -25,15 +36,16 @@ const { argv } = require('yargs')
 const fs = require('fs');
 const util = require('util');
 const parse = require('./syntax/parser');
+require('./backend/python-generator');
 
 fs.readFile(argv._[0], 'utf-8', (err, text) => {
   if (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line no-console
     return;
   }
   let program = parse(text);
   if (argv.a) {
-    console.log(util.inspect(program, { depth: null }));
+    console.log(util.inspect(program, { depth: null })); // eslint-disable-line no-console
     return;
   }
   program.analyze();
@@ -41,8 +53,8 @@ fs.readFile(argv._[0], 'utf-8', (err, text) => {
     program = program.optimize();
   }
   if (argv.i) {
-    console.log(util.inspect(program, { depth: null }));
+    console.log(util.inspect(program, { depth: null })); // eslint-disable-line no-console
+    return;
   }
+  program.gen();
 });
-
-// ALL CREDIT TO RAY TOAL

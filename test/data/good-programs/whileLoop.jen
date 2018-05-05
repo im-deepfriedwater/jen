@@ -1,0 +1,8 @@
+i := 0
+j := 2
+k := true
+
+while j < 10:
+  print(j)
+  if k:
+    break

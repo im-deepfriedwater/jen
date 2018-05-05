@@ -38,19 +38,30 @@ module.exports = class FunctionObject {
       } else if (t instanceof IdentifierExpression) {
         // If it's not a basic type we'll first check if it's a sum type
         this.convertedParamTypes.push(context.lookupSumType(t.id));
-      } else if (t.startsWith('list') && t.includes(' ')) {
+      } else if (t instanceof ListType) {
         // If it's not a sum type it might be a list type.
-        this.convertedParamTypes.push(new ListType(t));
+        t.analyze(context);
+        this.convertedParamTypes.push(t);
       }
     });
 
     this.convertedResultTypes = [];
     this.resultTypes.forEach((t) => {
-      this.convertedResultTypes.push(typeDictionary[t]);
+      if (t in typeDictionary) {
+        this.convertedResultTypes.push(typeDictionary[t]);
+      } else if (t instanceof IdentifierExpression) {
+        // If it's not a basic type we'll first check if it's a sum type
+        this.convertedResultTypes.push(context.lookupSumType(t.id));
+      } else if (t instanceof ListType) {
+        // If it's not a sum type it might be a list type.
+        t.analyze(context);
+        this.convertedResultTypes.push(t);
+      }
     });
 
-    // Set the type of the function to array of output types
     this.type = this.convertedResultTypes;
+    // Set the type of the function to array of output types
+
 
     // create a new variable and give it a type
     this.params.forEach((p, i) => {
@@ -58,7 +69,9 @@ module.exports = class FunctionObject {
       // They are detached from the AST, because they are created and used to
       // get added to context but it seems a little off since
       // everything is a component of the AST typically.
-      context.add(new Variable(p, this.convertedParamTypes[i]));
+      const v = new Variable(p, this.convertedParamTypes[i]);
+      this.params[i] = v;
+      context.add(v);
     });
 
     // A way of attaching it to the AST would be to fix parser.js
@@ -67,7 +80,6 @@ module.exports = class FunctionObject {
     // analyze would add it to context. We would have to modify parameters
     // to have types and perhaps some sort of setType method to set the type,
     // and then just call each one's analyze method.
-
 
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the
@@ -81,9 +93,9 @@ module.exports = class FunctionObject {
   }
 
   optimize() {
-    // this.parameters.forEach(p => p.optimize());
-    // this.suite.forEach(s => s.optimize());
-    // this.suite = this.suite.filter(s => s !== null);
+    this.params.forEach(p => p.optimize());
+    this.suite.optimize();
+    this.suite = this.suite.filter(s => s !== null);
     // Suggested: Look for returns in the middle of the body
     return this;
   }

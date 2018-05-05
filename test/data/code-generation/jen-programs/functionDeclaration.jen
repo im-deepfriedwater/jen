@@ -1,0 +1,5 @@
+greaterThan: number, number -> number
+greaterThan(first, second):
+  return first > second
+
+print(greaterThan(1,2))

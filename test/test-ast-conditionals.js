@@ -6,19 +6,21 @@ describe('Conditionals', () => {
     body: {
       statements: [
         {
-          cases: [
-            {
-              test: {
+          call: {
+            cases: [
+              {
+                test: {
+                },
+                body: {
+                  statements: [
+                    {
+                    },
+                  ],
+                },
               },
-              body: {
-                statements: [
-                  {
-                  },
-                ],
-              },
-            },
-          ],
-          alternate: null,
+            ],
+            alternate: null,
+          },
         },
       ],
     },
@@ -42,8 +44,10 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: { id: 'print' },
-          args: [{ value: '"test1"' }],
+          call: {
+            callee: { id: 'print' },
+            args: [{ value: '"test1"' }],
+          },
         },
       ],
     };
@@ -67,8 +71,10 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: { id: 'print' },
-          args: [{ value: '"test1"' }],
+          call: {
+            callee: { id: 'print' },
+            args: [{ value: '"test1"' }],
+          },
         },
       ],
     };
@@ -83,8 +89,10 @@ describe('Conditionals', () => {
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: { id: 'print' },
-          args: [{ value: '"test2"' }],
+          call: {
+            callee: { id: 'print' },
+            args: [{ value: '"test2"' }],
+          },
         },
       ],
     };
@@ -109,8 +117,10 @@ else if x > 0:
     expected.body.statements[0].cases[0].body = {
       statements: [
         {
-          callee: { id: 'print' },
-          args: [{ value: '"test1"' }],
+          call: {
+            callee: { id: 'print' },
+            args: [{ value: '"test1"' }],
+          },
         },
       ],
     };
@@ -125,16 +135,20 @@ else if x > 0:
     expected.body.statements[0].cases[1].body = {
       statements: [
         {
-          callee: { id: 'print' },
-          args: [{ value: '"test2"' }],
+          call: {
+            callee: { id: 'print' },
+            args: [{ value: '"test2"' }],
+          },
         },
       ],
     };
     expected.body.statements[0].alternate = {};
     expected.body.statements[0].alternate.statements = [
       {
-        callee: { id: 'print' },
-        args: [{ value: '"test3"' }],
+        call: {
+          callee: { id: 'print' },
+          args: [{ value: '"test3"' }],
+        },
       },
     ];
     const testProgram = `

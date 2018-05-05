@@ -32,11 +32,17 @@ class Type {
     }
   }
   isCompatibleWith(otherType) {
-    // If types is a field it is a sum type
+    // If types is a field it is a sum type.
+    // We'll defer to sum type to check for compatibility.
     if (otherType.types) {
       return otherType.isCompatibleWith(this);
     }
-    return this === otherType || this === Type.ANY;
+    // Likewise for list types.
+    if (otherType.listType) {
+      return otherType.isCompatibleWith(this);
+    }
+
+    return this === otherType || this === Type.ANY || otherType === Type.ANY;
   }
 }
 

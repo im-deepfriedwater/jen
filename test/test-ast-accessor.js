@@ -41,7 +41,7 @@ describe('Accessor Expressions', () => {
     expected.body.statements[0].initializers[0] = {
       callee: {
         object: {
-          id: "jen"
+          id: 'jen',
         },
         property: 'consume',
       },

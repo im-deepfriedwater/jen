@@ -1,0 +1,6 @@
+x := 64
+while true:
+  if x == 4:
+    break
+  x = x / 2
+  print(x)
