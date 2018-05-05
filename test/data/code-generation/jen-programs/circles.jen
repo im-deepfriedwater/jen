@@ -1,4 +1,9 @@
 ; input is radius and number of throws, output is estimated area
+
+distanceBetween: number, number, number, number -> number
+distanceBetween(x1, y1, x2, y2):
+  return sqrt((y2 - y1)^2 + (x2 - x1)^2)
+
 circleEstimator: number, number -> number
 circleEstimator(radius, throws):
   hits := 0
@@ -22,14 +27,9 @@ sqrt(num):
     iterations = iterations + 1
   return root
 
-distanceBetween: number, number, number, number -> number
-distanceBetween(x1, y1, x2, y2):
-  return sqrt((y2 - y1)^2 + (x2 - x1)^2)
-
 circleExact: number -> number
 circleExact(radius):
   return radius^2 * pi()
-
 
 checkDartsUntilPrecise: number, number -> number
 checkDartsUntilPrecise(decimals, radius):
@@ -41,8 +41,8 @@ checkDartsUntilPrecise(decimals, radius):
     circleEst = circleEstimator(radius, throws)
   return throws
 
-print (sqrt(2)) ; should be about 1.414
-print (sqrt(100)) ; should be about 10
-print (distanceBetween(0, 1, 0, 3)) ; should be 2
-print (circleEstimator(10, 100000)) ; should be about 314
-print (checkDartsUntilPrecise(300, 1)) ; no idea what this should be tbh
+print(sqrt(2)) ; should be about 1.414
+print(sqrt(100)) ; should be about 10
+print(distanceBetween(0, 1, 0, 3)) ; should be 2
+print(circleEstimator(10, 100000)) ; should be about 314
+print(checkDartsUntilPrecise(300, 1)) ; no idea what this should be tbh

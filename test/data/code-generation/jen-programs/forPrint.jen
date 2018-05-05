@@ -1,8 +1,6 @@
-type id: string | number
+LIST_OF_EMPLOYEES := [1, 2, 3, 4, 5]
 
-LIST_OF_EMPLOYEES := [1, 2, "3", "4", 5]
-
-printEmployees: list id -> void
+printEmployees: list number -> void
 printEmployees(employeeList):
     for employeeId in employeeList:
         print(employeeId)

@@ -2,7 +2,7 @@ double: number -> number, error
 double(x):
   return x * 2, ok
 
-result, errorValue := double('3')
+result, errorValue := double(3)
 if(errorValue == ok):
   print('Could not double')
 else:

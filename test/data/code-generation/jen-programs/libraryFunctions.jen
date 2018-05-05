@@ -1,9 +1,9 @@
 PI := pi()
 randomNumber := random()
 someSentence := 'This is some sentence'
-yellingSentence := someSentence.toUpper()
-whisperingSentence := someSentence.toLower()
-squarePi = sqrt(PI)
+yellingSentence := toUpper(someSentence)
+whisperingSentence := toLower(someSentence)
+squarePi := sqrt(PI)
 
 print(PI)
 print('The following is a random number:')

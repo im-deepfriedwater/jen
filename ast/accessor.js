@@ -4,8 +4,9 @@ module.exports = class Accessor {
   }
 
   analyze(context) {
+    const predefined = ['length'];
     this.object.analyze(context);
-    if (this.property === 'length') {
+    if (predefined.includes(this.property)) {
       return;
     }
     this.property.analyze(context);
