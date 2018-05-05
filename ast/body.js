@@ -5,8 +5,7 @@ module.exports = class Body {
     this.statements = statements;
   }
 
-  analyze() {
-    const context = new Context({ parent: Context.INITIAL });
+  analyze(context) {
     this.statements.forEach(s => s.analyze(context));
     context.checkForUnusedDeclared(context, 'Unused declared variables');
   }

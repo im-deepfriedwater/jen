@@ -1,0 +1,2 @@
+notInteger := 'Please, this is a type checking offense'
+IS_INTEGER := 8 ^ notInteger

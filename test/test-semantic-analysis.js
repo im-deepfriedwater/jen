@@ -20,7 +20,20 @@ const OKAY_PROGRAMS_DIR = 'test/data/semantic-warnings';
 
 describe('The semantic analyzer', () => {
   fs.readdirSync(BAD_PROGRAMS_DIR).forEach((name) => {
-    const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '');
+    // To explain the last .replace call, the parenthesis denotes a capturing
+    // group. $1 refers to the first capturing group. This is necessary as
+    // the names of certain error files include reserved characters for
+    // regexes, so we put a backslash.
+    const errorName = name.replace(/-/g, ' ').replace(/\.jen/g, '')
+      .replace(/times/, '*')
+      .replace(/lessthan/, '<')
+      .replace(/greaterthan/, '>')
+      .replace(/minus/, '-')
+      .replace(/intdiv/, '//')
+      .replace(/divmod/, '/%')
+      .replace(/div/, '/')
+      .replace(/or/, '||')
+      .replace(/([+^<*])/g, '\\$1');
     it(`detects a ${errorName} error`, () => {
       const program = parse(fs.readFileSync(`${BAD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       const errorPattern = RegExp(errorName, 'i');
@@ -30,8 +43,6 @@ describe('The semantic analyzer', () => {
 
   fs.readdirSync(GOOD_PROGRAMS_DIR).forEach((name) => {
     it(`should analyze ${name} without errors`, () => {
-      // For now, we are happy to know that these files pass semantic analysis.
-      // We eventually need to check that the ASTs are properly decorated.
       const program = parse(fs.readFileSync(`${GOOD_PROGRAMS_DIR}/${name}`, 'utf-8'));
       program.analyze();
     });

@@ -18,7 +18,7 @@
       { value: 10 } ] } ] } },
          {
          id: 'stringOrNumber',
-         sumtype:
+         sumType:
         {
           basicTypeOrId1: 'string',
           basicTypeOrId2: 'number',
