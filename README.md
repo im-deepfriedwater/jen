@@ -11,8 +11,6 @@ jen is a scripting language meant to be your new best friend! Drawing inspiratio
 
 ## Grammar
 
-The ohm grammar source file can be found on https://github.com/jtorre39/jen/blob/master/syntax/jen.ohm.
-
 ```
 Jen {
   Program            = newLine* Body newLine*
@@ -23,6 +21,7 @@ Jen {
                      | Loop
                      | Declaration newLine+                                 -- declaration
                      | Assignment newLine+                                  -- assignment
+                     | FuncCall newLine+                                    -- call
                      | FuncDec
                      | TypeDec newLine+                                     -- typedec
                      | Return newLine+                                      -- return
@@ -35,13 +34,13 @@ Jen {
                      | Exp0 "||" Exp1                                      -- or
                      | Exp0 "&!&" Exp1                                     -- xor
                      | Exp1
-  Exp1               = (Exp1 addop Exp2)                                   -- binary
+  Exp1               = (Exp1 relop Exp2)                                   -- binary
                      | Exp2
-  Exp2               = (Exp2 mulop Exp3)                                   -- binary
+  Exp2               = (Exp2 addop Exp3)                                   -- binary
                      | Exp3
-  Exp3               = (Exp3 "^" Exp4)                                     -- binary
+  Exp3               = (Exp3 mulop Exp4)                                   -- binary
                      | Exp4
-  Exp4               = (Exp4 relop Exp5)                                   -- binary
+  Exp4               = (Exp4 "^" Exp5)                                     -- binary
                      | Exp5
   Exp5               = "!" Exp5                                            -- not
                      | Exp6
@@ -58,6 +57,8 @@ Jen {
                      | List
                      | "(" Expression ")"                                  -- parens
   VariableExpression = id
+  VariableExpressions
+                     = NonemptyListOf<VariableExpression, ",">
   SubscriptExp       = VariableExpression "[" Expression "]"
   List               =  "[" ListOf<Expression, ","> "]"
   NonemptyExpressionList
@@ -74,9 +75,9 @@ Jen {
   FuncCall           = ( Exp6_accessor | SubscriptExp | VariableExpression) "(" ListOf<Expression, ","> ")"
   TypeDec            = "type" varId ":" SumType
   Declaration        = Ids ":=" NonemptyExpressionList
-  Assignment         = Ids "=" NonemptyExpressionList
+  Assignment         =  (SubscriptExp | VariableExpressions)"=" NonemptyExpressionList
   Conditional        = "if" Expression ":" Suite ("else if" Expression ":" Suite)* ("else" ":" Suite)?
-  id                 = varId | constId | packageId
+  id                 = varId | constId
   Ids                = NonemptyListOf<(SubscriptExp | id), ",">
   keyword            = (basicType | "while" | "else" | "for" | "else if"
                      | "true" | "false" | "return" | "break" | "type" | "ok"
@@ -84,7 +85,6 @@ Jen {
   idrest             =  "_" | alnum
   varId              = ~keyword ("_" | lower) idrest*
   constId            = upper ("_" | upper | digit)* ~lower
-  packageId          = upper idrest*
   Type               = ListType | RecordType | VariableExpression | basicType
   basicType          = "string" | "boolean" | "number" | "record"
                      | "any" | "void" | "error"
@@ -126,6 +126,7 @@ Jen {
 
 
 
+
 ## Type
 
 
@@ -136,7 +137,6 @@ Jen {
 - boolean
 - number
 - list (homogenous)
-- record
 - any
 - void
 - error
@@ -211,7 +211,6 @@ if errorCheck == err:
 - Multiply **&ast;**
 - Postfix increment **x++**
 - Postfix decrement **x--**
-- Assignment operators **+=**, **-=**, **&ast;=**, **/=**, **//=**, **%=**
 - And **&&**
 - Or **||**
 - Not **!**
@@ -373,7 +372,8 @@ def checkIfBothPositive(x, y):
   return (x >= 0, y >= 0)
 ```
 
-
+## To Do
+ - Record Types
 
 ## Developers
 
