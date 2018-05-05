@@ -49,12 +49,15 @@ module.exports = class ListType {
 
 
   mustBeCompatibleWith(otherType, message) {
-    if (!this.isCompatibleWith(otherType) && this.computedType !== Type.Any) {
+    if (!this.isCompatibleWith(otherType) && this.computedType !== Type.ANY) {
       throw message;
     }
   }
 
   isCompatibleWith(otherType) {
+    if (otherType === Type.ANY) {
+      return true;
+    }
     return this.computedType === otherType.computedType;
   }
 

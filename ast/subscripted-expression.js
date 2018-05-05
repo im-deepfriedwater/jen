@@ -6,6 +6,8 @@ module.exports = class SubscriptedExpression {
   analyze(context) {
     this.variable.analyze(context);
     this.subscript.analyze(context);
+    this.referent = this.variable.referent;
+    this.type = this.variable.referent.type.getMemberType();
   }
 
   optimize() {
