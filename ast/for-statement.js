@@ -15,7 +15,11 @@ module.exports = class ForStatement {
     if (!(this.expression.type instanceof ListType)) {
       throw new Error('Non-iterable used in for loop expression');
     }
-    this.loopVariables = this.ids.map(id => new Variable(id, this.expression.type.getMemberType()));
+    this.loopVariables = this.ids.map((id, i) => {
+      const v = new Variable(id, this.expression.type.getMemberType());
+      this.ids[i] = v;
+      return v;
+    });
     const bodyContext = context.createChildContextForLoop();
     this.loopVariables.forEach((v) => {
       bodyContext.add(v);

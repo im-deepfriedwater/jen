@@ -45,7 +45,7 @@ const indentPadding = 2;
 let indentLevel = 0;
 
 function emit(line) {
-  console.log(`${' '.repeat(indentPadding * indentLevel)}${line}`);
+  console.log(`${' '.repeat(indentPadding * indentLevel)}${line}`); // eslint-disable-line no-console
 }
 
 function genStatementList(statements) {
@@ -162,7 +162,7 @@ Object.assign(Caller.prototype, {
 Object.assign(FunctionCall.prototype, {
   gen() {
     const fun = this.callee.referent;
-    const { params } = this.callee.referent;
+    const { params } = this.callee.referent; // eslint-disable-line no-unused-vars
     const { args } = this;
     return (`${pythonName(fun)}(${args.map(a => (a ? a.gen() : 'undefined')).join(', ')})`);
   },
@@ -285,7 +285,6 @@ Object.assign(ListTypeExpression.prototype, {
 
 Object.assign(ListExpression.prototype, {
   gen() {
-    console.log(this);
     const values = this.values.map(v => v.gen());
     return `[${values}]`;
   },

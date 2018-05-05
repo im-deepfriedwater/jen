@@ -130,11 +130,6 @@ class Context {
 
   matchListType(seenTypes) {
     const message = 'Invalid List Expression for a non-existing type';
-    // const match = Object.keys(this.sumTypeDeclarations)
-    //   .find(id => Array.from(seenTypes)
-    //     .every(seenType => {
-    //       this.sumTypeDeclarations[id].isCompatibleWith(seenType)
-    //     }));
 
     const match = Object.keys(this.sumTypeDeclarations).find(id =>
       Array.from(seenTypes).every(seenType =>

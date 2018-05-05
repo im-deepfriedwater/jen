@@ -4,6 +4,9 @@ module.exports = class AssignmentStatement {
   }
 
   analyze(context) {
+    if (!this.ids.length) {
+      this.ids = [this.ids];
+    }
     if (this.ids.length !== this.initializers.length) {
       throw new Error('Number of variables does not equal number of expressions');
     }

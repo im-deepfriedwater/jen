@@ -40,12 +40,12 @@ require('./backend/python-generator');
 
 fs.readFile(argv._[0], 'utf-8', (err, text) => {
   if (err) {
-    console.error(err);
+    console.error(err); // eslint-disable-line no-console
     return;
   }
   let program = parse(text);
   if (argv.a) {
-    console.log(util.inspect(program, { depth: null }));
+    console.log(util.inspect(program, { depth: null })); // eslint-disable-line no-console
     return;
   }
   program.analyze();
@@ -53,7 +53,7 @@ fs.readFile(argv._[0], 'utf-8', (err, text) => {
     program = program.optimize();
   }
   if (argv.i) {
-    console.log(util.inspect(program, { depth: null }));
+    console.log(util.inspect(program, { depth: null })); // eslint-disable-line no-console
     return;
   }
   program.gen();

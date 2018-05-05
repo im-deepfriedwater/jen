@@ -1,5 +1,0 @@
-str := "How Long"
-strlen := str.length
-
-num := 1201
-numlen := num.length

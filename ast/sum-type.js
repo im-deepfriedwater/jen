@@ -20,12 +20,8 @@ module.exports = class SumType {
   }
 
   isCompatibleWith(otherType) {
-    // return Object.keys(this.computedTypes)
-    //   .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
     return Object.keys(this.computedTypes)
-      .some(typeKey => {
-        return this.computedTypes[typeKey].isCompatibleWith(otherType);
-      });
+      .some(typeKey => this.computedTypes[typeKey].isCompatibleWith(otherType));
   }
 
   mustBeCompatibleWith(otherType, message) {
