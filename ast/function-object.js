@@ -38,9 +38,10 @@ module.exports = class FunctionObject {
       } else if (t instanceof IdentifierExpression) {
         // If it's not a basic type we'll first check if it's a sum type
         this.convertedParamTypes.push(context.lookupSumType(t.id));
-      } else if (t.startsWith('list') && t.includes(' ')) {
+      } else if (t instanceof ListType) {
         // If it's not a sum type it might be a list type.
-        this.convertedParamTypes.push(new ListType(t));
+        t.analyze(context);
+        this.convertedParamTypes.push(t);
       }
     });
 
@@ -69,7 +70,6 @@ module.exports = class FunctionObject {
     // analyze would add it to context. We would have to modify parameters
     // to have types and perhaps some sort of setType method to set the type,
     // and then just call each one's analyze method.
-
 
     // Now we analyze the body with the local context. Note that recursion is
     // allowed, because we've already inserted the function itself into the

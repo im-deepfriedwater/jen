@@ -1,0 +1,9 @@
+type numstring : number | string
+
+x := [1, 2, 'a', 'b']
+
+numstringLover: numstring -> void
+numstringLover (ns):
+    print("I'm loving it")
+
+numstringLover(x)

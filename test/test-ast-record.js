@@ -59,17 +59,17 @@ describe('Record', () => {
       {
         fields: [
           {
-            id: 'Two',
+            id: 'two',
             expression: { value: '"two"' },
           },
           {
-            id: 'Three',
+            id: 'three',
             expression: { value: '"three"' },
           },
         ],
       },
     ];
-    result = parse('x := {Two: "two", Three: "three"}');
+    result = parse('x := {two: "two", three: "three"}');
     assert.deepEqual(result, expected);
 
     expected.body.statements[0].ids = ['lululemon'];

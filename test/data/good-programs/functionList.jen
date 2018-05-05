@@ -1,0 +1,9 @@
+
+x := ['a', 'b']
+; list-type.js gets stored the function paramtypes
+basicListLover: list string -> void
+basicListLover(ns):
+  5 + 5
+
+
+basicListLover(x)

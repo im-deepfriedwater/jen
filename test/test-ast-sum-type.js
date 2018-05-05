@@ -32,7 +32,7 @@ describe('Sum Types', () => {
   it('should be correctly parsed with variable expression types', () => {
     expected.body.statements[0].id = 'testID2';
     expected.body.statements[0].sumType = {
-      types: [{ id: 'testType' }, { id: 'testType2' }, { id: 'testType3' }]
+      types: [{ id: 'testType' }, { id: 'testType2' }, { id: 'testType3' }],
     };
     const result = parse('type testID2: testType | testType2 | testType3');
     assert.deepEqual(result, expected);

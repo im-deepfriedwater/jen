@@ -1,0 +1,3 @@
+aBoolean := true
+notABoolean := 2
+aBinaryExpression := aBoolean &!& notABoolean
