@@ -38,6 +38,8 @@ const Caller = require('../ast/caller');
 const TypeDeclaration = require('../ast/type-declaration');
 const Accessor = require('../ast/accessor');
 const ForStatement = require('../ast/for-statement');
+const ListExpression = require('../ast/list');
+const ListTypeExpression = require('../ast/list-type');
 
 const indentPadding = 2;
 let indentLevel = 0;
@@ -272,5 +274,19 @@ Object.assign(ErrorLiteral.prototype, {
 Object.assign(TypeDeclaration.prototype, {
   gen() {
     emit('');
+  },
+});
+
+Object.assign(ListTypeExpression.prototype, {
+  gen() {
+    return '';
+  },
+});
+
+Object.assign(ListExpression.prototype, {
+  gen() {
+    console.log(this);
+    const values = this.values.map(v => v.gen());
+    return `[${values}]`;
   },
 });

@@ -4,4 +4,4 @@ def printEmployees(employeeList):
     for employeeId in employeeList:
         print(employeeId)
 
-print(LIST_OF_EMPLOYEES)
+printEmployees(LIST_OF_EMPLOYEES)
