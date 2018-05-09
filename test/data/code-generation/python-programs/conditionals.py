@@ -3,16 +3,15 @@ if 2 > 3:
 else:
   print('test22')
 
-
-if true && true:
+if True and True:
   print('pretty true')
 
 
-if false:
+if False:
   print('pretty false')
-else if false:
+elif False:
   print('REALLY FALSE')
-else if true:
+elif True:
   print('true..?')
 else:
   print("ok now that's just false")

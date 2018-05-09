@@ -10,7 +10,7 @@ squarePi = math.sqrt(PI)
 
 print(PI)
 print('The following is a random number:')
-print(randomNumber)
+print(randomNumber > 0)
 print(someSentence)
 print(yellingSentence)
 print(whisperingSentence)

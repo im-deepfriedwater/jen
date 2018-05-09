@@ -1,3 +1,3 @@
 import math
-a = math.pow(5,5)
+a = 5 ** 5
 print(a)
