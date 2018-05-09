@@ -170,7 +170,7 @@ hr{
 .jen-code {
     grid-column: 1/3;
     width: 50vw;
-    font-size: 2em;
+    font-size: 1.5em;
     border-radius: 15px;
     padding-left: 3vw;
     padding-right: 3vw;
@@ -188,7 +188,8 @@ hr{
 .literal-string{color:var(--jen-code-literal-string);}
 .keyword{color: var(--jen-code-keyword);}
 .indent{padding-left: 3vw;}
-
+.doubleIndent{padding-left: 6vw}
+.tripleIndent{padding-left: 9vw}
 
 
 
