@@ -377,9 +377,19 @@ def checkIfBothPositive(x, y):
 ## To Do
  - Record Types
  - Downcasting for sums
+ 
+ ## Usage and Notes
+ - jen is a nodeJS based transpiler and as such, expects that you have the latest version of nodeJS installed, AND an installation of Python3.
+ - Clone our repository and run `npm install` first and foremost.
+ - `./node jen.js -a <filename>` writes out the AST and stops
+ -  `./node jen.js -i <filename>` writes the decorated AST then stops
+ - `./node jen.js <filename>` compiles the jen program to Python3, writing the generated Python code to standard output.
+ - For `npm test` to run, as of now jen expects Python3 to be aliased as `python` in your commandline.
+ 
+ ## Syntax Highlighter
+ - We now have a syntax highlighter for atom in the works! You may try it out by downloading the package manually [here](https://github.com/jtorre39/atom-jen).
 
 ## Developers
-
 - Anthony Keba
 - Elizabeth Shen
 - Jen Shin
