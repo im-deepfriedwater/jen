@@ -44,5 +44,3 @@ checkDartsUntilPrecise(decimals, radius):
 print(sqrt(2)) ; should be about 1.414
 print(sqrt(100)) ; should be about 10
 print(distanceBetween(0, 1, 0, 3)) ; should be 2
-print(circleEstimator(10, 100000)) ; should be about 314
-print(checkDartsUntilPrecise(300, 1)) ; no idea what this should be tbh
