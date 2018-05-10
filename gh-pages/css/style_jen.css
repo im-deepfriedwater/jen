@@ -1,0 +1,53 @@
+body {
+  overflow-x: hidden;
+}
+
+#jen-main {
+  text-align: center;
+  color: white;
+  font-size: 10vw;
+  border: 10px solid white;
+  padding: 3vw;
+  margin: 5vw;
+}
+
+#intro-p {
+  text-indent: 3vw;
+}
+
+#intro {
+  text-align: center;
+  color: white;
+  font-size: 1.5vw;
+  padding: 3vw;
+  margin-top: 4vw;
+  margin-bottom: 1vw;
+  margin-left: 3vw;
+  margin-right: 3vw;
+}
+
+#intro-logo {
+  justify-content: center;
+  margin-top: 9vw;
+}
+
+#quote {
+  color: grey;
+  opacity: 0.8;
+  font-size: 5vw;
+  justify-content: end;
+}
+
+#cards {
+  margin: 7vw 0vw;
+}
+
+#summary {
+  text-align: justify;
+  font-size: 1.5vw;
+  padding: 3vw;
+  margin: 5vw 0vw;
+  border: 5px solid #17a2b8;
+  background-color: #17a2b8;
+  color: white;
+}
