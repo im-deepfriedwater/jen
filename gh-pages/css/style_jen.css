@@ -143,3 +143,15 @@ body {
 .indent{padding-left: 3vw;}
 .doubleIndent{padding-left: 6vw}
 .tripleIndent{padding-left: 9vw}
+
+
+#team {
+  text-align: center;
+  font-size: 3vw;
+  font-weight: lighter;
+  padding: 3vw;
+  margin: 5vw 0vw;
+  border: 5px solid #17a2b8;
+  border-radius: 1vw;
+  color: #17a2b8;
+}
