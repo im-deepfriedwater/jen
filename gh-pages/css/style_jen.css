@@ -42,6 +42,17 @@ body {
   margin: 7vw 0vw;
 }
 
+.card-text {
+  font-size: 1.2vw;
+  padding: 0.5vw;
+}
+
+#footer {
+  font-size: 1vw;
+  padding: 1vw;
+  color: white;
+}
+
 #summary {
   text-align: justify;
   font-size: 1.5vw;
