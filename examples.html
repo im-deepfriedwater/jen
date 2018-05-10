@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="./gh-pages/css/style_jen.css">
+
+    <link rel="shortcut icon" href="gh-pages/assets/favicon.ico" type="image/x-icon">
+    <title>jen</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./features.html">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./examples.html">Examples</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./developers.html">Developers</a>
+              </li>
+            </ul>
+          </div>
+          <a class="navbar-brand h1 text-warning justify-content-end" href="http://justinkyletorres.com/jen/">
+            <img src="./gh-pages/assets/favicon.ico" height="35" alt="image">
+            jen
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="row bg-transparent">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col col-md-12">
+            <div id="examples">
+              <p class="text-justify">Below are several examples of jen code, for your viewing pleasure. On the bottom is circle.jen followed by the generated python code from code-generation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Major thanks to Anthony Keba for the example codes and coloring -->
+
+    <div class="row bg-info">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-sm-12 example-title">
+            <p class="text-center">Examples</p>
+          </div>
+          <div class="jen-code">
+              <p class="comment">; Examples of literals<br></p>
+              <p>HELLO2018 := </p><p class="literal-string">'jen'<br></p>
+              <p>LULU_LEMON := </p><p class="literal-bool">true<br></p>
+              <br>
+              <p class="comment">; Examples of variables<br></p>
+              <p>jen3at0r := </p><p class="literal-string">'pho'<br></p>
+              <p>jenErator = </p><p class="literal-string">'ramen'<br></p>
+              <p>_jen_01 := </p><p class="literal-string">'udon'<br></p>
+              <br>
+              <p class="comment">; Will crash at compile time<br></p>
+              <p>1dog := </p><p class="literal-string">'corgi'<br></p>
+              <p>$myFortune := </p><p class="literal-num">2<br></p>
+              <p>Kbbq := {</p><p class="literal-string">'Budnamu'</p><p>: </p><p class="literal-num">14.99</p><p>, </p><p class="literal-string">'Road-to-seoul'</p><p>: </p><p class="literal-num">22.99</p><p>}</p>
+          </div>
+          <div class="jen-code">
+              <p>x := </p><p class="literal-num">4</p><p><br></p>
+              <p class="keyword">if</p><p> x <= </p><p class="literal-num">3</p><p>:<br></p>
+              <p class="indent">print(</p><p class="literal-string">'Less than or equal to 3 '</p><p>)<br></p>
+              <p class="keyword">else if </p><p> x >= </p><p class="literal-num">5</p><p>:<br></p>
+              <p class="indent">print(</p><p class="literal-string">'Greater than or equal to 5'</p><p>)<br></p>
+              <p class="keyword">else:<br></p>
+              <p class="indent">print(</p><p class="literal-string">'In between 3 and 5'</p><p>)</p>
+          </div>
+
+          <div class="jen-code">
+            <p>iterable = [</p><p class="literal-num">1</p><p>, </p><p class="literal-num">2</p><p>, </p><p class="literal-num">3</p><p>, </p><p class="literal-num">4</p><p>]<br></p>
+              <br>
+              <p class="comment">; Will print out the values in iterable<br></p>
+              <p class="keyword">for</p><p> i </p><p class="keyword">in </p><p>iterable:<br></p>
+                <p class="indent">print(i)<br></p>
+              <br>
+              <p>i := </p><p class="literal-num">true<br></p>
+              <br>
+              <p class="comment">; Classic infinite loop example<br></p>
+              <p class="keyword">while</p><p> i:<br></p>
+                <p class="indent">print(i)</p>
+          </div>
+
+          <div class="jen-code">
+              <p>add: </p><p class="keyword">number</p>, <p class="keyword">number</p><p> -> </p><p class="keyword">number<br></p>
+              <p>add (a, b):<br></p>
+              <p class="indent keyword">return</p><p> a + b<br></p>
+          </div>
+
+          <div class="jen-code">
+              <p>fib: </p><p class="keyword">number</p><p> -> </p><p class="keyword">number<br></p>
+              <p>fib(num):<br></p>
+              <p class="indent">  if num <= </p><p class="literal-num">1</p><p>:<br></p>
+              <p class="indent"><p class="indent">    return </p><p class="literal-num">1<br></p>
+              <p class="indent">   return fib(num - </p><p class="literal-num">1</p><p>) + fib(num - </p><p class="literal-num">2</p><p>)<br></p>
+          </div>
+
+          <div class="col-sm-12 example-title">
+            <p class="text-center">Code Generation</p>
+          </div>
+          <div class="jen-code">
+              <p>distanceBetween: </p><p class="keyword">number, number, number, number</p><p> -> </p><p class="keyword">number<br></p>
+              <p>distanceBetween(x1, y1, x2, y2):<br></p>
+                <p class="indent keyword">return</p><p> sqrt((y2 - y1) ^ 2 + (x2 - x1) ^ 2)<br></p>
+
+              <br>
+              <p>circleEstimator: </p><p class="keyword">number, number</p><p> -> </p><p class="keyword">number<br></p>
+              <p>circleEstimator(radius, throws):<br></p>
+                <p class="indent">hits := </p><p class="literal-num">0<br></p>
+                <p class="indent">remainingThrows := </p><p>throws<br></p>
+                <p class="indent">randomX := </p><p class="literal-num">0<br></p>
+                <p class="indent">randomY := </p><p class="literal-num">0<br></p>
+                <p class="keyword indent">while</p><p> remainingThrows > 0:<br></p>
+                  <p class="doubleIndent">randomX = </p><p class="keyword">random()</p> * radius * 2<br></p>
+                  <p class="doubleIndent">randomY = </p><p class="keyword">random()</p> * radius * 2<br></p>
+
+                  <p class = "doubleIndent"> if distanceBetween(randomX, randomY, radius, radius) < radius:<br></p>
+                    <p class = "tripleIndent">hits = hits + </p><p class = "literal-num">1<br></p>
+                  <p class = "doubleIndent">remainingThrows = remainingThrows - </p><p class = "literal-num">1<br></p>
+                <p class="indent keyword">return</p><p> sqrt((y2 - (hits / throws) * 4 * radius<br></p>
+
+              <br>
+              <p>sqrt: </p><p class="keyword">number </p><p> -> </p><p class="keyword">number<br></p>
+              <p>sqrt(num):<br></p>
+                <p class="indent">root := num /</p><p class="literal-num">2<br></p>
+                <p class="indent">iterations := </p><p class="literal-num">0<br></p>
+                <p class="keyword indent">while</p><p> iterations < <p class="literal-num">20<br></p>
+                  <p class="doubleIndent">root = (root + num / root) / </p><p class="literal-num">2<br></p>
+                  <p class="doubleIndent">iterations = iterations + </p><p class="literal-num">1<br></p>
+                <p class="indent keyword">return</p><p> root<br></p>
+
+              <br>
+              <p>circleExact: </p><p class="keyword">number </p><p> -> </p><p class="keyword">number<br></p>
+              <p>circleExact(radius):<br></p>
+                <p class="indent keyword">return</p><p> radius ^ <p class="literal-num">2</p> * pi()<br></p>
+
+              <br>
+              <p>checkDartsUntilPrecise: </p><p class="keyword">number, number </p><p> -> </p><p class="keyword">number<br></p>
+              <p>checkDartsUntilPrecise(decimals, radius):<br></p>
+                <p class="indent">throws := </p><p class="literal-num">50<br></p>
+                <p class="indent">circleEst := circleEstimator(radius, throws)<br></p>
+                <p class="indent">circleEx := circleExact(radius)<br></p>
+                <p class="keyword indent">while</p><p> (circleEst - circleEx) * decimals > 1 && (circleEst - circleEx) * decimals < 1:<br></p>
+                  <p class="doubleIndent">throws = throws * </p><p class="literal-num">2<br></p>
+                  <p class="doubleIndent">circleEst = circleEstimator(radius, throws)<br></p>
+                <p class="indent keyword">return </p><p>throws<br></p>
+
+              <br>
+              <p>print(sqrt(</p><p class="literal-num">2<p>)) ; should be about 1.414 <br></p>
+              <p>print(sqrt(</p><p class="literal-num">100<p>)) ; should be about 10 <br></p>
+              <p>print(distanceBetween(</p><p class="literal-num">0, 1, 0, 3<p>)) ; should be 2 <br></p>
+              <p>print(circleEstimator(</p><p class="literal-num">10, 100000<p>)) ; should be about 314 <br></p>
+              <p>print(checkDartsUntilPrecise(</p><p class="literal-num">300, 1<p>)) ; no idea what this should be tbh <br></p>
+          </div>
+
+          <div class="jen-code">
+            <p>import math<br></p>
+            <p>import random<br></p>
+            <p>def print_1 (s):<br></p>
+              <p class="indent">print(s)<br></p>
+            <p>def pi_2 ():<br></p>
+              <p class="indent keyword">return </p><p>math.pi<br></p>
+            <p>def sqrt_3 (x):<br></p>
+              <p class="indent keyword">return </p><p>math.sqrt(x)<br></p>
+            <p>def toUpper_4 (s):<br></p>
+              <p class="indent keyword">return </p><p>s.upper()<br></p>
+            <p>def toLower_5 (s):<br></p>
+              <p class="indent keyword">return </p><p>s.lower()<br></p>
+            <p>def random_6 ():<br></p>
+              <p class="indent keyword">return </p><p>random.random()<br></p>
+            <p>def range_7 (i):<br></p>
+              <p class="indent keyword">return </p><p>range(i)<br></p>
+            <p>ok = 'ok'<br></p>
+            <p>err = 'err'<br></p>
+            <p>def distanceBetween_8(x1_9, y1_10, x2_11, y2_12):<br></p>
+              <p class="indent keyword">return </p><p>sqrt_3((((y2_12 - y1_10) * 2) + ((x2_11 - x1_9) * 2)))<br></p>
+            <p>def circleEstimator_13(radius_14, throws_15):<br></p>
+              <p class="indent">hits_16 = <p class="literal-num">0</p><br></p>
+              <p class="indent">remainingThrows_17 = throws_15<br></p>
+              <p class="indent">randomX_18 = <p class="literal-num">0</p><br></p>
+              <p class="indent">randomY_19 = <p class="literal-num">0</p><br></p>
+              <p class="indent">while (remainingThrows_17 > <p class="literal-num">0</p>):<br></p>
+                <p class="doubleIndent">randomX_18 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
+                <p class="doubleIndent">randomY_19 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
+                <p class="doubleIndent">if (distanceBetween_8(randomX_18, randomY_19, radius_14, radius_14) <br></p>
+                  <p class="tripleIndent">< radius_14):<br><br></p>
+                  <p class="tripleIndent">hits_16 = (hits_16 + <p class="literal-num">1</p>)<br></p>
+                <p class="doubleIndent">remainingThrows_17 = (remainingThrows_17 - 1)<br></p>
+              <p class="indent keyword">return </p><p>(((hits_16 / throws_15) * <p class="literal-num">4</p>) * radius_14)<br></p>
+            <p>def sqrt_20(num_21):<br></p>
+              <p class="indent">root_22 = (num_21 / <p class="literal-num">2</p>)<br></p>
+              <p class="indent">iterations_23 = <p class="literal-num">0</p><br></p>
+              <p class="indent">while (iterations_23 < <p class="literal-num">20</p>):<br></p>
+                <p class="doubleIndent">root_22 = ((root_22 + (num_21 / root_22)) / <p class="literal-num">2</p>)<br></p>
+                <p class="doubleIndent">iterations_23 = (iterations_23 + <p class="literal-num">1</p>)<br></p>
+              <p class="indent keyword">return </p><p>root_22<br></p>
+            <p>def circleExact_24(radius_25):<br></p>
+              <p class="indent keyword">return </p><p>((radius_25 ** <p class="literal-num">2</p>) * pi_2())<br></p>
+            <p>def checkDartsUntilPrecise_26(decimals_27, radius_28):<br></p>
+              <p class="indent">throws_29 = <p class="literal-num">50</p><br></p>
+              <p class="indent">circleEst_30 = circleEstimator_13(radius_28, throws_29)<br></p>
+              <p class="indent">circleEx_31 = circleExact_24(radius_28)<br></p>
+              <p class="indent">while ((((circleEst_30 - circleEx_31) * decimals_27) > <p class="literal-num">1</p>)<br></p>
+                <p class="doubleIndent">and (((circleEst_30 - circleEx_31) * decimals_27) < <p class="literal-num">1</p>)):<br><br></p>
+                <p class="doubleIndent">throws_29 = (throws_29 * <p class="literal-num">2</p>)<br></p>
+                <p class="doubleIndent">circleEst_30 = circleEstimator_13(radius_28, throws_29)<br></p>
+              <p class="indent keyword">return </p><p>throws_29<br></p>
+            <p>print_1(sqrt_20(<p class="literal-num">2</p>))<br></p>
+            <p>print_1(sqrt_20(<p class="literal-num">100</p>))<br></p>
+            <p>print_1(distanceBetween_8(<p class="literal-num">0, 1, 0, 3</p>))<br></p>
+            <p>print_1(circleEstimator_13(<p class="literal-num">10, 100000</p>))<br></p>
+            <p>print_1(checkDartsUntilPrecise_26(<p class="literal-num">300, 1</p>))<br></p>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row bg-dark">
+      <div class="container">
+        <div id="footer" class="row justify-content-center">
+          ⓒ 2018 Copyright Jen Shin
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>

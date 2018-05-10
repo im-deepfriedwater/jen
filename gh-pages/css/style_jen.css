@@ -67,7 +67,7 @@ body {
   color: white;
 }
 
-#operator-title {
+.feature-title {
   color: #17a2b8;
   font-size: 2.3vw;
   margin-top: 5vw;
@@ -86,3 +86,60 @@ body {
 .feature-long {
   padding: 3.2vw;
 }
+
+#examples {
+  background-color: #ffc107;
+  border: 2px solid white;
+  border-radius: 1vw;
+  padding: 5vw;
+  margin: 5vw 0vw;
+  color: white;
+  font-size: 2.5vw;
+  font-weight: lighter;
+  text-align: justify;
+}
+
+.example-title {
+  color: white;
+  font-size: 2.3vw;
+  margin-top: 5vw;
+}
+
+.jen-code p {
+  display:inline;
+  margin: 0px;
+}
+
+body {
+  --jen-code: #444444;
+  --jen-code-comment: #4444CC;
+  --jen-code-literal-bool: #EEAA44;
+  --jen-code-literal-num: #DDDD00;
+  --jen-code-literal-string: #449944;
+  --jen-code-keyword: #AA44AA;
+  --main-content-background: #EEEEEE;
+}
+
+.jen-code {
+    grid-column: 1/3;
+    width: 50vw;
+    font-size: 1.5em;
+    border-radius: 15px;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    margin-left: 3vw;
+    margin-right: 3vw;
+    margin-top: 3vh;
+    margin-bottom: 5vh;
+    background-color: var(--main-content-background);
+    color: var(--jen-code);}
+
+.comment{color: var(--jen-code-comment);}
+.literal-num, .literal-bool{color:var(--jen-code-literal-bool);}
+.literal-string{color:var(--jen-code-literal-string);}
+.keyword{color: var(--jen-code-keyword);}
+.indent{padding-left: 3vw;}
+.doubleIndent{padding-left: 6vw}
+.tripleIndent{padding-left: 9vw}
