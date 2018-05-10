@@ -122,11 +122,10 @@ Jen {
 
 - Strong and Static typing
 - Scripting language
-- Inferred typing
+- (Some) Inferred typing
 - Multiple return values
 - Static scoping
-
-
+- Sum Typing
 
 
 ## Type
