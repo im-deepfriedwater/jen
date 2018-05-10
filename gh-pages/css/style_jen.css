@@ -160,6 +160,11 @@ body {
   padding: 3vw;
 }
 
+.fa-heart {
+  color: red;
+  font-size: 1.2vw;
+}
+
 .fa-github {
   color: #ffc107;
 }
