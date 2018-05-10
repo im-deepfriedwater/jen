@@ -155,3 +155,24 @@ body {
   border-radius: 1vw;
   color: #17a2b8;
 }
+
+#members {
+  padding: 3vw;
+}
+
+.fa-github {
+  color: #ffc107;
+}
+
+.fa-linkedin {
+  color: #17a2b8;
+}
+
+.social-networks {
+  font-size: 3vw;
+  margin: -1vw;
+}
+
+.card {
+  margin: 1vw 0vw;
+}
