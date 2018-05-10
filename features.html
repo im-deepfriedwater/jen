@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="./gh-pages/css/style_jen.css">
+
+    <link rel="shortcut icon" href="gh-pages/assets/favicon.ico" type="image/x-icon">
+    <title>jen</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./features.html">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./examples.html">Examples</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./developers.html">Developers</a>
+              </li>
+            </ul>
+          </div>
+          <a class="navbar-brand h1 text-warning justify-content-end" href="http://justinkyletorres.com/jen/">
+            <img src="./gh-pages/assets/favicon.ico" height="35" alt="image">
+            jen
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <div class="row bg-transparent">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col col-md-12">
+            <div id="features">
+              <p class="text-justify text-dark">jen is a strongly and statically-typed scripting language. Featuring inferred typing, multiple return values, and static scoping. Let's dive into the details!<p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div id="operator-title" class="col-sm-12">
+            <p class="text-center">Data Types</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="feature-card">
+              <p>Boolean   Number   List   String   Record   Any   Void   Error</p>
+            </div>
+          </div>
+
+          <div id="operator-title" class="col-sm-12">
+            <p class="text-center">Operators</p>
+          </div>
+          <div class="col-sm-6">
+            <div class="feature-card">
+              <h4>Arithmetic Operators</h4>
+              <p>Add +<br>
+                Subtract -<br>
+                Multiply *<br>
+                Divide /<br>
+                Integer Divide //<br>
+                Modulous %<br>
+                DivMod /%<br>
+                Power ^<br></p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="feature-card">
+              <h4>Comparison Operators</h4>
+              <p>Equal ==<br>
+                Not Equal !=<br>
+                Less Than <<br>
+                Greater Than ><br>
+                Less Than or Equal <=<br>
+                Greater Than or Equal >=<br></p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="feature-card">
+              <h4>Mutative Operators</h4>
+              <p>Equal ==<br>
+                Declaration Operator :=<br>
+                Assignment Operator =<br></p>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="feature-card">
+              <h4>Logical Operators</h4>
+              <p>Logical AND &&<br>
+                Logical OR ||<br>
+                Logical NOT !<br>
+                Logical XOR &!&<br></p>
+            </div>
+          </div>
+
+          <div id="operator-title" class="col-sm-12">
+            <p class="text-center">Expressions</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="feature-card text-justify feature-long">
+              <p>Literals: Expression Literals are made up of the same 8 data types mentioned above.<br><br>
+              Function Calls: jen Functions are called in the form: functionName(parameters)<br><br>
+              Logical NOT: Not expression, represented as a bang !, negates any logical expression before it<br><br>
+              Arithmetic: Expressions such as add, subtract, multiply, divide, etc<br><br>
+              Boolean: The typical AND, and OR are included, as well as the XOR expression<br><br>
+              Ternary: jen features a ternary expression, formatted in the same fashion as JavaScript (Conditional ? if true : else)
+              </p>
+            </div>
+          </div>
+
+          <div id="operator-title" class="col-sm-12">
+            <p class="text-center">Statements</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="feature-card text-justify feature-long">
+              <p>Loops: jen features both for, and while loops, using similar syntax to Python<br><br>
+                Function Declaration: jen functions are declared using both an annotation, and a signature<br><br>
+                Declaration: variables in jen are declared and assigned using different syntax.<br><br>
+                Assignment: variables are assigned using the = sign<br><br>
+                Conditional: jen features both the aforementioned ternary operator, along with the standard if statement. Following similar syntax to Python<br><br>
+                Return: naturally, jen allows functions to return a value, using the return keyword
+              </p>
+            </div>
+          </div>
+
+          <div id="operator-title" class="col-sm-12">
+            <p class="text-center">Built in Functions</p>
+          </div>
+          <div class="col-sm-12">
+            <div class="feature-card">
+              <p>Square root: sqrt()<br>
+                Pi: pi()<br>
+                String lowercase: toLower()<br>
+                String uppercase: toUpper()<br>
+                Random number: random()<br>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row bg-dark">
+      <div class="container">
+        <div id="footer" class="row justify-content-center">
+          ⓒ 2018 Copyright Jen Shin
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>

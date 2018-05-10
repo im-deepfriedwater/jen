@@ -24,6 +24,7 @@ body {
   margin-bottom: 1vw;
   margin-left: 3vw;
   margin-right: 3vw;
+  font-weight: lighter;
 }
 
 #intro-logo {
@@ -40,6 +41,7 @@ body {
 
 #cards {
   margin: 7vw 0vw;
+  font-weight: lighter;
 }
 
 .card-text {
@@ -51,14 +53,36 @@ body {
   font-size: 1vw;
   padding: 1vw;
   color: white;
+  font-weight: lighter;
 }
 
-#summary {
+#features {
   text-align: justify;
-  font-size: 1.5vw;
-  padding: 3vw;
+  font-size: 2.5vw;
+  font-weight: lighter;
+  padding: 5vw;
   margin: 5vw 0vw;
-  border: 5px solid #17a2b8;
-  background-color: #17a2b8;
+  border: 5px solid #ffc107;
+  border-radius: 1vw;
   color: white;
+}
+
+#operator-title {
+  color: #17a2b8;
+  font-size: 2.3vw;
+  margin-top: 5vw;
+}
+
+.feature-card {
+  font-size: 1.4vw;
+  padding: 1vw;
+  margin: 2vw;
+  border: 2px solid #17a2b8;
+  background-color: white;
+  border-radius: 1.2vw;
+  text-align:center;
+}
+
+.feature-long {
+  padding: 3.2vw;
 }
