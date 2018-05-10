@@ -162,7 +162,8 @@
                 <p class="indent">throws := </p><p class="literal-num">50<br></p>
                 <p class="indent">circleEst := circleEstimator(radius, throws)<br></p>
                 <p class="indent">circleEx := circleExact(radius)<br></p>
-                <p class="keyword indent">while</p><p> (circleEst - circleEx) * decimals > 1 && (circleEst - circleEx) * decimals < 1:<br></p>
+                <p class="keyword indent">while</p><p> (circleEst - circleEx) * decimals > 1 && <br></p>
+                <p class = "tripleIndent">(circleEst - circleEx) * decimals < 1:<br></p>
                   <p class="doubleIndent">throws = throws * </p><p class="literal-num">2<br></p>
                   <p class="doubleIndent">circleEst = circleEstimator(radius, throws)<br></p>
                 <p class="indent keyword">return </p><p>throws<br></p>
@@ -204,8 +205,8 @@
               <p class="indent">while (remainingThrows_17 > <p class="literal-num">0</p>):<br></p>
                 <p class="doubleIndent">randomX_18 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
                 <p class="doubleIndent">randomY_19 = ((random_6() * radius_14) * <p class="literal-num">2</p>)<br></p>
-                <p class="doubleIndent">if (distanceBetween_8(randomX_18, randomY_19, radius_14, radius_14) <br></p>
-                  <p class="tripleIndent">< radius_14):<br><br></p>
+                <p class="doubleIndent">if (distanceBetween_8(randomX_18, randomY_19,<br></p>
+                  <p class="quadrupleIndent"> radius_14, radius_14)  < radius_14):<br></p>
                   <p class="tripleIndent">hits_16 = (hits_16 + <p class="literal-num">1</p>)<br></p>
                 <p class="doubleIndent">remainingThrows_17 = (remainingThrows_17 - 1)<br></p>
               <p class="indent keyword">return </p><p>(((hits_16 / throws_15) * <p class="literal-num">4</p>) * radius_14)<br></p>
