@@ -18,7 +18,7 @@ body {
 #intro {
   text-align: center;
   color: white;
-  font-size: 1.5vw;
+  font-size: 1.4em;
   padding: 3vw;
   margin-top: 4vw;
   margin-bottom: 1vw;
@@ -45,12 +45,12 @@ body {
 }
 
 .card-text {
-  font-size: 1.2vw;
+  font-size: 1.2em;
   padding: 0.5vw;
 }
 
 #footer {
-  font-size: 1vw;
+  font-size: 1em;
   padding: 1vw;
   color: white;
   font-weight: lighter;
@@ -58,7 +58,7 @@ body {
 
 #features {
   text-align: justify;
-  font-size: 2.5vw;
+  font-size: 2.5em;
   font-weight: lighter;
   padding: 5vw;
   margin: 5vw 0vw;
@@ -69,12 +69,12 @@ body {
 
 .feature-title {
   color: #17a2b8;
-  font-size: 2.3vw;
+  font-size: 2.3em;
   margin-top: 5vw;
 }
 
 .feature-card {
-  font-size: 1.4vw;
+  font-size: 1.4em;
   padding: 1vw;
   margin: 2vw;
   border: 2px solid #17a2b8;
@@ -101,7 +101,7 @@ body {
 
 .example-title {
   color: white;
-  font-size: 2.3vw;
+  font-size: 2.3em;
   margin-top: 5vw;
 }
 
@@ -143,12 +143,11 @@ body {
 .indent{padding-left: 3vw;}
 .doubleIndent{padding-left: 6vw}
 .tripleIndent{padding-left: 9vw}
-.quadrupleIndent{padding-left: 12vw}
 
 
 #team {
   text-align: center;
-  font-size: 3vw;
+  font-size: 2.5em;
   font-weight: lighter;
   padding: 3vw;
   margin: 5vw 0vw;
@@ -166,19 +165,53 @@ body {
   font-size: 1.2vw;
 }
 
-.fa-github {
-  color: #ffc107;
+.fa-user-circle {
+  color: grey;
+  font-size: 0.9em;
 }
 
-.fa-linkedin {
+
+.fa-github {
   color: #17a2b8;
 }
 
+.fa-linkedin {
+  color: #ffc107;
+}
+
 .social-networks {
-  font-size: 3vw;
+  font-size: 3em;
   margin: -1vw;
 }
 
 .card {
   margin: 1vw 0vw;
+}
+
+
+@media (max-width: 767.98px) {
+  #ghost {
+    height: 200px;
+    margin: 2em;
+  }
+
+  #features {
+    font-size: 1.3em;
+  }
+
+  #examples {
+    font-size: 1.3em;
+  }
+
+  .jen-code {
+    width: 75vw;
+  }
+
+  #intro {
+    width: 80vw;
+  }
+
+  .fa-heart {
+    font-size: 0.5em;
+  }
 }
